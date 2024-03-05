@@ -12,8 +12,8 @@ export class ApiServicioService {
   private baseUrl: string;
 
   constructor(private http:HttpClient) { 
-    this.baseUrl = 'http://ivo-back.cloud/api/v1/login';
-    //this.baseUrl = 'http://localhost/api/v1/login';
+    //this.baseUrl = 'http://ivo-back.cloud/api/v1/login';
+    this.baseUrl = 'http://localhost/api/v1/login';
   }
 
   login(formValue: any) : Observable<any> {

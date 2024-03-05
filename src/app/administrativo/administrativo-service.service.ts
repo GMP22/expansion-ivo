@@ -13,8 +13,8 @@ export class AdministrativoServiceService {
 
 
   constructor(private http: HttpClient) {
-    this.urlBase = 'http://ivo-back.cloud/api/v1/';
-    //this.urlBase = 'http://localhost/api/v1/';
+    //this.urlBase = 'http://ivo-back.cloud/api/v1/';
+    this.urlBase = 'http://localhost/api/v1/';
   }
 
   darAltaPaciente(formulario:any): Observable<any> {
