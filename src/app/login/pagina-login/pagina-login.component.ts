@@ -76,6 +76,9 @@ export class PaginaLoginComponent {
               case 5:
                 this.router.navigateByUrl('/app/administrativo');
               break;
+              case 6:
+                this.router.navigateByUrl('/app/gestor-logistico');
+              break;
             }
         },
         (error) => {

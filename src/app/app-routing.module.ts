@@ -1,22 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GeneralModule } from './general/general.module';
-
 import { MedicoModule } from './medico/medico.module';
-
+import { GestorLogisticoModule } from './gestor-logistico/gestor-logistico.module';
 import { ComponentePaginaPrincipalRadiologoComponent } from './radiologo/componente-pagina-principal-radiologo/componente-pagina-principal-radiologo.component';
 import { ComponentePendienteRealizadaComponent } from './general/componente-pendiente-realizada/componente-pendiente-realizada.component';
 import { TablaCitasComponent } from './radiologo/tabla-citas/tabla-citas.component';
-
-
 import { CrearCitasComponent } from './administrativo/crear-citas/crear-citas.component';
 import { ConfirmarCitasComponent } from './administrativo/confirmar-citas/confirmar-citas.component';
 import { DetallesCitaComponent } from './administrativo/detalles-cita/detalles-cita.component';
 import { ModificarCitaComponent } from './administrativo/modificar-cita/modificar-cita.component';
-
 import { AtenderPacienteComponent } from './radiologo/atender-paciente/atender-paciente.component';
-
-
 import { ComponentePaginaPrincipalAdministrativoComponent } from './administrativo/componente-pagina-principal-administrativo/componente-pagina-principal-administrativo.component';
 import { TablaCitasPendientesComponent } from './administrativo/tabla-citas-pendientes/tabla-citas-pendientes.component';
 import { PaginaPrincipalPacienteComponent } from './paciente/pagina-principal-paciente/pagina-principal-paciente.component';
@@ -35,9 +29,8 @@ import { PaginaLoginComponent } from './login/pagina-login/pagina-login.componen
 import { loginGuard } from './guard/login.guard';
 import { rolGuard } from './guard/rol.guard';
 import { NoEncontradoComponent } from './general/no-encontrado/no-encontrado.component';
-
-
-
+import { tableLayouts } from 'pdfmake/build/pdfmake';
+import { SolicitudesComponent } from './gestor-logistico/solicitudes/solicitudes.component';
 
 
 const routes: Routes = [
@@ -49,6 +42,14 @@ const routes: Routes = [
     canActivateChild: [loginGuard],
     pathMatch: "prefix",
     children:[
+      {
+        path: 'gestor-logistico',
+        component: SolicitudesComponent, // Generar componente de Gestor Logistico ptm
+        canActivate: [rolGuard],
+        data: {
+          idRol: 6,
+        }
+      },
       {
         path: 'administrativo',
         component: TablaCitasGeneralesComponent,

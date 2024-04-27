@@ -28,6 +28,9 @@ export const rolGuard: CanActivateFn = (route, state) => {
       case 5:
         ubicacion.navigateByUrl('/app/administrativo');
       break;
+      case 6:
+        ubicacion.navigateByUrl('/app/gestor-logistico');
+      break;
     }
 
     return false;

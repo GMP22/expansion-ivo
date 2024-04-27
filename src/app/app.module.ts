@@ -20,13 +20,13 @@ import { LoginModule } from './login/login.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MedicoModule } from './medico/medico.module';
 import { InterceptorService } from './interceptors/interceptor.service';
+import { GestorLogisticoModule } from './gestor-logistico/gestor-logistico.module';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -42,6 +42,7 @@ import { InterceptorService } from './interceptors/interceptor.service';
     LoginModule,
     HttpClientModule,
     MedicoModule,
+    GestorLogisticoModule,
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
