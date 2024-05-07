@@ -10,6 +10,8 @@ import { TablaPedidosPendientesComponent } from './tabla-pedidos-pendientes/tabl
 import { TablaPedidosRecibidosComponent } from './tabla-pedidos-recibidos/tabla-pedidos-recibidos.component';
 import { InterfacesModule } from '../interfaces/interfaces.module';
 import { DataTablesModule } from 'angular-datatables';
+import { CuadroInformativoComponent } from './cuadro-informativo/cuadro-informativo.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     SolicitudesComponent,
@@ -19,12 +21,14 @@ import { DataTablesModule } from 'angular-datatables';
     VentanaDosOpcionesComponent,
     TablaPedidosPendientesComponent,
     TablaPedidosRecibidosComponent,
+    CuadroInformativoComponent,
   ],
   imports: [
     CommonModule,
     GeneralModule,
     InterfacesModule,
     DataTablesModule,
+    FontAwesomeModule,
   ]
 })
 export class GestorLogisticoModule { }
