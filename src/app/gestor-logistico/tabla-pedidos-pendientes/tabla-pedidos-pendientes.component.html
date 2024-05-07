@@ -1,0 +1,20 @@
+<table datatable *ngIf="existir" [dtOptions]="dtOptions" class="table table-hover font">
+    <thead>
+        <tr style="background-color: #0062ca;">
+            <th>NºPedido</th>
+            <th>Proveedor</th>
+            <th>Fecha de Pedido</th>
+            <th>Numero de Productos</th>
+            <th>Coste Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pedido of pedidos" class="pointer">
+            <td>{{ pedido.id_pedido }}</td>
+            <td>{{ pedido.proveedor }}</td>
+            <td>{{ pedido.fecha_inicial }}</td>
+            <td>{{ pedido.numero_productos }}</td>
+            <td>{{ pedido.coste }}</td>
+        </tr>
+    </tbody>
+</table>

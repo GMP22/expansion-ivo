@@ -11,9 +11,6 @@ export class ComponentePendienteRealizadaComponent {
 
   @Output() datoEnviado = new EventEmitter<string>();
 
- 
- 
-
   constructor() {}
   
   setActiveTab(activeTab: string){

@@ -31,7 +31,9 @@ import { rolGuard } from './guard/rol.guard';
 import { NoEncontradoComponent } from './general/no-encontrado/no-encontrado.component';
 import { tableLayouts } from 'pdfmake/build/pdfmake';
 import { SolicitudesComponent } from './gestor-logistico/solicitudes/solicitudes.component';
-
+import { PedidosComponent } from './gestor-logistico/pedidos/pedidos.component';
+import { InventarioComponent } from './gestor-logistico/inventario/inventario.component';
+import { ProveedoresComponent } from './gestor-logistico/proveedores/proveedores.component';
 
 const routes: Routes = [
 
@@ -45,6 +47,30 @@ const routes: Routes = [
       {
         path: 'gestor-logistico',
         component: SolicitudesComponent, // Generar componente de Gestor Logistico ptm
+        canActivate: [rolGuard],
+        data: {
+          idRol: 6,
+        }
+      },
+      {
+        path: 'gestor-logistico/pedidos',
+        component: PedidosComponent, // Generar componente de Gestor Logistico ptm
+        canActivate: [rolGuard],
+        data: {
+          idRol: 6,
+        }
+      },
+      {
+        path: 'gestor-logistico/inventario',
+        component: InventarioComponent, // Generar componente de Gestor Logistico ptm
+        canActivate: [rolGuard],
+        data: {
+          idRol: 6,
+        }
+      },
+      {
+        path: 'gestor-logistico/proveedores',
+        component: ProveedoresComponent, // Generar componente de Gestor Logistico ptm
         canActivate: [rolGuard],
         data: {
           idRol: 6,
