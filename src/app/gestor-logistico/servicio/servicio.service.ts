@@ -25,4 +25,8 @@ export class ServicioService {
   obtenerArticulosFormulario(){
     return this.http.get<any>(`${this.urlBase}articulos-crear-pedido`);
   }
+
+  obtenerDetallesArticulosFormulario(idArticulo:any){
+    return this.http.get<any>(`${this.urlBase}detalles-articulo-crear-pedido/${idArticulo}`);
+  }
 }

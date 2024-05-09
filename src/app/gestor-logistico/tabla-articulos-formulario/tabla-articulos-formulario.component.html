@@ -2,11 +2,15 @@
     <thead>
         <tr style="background-color: #0062ca;">
             <th>Articulos</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let articulo of articulos" class="pointer">
             <td id="{{articulo.id_articulo}}">{{ articulo.nombre }}</td>
+            <td><button (click)="mostrarModalDeArticulo(articulo)">Añadir</button></td>
         </tr>
     </tbody>
 </table>
+
+<button #botonModalPendiente type="button" style="display: none;" data-bs-toggle="modal" data-bs-target="#modalPendiente"></button>

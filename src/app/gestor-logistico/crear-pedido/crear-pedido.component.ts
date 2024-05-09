@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ArticuloFormulario } from 'src/app/interfaces/articulo-formulario';
+import { DetallesArticulo } from 'src/app/interfaces/detalles-articulo';
 
 @Component({
   selector: 'app-crear-pedido',
@@ -6,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./crear-pedido.component.css']
 })
 export class CrearPedidoComponent {
-
+    datos!:DetallesArticulo;
 }

@@ -29,10 +29,26 @@
 
 <div class="row">
     <div class="col-6">
-        <app-tabla-articulos-formulario></app-tabla-articulos-formulario>
+        <app-tabla-articulos-formulario (articuloNuevo) = "datos = $event"></app-tabla-articulos-formulario>
     </div>
     <div class="col-6">
         <app-tabla-carrito-formulario></app-tabla-carrito-formulario>
     </div>
 </div>
 
+
+<div class="modal fade" id="modalPendiente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {{datos?.articulo?.id_articulo}}
+        </div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
