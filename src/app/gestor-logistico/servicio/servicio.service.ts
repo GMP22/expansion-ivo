@@ -21,4 +21,8 @@ export class ServicioService {
   obtenerPedidosRecibidos(idUsuario:any){
     return this.http.get<any>(`${this.urlBase}pedidos-recibidos-gestor/${idUsuario}`);
   }
+
+  obtenerArticulosFormulario(){
+    return this.http.get<any>(`${this.urlBase}articulos-crear-pedido`);
+  }
 }

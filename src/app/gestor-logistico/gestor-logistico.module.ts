@@ -12,6 +12,10 @@ import { InterfacesModule } from '../interfaces/interfaces.module';
 import { DataTablesModule } from 'angular-datatables';
 import { CuadroInformativoComponent } from './cuadro-informativo/cuadro-informativo.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CrearPedidoComponent } from './crear-pedido/crear-pedido.component';
+import { DosPasosFormularioComponent } from './dos-pasos-formulario/dos-pasos-formulario.component';
+import { TablaArticulosFormularioComponent } from './tabla-articulos-formulario/tabla-articulos-formulario.component';
+import { TablaCarritoFormularioComponent } from './tabla-carrito-formulario/tabla-carrito-formulario.component';
 @NgModule({
   declarations: [
     SolicitudesComponent,
@@ -22,6 +26,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     TablaPedidosPendientesComponent,
     TablaPedidosRecibidosComponent,
     CuadroInformativoComponent,
+    CrearPedidoComponent,
+    DosPasosFormularioComponent,
+    TablaArticulosFormularioComponent,
+    TablaCarritoFormularioComponent,
   ],
   imports: [
     CommonModule,

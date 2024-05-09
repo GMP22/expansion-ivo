@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
-import { PedidosPendientes } from 'src/app/interfaces/pedidos-pendientes';
-import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { ServicioService } from '../servicio/servicio.service';
+import { Router } from '@angular/router';
+import { ArticuloFormulario } from 'src/app/interfaces/articulo-formulario';
 
 @Component({
-  selector: 'app-tabla-pedidos-pendientes',
-  templateUrl: './tabla-pedidos-pendientes.component.html',
-  styleUrls: ['./tabla-pedidos-pendientes.component.css']
+  selector: 'app-tabla-articulos-formulario',
+  templateUrl: './tabla-articulos-formulario.component.html',
+  styleUrls: ['./tabla-articulos-formulario.component.css']
 })
-export class TablaPedidosPendientesComponent {
-
-  pedidos!:PedidosPendientes[];
+export class TablaArticulosFormularioComponent {
+  articulos!:ArticuloFormulario[];
   existir:boolean = false;
   idGestor:number = Number(localStorage.getItem("id_usuario"));
   servicioGestor = inject(ServicioService);
@@ -23,19 +22,21 @@ export class TablaPedidosPendientesComponent {
   ngOnInit(): void {
 
     this.dtOptions = {
+      
       language: {
         url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
         emptyTable: '',
       },
+      pageLength: 5,
       pagingType: "numbers",
       info: false,
     }
 
-    this.servicioGestor.obtenerPedidosPendientes(this.idGestor).subscribe(
+    this.servicioGestor.obtenerArticulosFormulario().subscribe(
       (response) => {
         console.log(response);
         this.existir = true;
-        this.pedidos = response;
+        this.articulos = response;
       }
     )
   }
