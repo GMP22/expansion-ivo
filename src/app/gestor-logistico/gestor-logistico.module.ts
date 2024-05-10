@@ -10,6 +10,7 @@ import { TablaPedidosPendientesComponent } from './tabla-pedidos-pendientes/tabl
 import { TablaPedidosRecibidosComponent } from './tabla-pedidos-recibidos/tabla-pedidos-recibidos.component';
 import { InterfacesModule } from '../interfaces/interfaces.module';
 import { DataTablesModule } from 'angular-datatables';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CuadroInformativoComponent } from './cuadro-informativo/cuadro-informativo.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CrearPedidoComponent } from './crear-pedido/crear-pedido.component';
@@ -37,6 +38,8 @@ import { TablaCarritoFormularioComponent } from './tabla-carrito-formulario/tabl
     InterfacesModule,
     DataTablesModule,
     FontAwesomeModule,
+    FormsModule, 
+    ReactiveFormsModule,
   ]
 })
 export class GestorLogisticoModule { }

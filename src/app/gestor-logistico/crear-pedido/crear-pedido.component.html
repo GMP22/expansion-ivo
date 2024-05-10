@@ -42,13 +42,56 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          {{datos?.articulo?.id_articulo}}
+
+            <div class="row">
+                <div class="col-12">
+
+                    <form [formGroup]="formularioPedido">
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="text" class="form-control" formControlName="categoria" id="categoria" [value]="datos?.categoria" readonly>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <select class="form-select" aria-label="Default select example" formControlName="proveedor" id="proveedor" (change) = "cambiarCantidadCoste($event.target, datos.articulo.id_articulo)">
+                                    <option selected [value]="'nada'"></option>
+                                    <option *ngFor="let proveedor of datos?.proveedores" [value]="proveedor.id_proveedor">
+                                            {{proveedor.nombre_proveedor}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="number" formControlName="numeroLotes" id="numeroLotes">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="number" formControlName="coste_por_lote" id="coste_por_lote" readonly [value]="">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="number" formControlName="cantidad_por_lote" id="cantidad_por_lote" readonly [value]="">
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+          
         </div>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="pasarDatoACarrito(datos?.articulo?.id_articulo, datos?.articulo?.nombre)">Save changes</button>
       </div>
     </div>
   </div>

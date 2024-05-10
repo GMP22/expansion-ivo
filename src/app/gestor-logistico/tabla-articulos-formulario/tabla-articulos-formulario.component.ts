@@ -52,13 +52,11 @@ export class TablaArticulosFormularioComponent {
           proveedores: response[0],
         };
         this.existir = true;
+        $("#coste_por_lote").val("")
+        $("#cantidad_por_lote").val("")
         this.articuloNuevo.emit(detallesArticulo);
-      this.botonModalPendiente.nativeElement.click();
+        this.botonModalPendiente.nativeElement.click();
       }
     )
-  }
-
-  anyadirArticulo(){
-
   }
 }

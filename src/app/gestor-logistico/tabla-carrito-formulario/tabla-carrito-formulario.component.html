@@ -1,1 +1,15 @@
-<p>tabla-carrito-formulario works!</p>
+<table datatable *ngIf="articulos" [dtOptions]="dtOptions" class="table table-hover font">
+    <thead>
+        <tr style="background-color: #0062ca;">
+            <th>Articulos</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let articulo of articulos" class="pointer">
+            <td id="{{articulo.id_articulo}}">{{ articulo.nombre }}</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
