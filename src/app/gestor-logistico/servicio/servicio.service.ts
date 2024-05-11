@@ -23,8 +23,52 @@ export class ServicioService {
   }
 
   anyadirArticulo(articulo:ArticuloEscogido){
-    this.carritoArticulos.push(articulo);
+
+    let resultado = this.carritoArticulos.filter(rdo => articulo.id_articulo == rdo.id_articulo && articulo.id_proveedor == rdo.id_proveedor);
+    
+    console.log(resultado);
+    if (resultado.length == 0) {
+      this.carritoArticulos.push(articulo);
+      this._articulos.next(this.carritoArticulos);
+    } 
+  }
+
+  modificarArticulo(indice:number, id_proveedor:number, nombre_proveedor:string, coste_por_lote:number, nLotes:any){
+    this.carritoArticulos[indice].id_proveedor = id_proveedor;
+    this.carritoArticulos[indice].nombre_proveedor = nombre_proveedor;
+    this.carritoArticulos[indice].coste_por_lote = coste_por_lote;
+    this.carritoArticulos[indice].nLotes = nLotes;
     this._articulos.next(this.carritoArticulos);
+  }
+
+  sumarArticulo(indice:number, cantidad_a_sumar:number){
+    this.carritoArticulos[indice].nLotes += cantidad_a_sumar;
+    this._articulos.next(this.carritoArticulos);
+  }
+
+  restarArticulo(indice:number, cantidad_a_restar:number){
+    this.carritoArticulos[indice].nLotes -= cantidad_a_restar;
+
+    if (this.carritoArticulos[indice].nLotes == 0) {
+      this.carritoArticulos.splice(indice,1);
+      this._articulos.next(this.carritoArticulos);
+    } else {
+      this._articulos.next(this.carritoArticulos);
+    }
+    
+  }
+
+  borrarArticulo(indice:number){
+    this.carritoArticulos.splice(indice,1);
+    this._articulos.next(this.carritoArticulos);
+  }
+
+  obtenerArticuloSegunId(indice:number){
+    return this.carritoArticulos[indice];
+  }
+
+  obtenerProveedoresSegunArticulo(idArticulo:any){
+    return this.http.get<any>(`${this.urlBase}articulo-segun-proveedor/${idArticulo}`);
   }
 
   obtenerPedidosPendientes(idUsuario:any){

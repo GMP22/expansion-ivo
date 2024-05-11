@@ -54,6 +54,7 @@ export class TablaArticulosFormularioComponent {
         this.existir = true;
         $("#coste_por_lote").val("")
         $("#cantidad_por_lote").val("")
+        $("#numeroLotes").val("")
         this.articuloNuevo.emit(detallesArticulo);
         this.botonModalPendiente.nativeElement.click();
       }

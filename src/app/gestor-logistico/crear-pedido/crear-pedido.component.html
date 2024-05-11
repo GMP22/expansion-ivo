@@ -29,10 +29,10 @@
 
 <div class="row">
     <div class="col-6">
-        <app-tabla-articulos-formulario (articuloNuevo) = "datos = $event"></app-tabla-articulos-formulario>
+        <app-tabla-articulos-formulario #tablaArticulos (articuloNuevo) = "datos = $event"></app-tabla-articulos-formulario>
     </div>
     <div class="col-6">
-        <app-tabla-carrito-formulario></app-tabla-carrito-formulario>
+        <app-tabla-carrito-formulario [tablaArticulos]="tablaArticulos" (articuloEscogido) = "datos2 = $event" (proveedoresArticulo)="proveedores = $event" (indiceSeleccionado)="indiceSeleccionado = $event"></app-tabla-carrito-formulario>
     </div>
 </div>
 
@@ -44,12 +44,10 @@
           <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         </div>
         <div class="modal-body">
-
+            
             <div class="row">
                 <div class="col-12">
-
                     <form [formGroup]="formularioPedido">
-                        
                         <div class="row">
                             <div class="col-12">
                                 <input type="text" class="form-control" formControlName="categoria" id="categoria" [value]="datos?.categoria" readonly>
@@ -59,7 +57,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <select class="form-select" aria-label="Default select example" formControlName="proveedor" id="proveedor" (change) = "cambiarCantidadCoste($event.target, datos.articulo.id_articulo)">
-                                    <option selected [value]="'nada'"></option>
+                                    <option selected value="nada"></option>
                                     <option *ngFor="let proveedor of datos?.proveedores" [value]="proveedor.id_proveedor">
                                             {{proveedor.nombre_proveedor}}
                                     </option>
@@ -94,4 +92,64 @@
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="pasarDatoACarrito(datos?.articulo?.id_articulo, datos?.articulo?.nombre)">Save changes</button>
       </div>
     </div>
-  </div>
+</div>
+
+<div class="modal fade" id="a" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        </div>
+        <div class="modal-body">
+            
+            <div class="row">
+                <div class="col-12">
+                    <p>{{datos2?.nombre}}</p>
+                    <p>{{datos2?.nombre_categoria}}</p>
+                    <p>{{datos2?.nombre_proveedor}}</p>
+                    <form [formGroup]="formularioPedido2">
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="text" class="form-control" formControlName="categoria2" id="categoria2" [value]="datos2?.nombre_categoria" readonly>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <select class="form-select" aria-label="Default select example" formControlName="proveedor2" id="proveedor2" (change) = "cambiarCantidadCoste($event.target, datos.articulo.id_articulo)">
+                                    <option *ngFor="let proveedor of proveedores" [value]="proveedor.id_proveedor">
+                                            {{proveedor.nombre_proveedor}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="number" formControlName="numeroLotes2" id="numeroLotes2" [value]="datos2?.nLotes">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="number" formControlName="coste_por_lote2" id="coste_por_lote2" readonly>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="number" formControlName="cantidad_por_lote2" id="cantidad_por_lote2" readonly>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+          
+        </div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="refrescarNLotes()">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="modificarArticulo(datos2?.id_articulo, datos2?.nombre)">Save changes</button>
+      </div>
+    </div>
+</div>
