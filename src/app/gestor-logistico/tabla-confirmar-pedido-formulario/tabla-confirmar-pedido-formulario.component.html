@@ -1,0 +1,22 @@
+<table class="table table-hover font">
+    <thead>
+        <tr style="background-color: #0062ca;">
+            <th>Articulos</th>
+            <th>Numero De Lotes</th>
+            <th>Proveedor</th>
+            <th>Coste por Lote</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let articulo of articulos; let indice = index" class="pointer">
+            <td>{{ articulo.nombre }}</td>
+            <td>{{ articulo.nLotes }}</td>
+            <td>{{ articulo.nombre_proveedor }}</td>
+            <td>{{ articulo.coste_por_lote }}</td>
+            <td>{{ articulo.coste_por_lote * articulo.nLotes}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<button #a type="button" style="display: none;" data-bs-toggle="modal" data-bs-target="#a"></button>

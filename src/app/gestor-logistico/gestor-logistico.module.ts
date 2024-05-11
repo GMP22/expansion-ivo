@@ -17,6 +17,7 @@ import { CrearPedidoComponent } from './crear-pedido/crear-pedido.component';
 import { DosPasosFormularioComponent } from './dos-pasos-formulario/dos-pasos-formulario.component';
 import { TablaArticulosFormularioComponent } from './tabla-articulos-formulario/tabla-articulos-formulario.component';
 import { TablaCarritoFormularioComponent } from './tabla-carrito-formulario/tabla-carrito-formulario.component';
+import { TablaConfirmarPedidoFormularioComponent } from './tabla-confirmar-pedido-formulario/tabla-confirmar-pedido-formulario.component';
 @NgModule({
   declarations: [
     SolicitudesComponent,
@@ -31,6 +32,7 @@ import { TablaCarritoFormularioComponent } from './tabla-carrito-formulario/tabl
     DosPasosFormularioComponent,
     TablaArticulosFormularioComponent,
     TablaCarritoFormularioComponent,
+    TablaConfirmarPedidoFormularioComponent,
   ],
   imports: [
     CommonModule,

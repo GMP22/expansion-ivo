@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DetallesArticulo } from 'src/app/interfaces/detalles-articulo';
 import { ServicioService } from '../servicio/servicio.service';
@@ -11,6 +11,7 @@ import { DetallesArticuloProveedores } from 'src/app/interfaces/detalles-articul
   styleUrls: ['./crear-pedido.component.css']
 })
 export class CrearPedidoComponent {
+
     datos!:DetallesArticulo;
     datos2!:ArticuloEscogido;
     indiceSeleccionado!:number;
@@ -18,6 +19,9 @@ export class CrearPedidoComponent {
     formularioPedido: FormGroup;
     formularioPedido2: FormGroup;
     servicioGestor = inject(ServicioService);
+    @ViewChild('seguroEnviar') seguroEnviar!: ElementRef;
+    ubicacion = 0;
+
   constructor(private formBuilder: FormBuilder){
     this.formularioPedido = new FormGroup({
       categoria: new FormControl(),
@@ -36,13 +40,40 @@ export class CrearPedidoComponent {
     });
   }
 
-  /*
-  const form = new FormGroup({
-  first: new FormControl(),
-  last: new FormControl()
-  form.setValue({first: 'Nancy', last: 'Drew'});
-});
-  */
+  siguiente(){
+
+    if (this.ubicacion==1) {
+      this.abrirModal();
+    } else {
+      this.ubicacion++;
+      $('#flecha').addClass('border-3');
+      $('#flecha').addClass('barra-inferior');
+
+      $('#paso2').addClass('border-3');
+      $('#paso2').addClass('barra-inferior');
+    }
+  }
+
+  anterior(){
+    this.ubicacion--;
+    $('#flecha').removeClass('border-3');
+    $('#flecha').removeClass('barra-inferior');
+
+    $('#paso2').removeClass('border-3');
+    $('#paso2').removeClass('barra-inferior');
+  }
+
+  abrirModal(){
+    this.seguroEnviar.nativeElement.click();
+  }
+
+  enviarDatos(){
+    this.servicioGestor.registrarPedido(localStorage.getItem('id_usuario')).subscribe(
+      (Response) =>{
+        console.log(Response);
+      }
+    )
+  }
 
   cambiarCantidadCoste(id_proveedor:any, id_articulo:any){
     if (id_proveedor.value != "nada") {
@@ -82,10 +113,8 @@ export class CrearPedidoComponent {
     this.formularioPedido2.get("numeroLotes2")?.setValue(this.datos2?.nLotes);
   }
 
-  modificarArticulo(id_articulo:any, nombre_articulo:any){
-    let categoria=String($("#categoria").val());
+  modificarArticulo(){
     if ($("#proveedor2 option:selected").text() != "" && this.formularioPedido2.get("numeroLotes2")?.value != null) {
-        
         let datosCambiados1 = this.formularioPedido2.get("proveedor2")?.value
         let datosCambiados2 = $("#proveedor2 option:selected").text()
         let datosCambiados3 = this.formularioPedido2.get("coste_por_lote2")?.value

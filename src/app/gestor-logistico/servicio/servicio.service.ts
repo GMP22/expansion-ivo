@@ -58,6 +58,18 @@ export class ServicioService {
     
   }
 
+  totalPedido(){
+    let total = 0;
+    for (let index = 0; index < this.carritoArticulos.length; index++) {
+        total += this.carritoArticulos[index].coste_por_lote * this.carritoArticulos[index].nLotes;
+    }
+    return total;
+  }
+
+  registrarPedido(idUsuario:any){
+    return this.http.post<any>(`${this.urlBase}registrar-pedido-gestor/${idUsuario}`, this.carritoArticulos);
+  }
+
   borrarArticulo(indice:number){
     this.carritoArticulos.splice(indice,1);
     this._articulos.next(this.carritoArticulos);

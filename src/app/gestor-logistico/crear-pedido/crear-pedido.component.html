@@ -21,13 +21,13 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" [hidden]="ubicacion >= 1">
     <div class="col-12 mt-5 ms-5">
         <p class="h5">Escoja los productos</p>
     </div>
 </div>
 
-<div class="row">
+<div class="row" [hidden]="ubicacion >= 1">
     <div class="col-6">
         <app-tabla-articulos-formulario #tablaArticulos (articuloNuevo) = "datos = $event"></app-tabla-articulos-formulario>
     </div>
@@ -36,6 +36,30 @@
     </div>
 </div>
 
+<div class="row" *ngIf="ubicacion >= 1">
+    <div class="col-8">
+        <app-tabla-confirmar-pedido-formulario></app-tabla-confirmar-pedido-formulario>
+    </div>
+    <div class="col-2">
+        {{servicioGestor.totalPedido()}}
+    </div>
+</div>
+
+<div class="row p-5">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <button>Cancelar</button>
+
+        <div style="display: flex; justify-content: space-between;">
+            <div *ngIf="ubicacion > 0" class="me-5">
+                <button (click)="anterior()">Anterior</button>
+            </div>
+
+            <div *ngIf="ubicacion <= 2">
+                <button (click)="siguiente()">Siguiente</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="modalPendiente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -143,13 +167,25 @@
                             </div>
                         </div>
                     </form>
-                    
                 </div>
             </div>
-          
         </div>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="refrescarNLotes()">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="modificarArticulo(datos2?.id_articulo, datos2?.nombre)">Save changes</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="modificarArticulo()">Save changes</button>
       </div>
     </div>
 </div>
+
+<div class="modal fade" id="seguroEnviar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        </div>
+            <div class="modal-body">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="enviarDatos()">Enviar</button>
+            </div>
+    </div>
+</div>
+<button #seguroEnviar type="button" style="display: none;" data-bs-toggle="modal" data-bs-target="#seguroEnviar"></button>

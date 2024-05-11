@@ -55,7 +55,7 @@ export class TablaCarritoFormularioComponent {
   }
   mostrarDetallesArticulo(indice:number, id_articulo:number){
 
-    this.servicioGestor.obtenerProveedoresSegunArticulo(id_articulo).subscribe(
+  this.servicioGestor.obtenerProveedoresSegunArticulo(id_articulo).subscribe(
       (Response) =>{
         let proveedores:DetallesArticuloProveedores []=Response;
         this.proveedoresArticulo.emit(proveedores);
