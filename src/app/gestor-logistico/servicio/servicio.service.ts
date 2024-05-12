@@ -102,4 +102,8 @@ export class ServicioService {
   obtenerInfoDeArticuloSegunProveedor(idArticulo:any, idProveedor:any){
     return this.http.get<any>(`${this.urlBase}detalles-articulo-segun-proveedor/${idArticulo}/${idProveedor}`);
   }
+
+  obtenerDetallesPedido(idPedido:any){
+    return this.http.get<any>(`${this.urlBase}detalles-pedido-gestor/${idPedido}`);
+  }
 }

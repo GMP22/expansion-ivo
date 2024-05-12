@@ -6,6 +6,7 @@
             <th>Fecha de Pedido</th>
             <th>Numero de Productos</th>
             <th>Coste Total</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -15,6 +16,10 @@
             <td>{{ pedido.fecha_inicial }}</td>
             <td>{{ pedido.numero_productos }}</td>
             <td>{{ pedido.coste }}</td>
+            <td>
+                <button (click)="mirarDetalles(pedido)">Mirar Pedido</button>
+                <button>Aceptar pedido</button>
+            </td>
         </tr>
     </tbody>
 </table>

@@ -38,4 +38,8 @@ export class TablaPedidosRecibidosComponent {
       }
     )
   }
+
+  mirarDetalles(pedido:PedidosRecibidos){
+    this.router.navigate(['/app/gestor-logistico/detalles-pedido'], { queryParams: { identificadorPedido: pedido.id_pedido, proveedor: pedido.proveedor, fecha_inicial: pedido.fecha_inicial, fecha_aceptada: pedido.fecha_aceptada, numero_productos: pedido.numero_productos, coste: pedido.coste, estado: "Recibido" } });
+  }
 }

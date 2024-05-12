@@ -1,0 +1,116 @@
+<div class="row">
+    <div class="col-12 p-o mt-3">
+        <breadcrumb
+        [primeraRouta]="'/gestor-logistico'"
+        [primerNombre]="'Pedidos'"
+        [segundonombre]="'Detalles de Pedido'"
+        [segundoActivo]="true"
+        ></breadcrumb>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 font mt-5 ms-5">
+        <p class="h1">Detalles de Pedido</p>
+    </div>
+</div>
+
+<div *ngIf="pedidoPendiente != undefined">
+    <div class="row">
+        <div class="col-6">
+            <h2>Proveedor</h2>
+            <h3>{{pedidoPendiente.proveedor}}</h3>
+        </div>
+        <div class="col-6">
+            <h2>Estado</h2>
+            <h3>{{this.estado}}</h3>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-6">
+            <h2>Fecha de Pedido</h2>
+            <h3>{{pedidoPendiente.fecha_inicial}}</h3>
+    
+            <div *ngIf="pedidoRecibido">
+                <h2>Fecha Recibida</h2>
+                <h3>{{pedidoPendiente.fecha_inicial}}</h3>
+            </div>
+            
+        </div>
+        <div class="col-6">
+            <h2>Numero De Articulos</h2>
+            <h3>{{pedidoPendiente.numero_productos}}</h3>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="pedidoPendiente == undefined">
+    <div class="row">
+        <div class="col-6">
+            <h2>Proveedor</h2>
+            <h3>{{pedidoRecibido.proveedor}}</h3>
+        </div>
+        <div class="col-6">
+            <h2>Estado</h2>
+            <h3>{{this.estado}}</h3>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-6">
+            <h2>Fecha de Pedido</h2>
+            <h3>{{pedidoRecibido.fecha_inicial}}</h3>
+    
+            <div *ngIf="pedidoRecibido">
+                <h2>Fecha Recibida</h2>
+                <h3>{{pedidoRecibido.fecha_inicial}}</h3>
+            </div>
+            
+        </div>
+        <div class="col-6">
+            <h2>Numero De Articulos</h2>
+            <h3>{{pedidoRecibido.numero_productos}}</h3>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="row">
+    <div class="col-8">
+        <table datatable *ngIf="existir" [dtOptions]="dtOptions" class="table table-hover font">
+            <thead>
+                <tr style="background-color: #0062ca;">
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Coste Por Lote</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let articulo of articulosRecibidos" class="pointer">
+                    <td>{{ articulo.nombre }}</td>
+                    <td>{{ articulo.lotes_recibidos }}</td>
+                    <td>{{ articulo.coste_por_lote }}</td>
+                    <td>{{ articulo.precio }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-2" *ngIf="pedidoPendiente != undefined">
+        <h2>Coste Total</h2>
+        <h3>{{pedidoPendiente.coste}}</h3>
+    </div>
+
+    <div class="col-2" *ngIf="pedidoPendiente == undefined">
+        <h2>Coste Total</h2>
+        <h3>{{pedidoRecibido.coste}}</h3>
+    </div>
+    
+</div>
+
+
