@@ -102,6 +102,7 @@ export class CrearPedidoComponent {
         nombre_categoria: categoria,
         nombre_proveedor: $("#proveedor option:selected").text(),
         id_proveedor: this.formularioPedido.get("proveedor")?.value,
+        cantidad_por_lote: this.formularioPedido.get("cantidad_por_lote")?.value,
         coste_por_lote: this.formularioPedido.get("coste_por_lote")?.value,
         nLotes: this.formularioPedido.get("numeroLotes")?.value,
       }
@@ -115,7 +116,8 @@ export class CrearPedidoComponent {
 
   modificarArticulo(){
     if ($("#proveedor2 option:selected").text() != "" && this.formularioPedido2.get("numeroLotes2")?.value != null) {
-        let datosCambiados1 = this.formularioPedido2.get("proveedor2")?.value
+        let x = $("#proveedor2 option:selected").val();
+        let datosCambiados1 = x;
         let datosCambiados2 = $("#proveedor2 option:selected").text()
         let datosCambiados3 = this.formularioPedido2.get("coste_por_lote2")?.value
         let datosCambiados4 = this.formularioPedido2.get("numeroLotes2")?.value

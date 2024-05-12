@@ -60,6 +60,8 @@ export class TablaCarritoFormularioComponent {
         let proveedores:DetallesArticuloProveedores []=Response;
         this.proveedoresArticulo.emit(proveedores);
         this.indiceSeleccionado.emit(indice);
+        $("#cantidad_por_lote2").val(this.servicioGestor.obtenerArticuloSegunId(indice).cantidad_por_lote);
+        $("#coste_por_lote2").val(this.servicioGestor.obtenerArticuloSegunId(indice).coste_por_lote);
         this.articuloEscogido.emit(this.servicioGestor.obtenerArticuloSegunId(indice));
         this.botonModalPendiente2.nativeElement.click();
       }

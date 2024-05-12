@@ -33,7 +33,7 @@ export class ServicioService {
     } 
   }
 
-  modificarArticulo(indice:number, id_proveedor:number, nombre_proveedor:string, coste_por_lote:number, nLotes:any){
+  modificarArticulo(indice:number, id_proveedor:any, nombre_proveedor:string, coste_por_lote:number, nLotes:any){
     this.carritoArticulos[indice].id_proveedor = id_proveedor;
     this.carritoArticulos[indice].nombre_proveedor = nombre_proveedor;
     this.carritoArticulos[indice].coste_por_lote = coste_por_lote;
