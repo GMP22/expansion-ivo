@@ -1,1 +1,24 @@
-<p>tabla-solicitudes-historial works!</p>
+<table datatable *ngIf="existir" [dtOptions]="dtOptions" class="table table-hover font">
+    <thead>
+        <tr style="background-color: #0062ca;">
+            <th>NºSolicitud</th>
+            <th>Departamento Solicitante</th>
+            <th>Fecha de Pedido</th>
+            <th>Fecha de Aceptacion</th>
+            <th>Numero de Productos</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pedido of pedidos" class="pointer">
+            <td>{{ pedido.solicitud }}</td>
+            <td>{{ pedido.nombre_departamento }}</td>
+            <td>{{ pedido.fecha_inicial }}</td>
+            <td>{{ pedido.fecha_aceptada }}</td>
+            <td>{{ pedido.numero_productos }}</td>
+            <td>
+                <button (click)="mirarDetalles(pedido.solicitud)">Mirar Pedido</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

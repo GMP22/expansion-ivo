@@ -37,6 +37,7 @@ import { ProveedoresComponent } from './gestor-logistico/proveedores/proveedores
 import { CrearPedidoComponent } from './gestor-logistico/crear-pedido/crear-pedido.component';
 import { DetallespedidoComponent } from './gestor-logistico/detallespedido/detallespedido.component';
 import { DetallesArticuloInventarioComponent } from './gestor-logistico/detalles-articulo-inventario/detalles-articulo-inventario.component';
+import { DetallesSolicitudComponent } from './gestor-logistico/detalles-solicitud/detalles-solicitud.component';
 
 const routes: Routes = [
 
@@ -50,6 +51,14 @@ const routes: Routes = [
       {
         path: 'gestor-logistico',
         component: SolicitudesComponent, // Generar componente de Gestor Logistico ptm
+        canActivate: [rolGuard],
+        data: {
+          idRol: 6,
+        }
+      },
+      {
+        path: 'gestor-logistico/detalles-solicitud',
+        component: DetallesSolicitudComponent, // Generar componente de Gestor Logistico ptm
         canActivate: [rolGuard],
         data: {
           idRol: 6,

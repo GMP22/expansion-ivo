@@ -15,7 +15,7 @@
             <td>{{ pedido.fecha_inicial }}</td>
             <td>{{ pedido.numero_productos }}</td>
             <td>
-                <button>Mirar Pedido</button>
+                <button (click) = "mirarDetalles(pedido.solicitud)">Mirar Pedido</button>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#preguntaAceptar" (click)="seleccionarPedido(pedido.solicitud)">Aceptar pedido</button>
             </td>
         </tr>

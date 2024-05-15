@@ -45,6 +45,10 @@ export class TablaSolicitudesEntrantesComponent {
     this.id_pedidoSeleccionado = idPedido;
   }
 
+  mirarDetalles(id_solicitud:number){
+    this.router.navigate(['/app/gestor-logistico/detalles-solicitud'], { queryParams: { solicitud: id_solicitud } });
+  }
+
   recibirPedido(){
     let x = [0,0]
     let contenido:any = [x];

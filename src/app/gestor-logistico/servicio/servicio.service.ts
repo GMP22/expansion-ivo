@@ -87,6 +87,18 @@ export class ServicioService {
     return this.http.get<any>(`${this.urlBase}solicitudes-entrantes-gestor/${idUsuario}`);
   }
 
+  obtenerSolicitudesHistorial(idUsuario:number){
+    return this.http.get<any>(`${this.urlBase}solicitudes-aceptados-gestor/${idUsuario}`);
+  }
+
+  obtenerDetallesSolicitud(idSolicitud:number){
+    return this.http.get<any>(`${this.urlBase}detalles-solicitudes-gestor/${idSolicitud}`);
+  }
+
+  obtenerArticulosSolicitud(idSolicitud:number){
+    return this.http.get<any>(`${this.urlBase}articulos-solicitudes-gestor/${idSolicitud}`);
+  }
+
   aceptarSolicitudEntrante(idUsuario:any,idSolicitud:number, contenido:any){
     return this.http.post<any>(`${this.urlBase}aceptar-solicitud-gestor/${idUsuario}/${idSolicitud}`, contenido);
   }

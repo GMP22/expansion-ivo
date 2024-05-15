@@ -23,6 +23,7 @@ import { TablaInventarioComponent } from './tabla-inventario/tabla-inventario.co
 import { DetallesArticuloInventarioComponent } from './detalles-articulo-inventario/detalles-articulo-inventario.component';
 import { TablaSolicitudesEntrantesComponent } from './tabla-solicitudes-entrantes/tabla-solicitudes-entrantes.component';
 import { TablaSolicitudesHistorialComponent } from './tabla-solicitudes-historial/tabla-solicitudes-historial.component';
+import { DetallesSolicitudComponent } from './detalles-solicitud/detalles-solicitud.component';
 @NgModule({
   declarations: [
     SolicitudesComponent,
@@ -43,6 +44,7 @@ import { TablaSolicitudesHistorialComponent } from './tabla-solicitudes-historia
     DetallesArticuloInventarioComponent,
     TablaSolicitudesEntrantesComponent,
     TablaSolicitudesHistorialComponent,
+    DetallesSolicitudComponent,
   ],
   imports: [
     CommonModule,
