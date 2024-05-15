@@ -83,6 +83,14 @@ export class ServicioService {
     return this.carritoArticulos[indice];
   }
 
+  obtenerSolicitudesEntrantes(idUsuario:number){
+    return this.http.get<any>(`${this.urlBase}solicitudes-entrantes-gestor/${idUsuario}`);
+  }
+
+  aceptarSolicitudEntrante(idUsuario:any,idSolicitud:number, contenido:any){
+    return this.http.post<any>(`${this.urlBase}aceptar-solicitud-gestor/${idUsuario}/${idSolicitud}`, contenido);
+  }
+
   obtenerProveedoresSegunArticulo(idArticulo:any){
     return this.http.get<any>(`${this.urlBase}articulo-segun-proveedor/${idArticulo}`);
   }

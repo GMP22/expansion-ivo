@@ -1,1 +1,30 @@
-<p>solicitudes works!</p>
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col-12 px-5">
+
+            <div class="row py-5">
+                <div class="col-12">
+                    <h1 class="title color">Solicitudes</h1>
+                </div>
+            </div>
+           
+            <div class="row">
+                <div class="col-6 mb-5 ms-3"> <!--Este apartado despliega los componentes que correspondan a una ruta especifica-->
+                                            <!--El switch decide si se debe de mostrar el listado de citas o el perfil del paciente en cuestion-->
+                    <app-ventana-dos-opciones 
+                    [seccion1] = "'Entrantes'" 
+                    [seccion2] = "'Historial'"
+                    (datoEnviado) = "recibirDato($event)"></app-ventana-dos-opciones>
+                </div>
+               
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-12 px-4">
+                    <app-tabla-solicitudes-entrantes *ngIf="activeTab === 'Entrantes'"></app-tabla-solicitudes-entrantes>
+                    <app-tabla-solicitudes-historial *ngIf="activeTab === 'Historial'"></app-tabla-solicitudes-historial>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

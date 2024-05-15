@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./solicitudes.component.css']
 })
 export class SolicitudesComponent {
+  activeTab: string =  "Entrantes";
 
+  recibirDato(activeTab: string) {
+    this.activeTab = activeTab;
+    console.log(activeTab);
+  } 
 }

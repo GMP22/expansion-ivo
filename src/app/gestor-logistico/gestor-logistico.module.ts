@@ -21,6 +21,8 @@ import { TablaConfirmarPedidoFormularioComponent } from './tabla-confirmar-pedid
 import { DetallespedidoComponent } from './detallespedido/detallespedido.component';
 import { TablaInventarioComponent } from './tabla-inventario/tabla-inventario.component';
 import { DetallesArticuloInventarioComponent } from './detalles-articulo-inventario/detalles-articulo-inventario.component';
+import { TablaSolicitudesEntrantesComponent } from './tabla-solicitudes-entrantes/tabla-solicitudes-entrantes.component';
+import { TablaSolicitudesHistorialComponent } from './tabla-solicitudes-historial/tabla-solicitudes-historial.component';
 @NgModule({
   declarations: [
     SolicitudesComponent,
@@ -39,6 +41,8 @@ import { DetallesArticuloInventarioComponent } from './detalles-articulo-inventa
     DetallespedidoComponent,
     TablaInventarioComponent,
     DetallesArticuloInventarioComponent,
+    TablaSolicitudesEntrantesComponent,
+    TablaSolicitudesHistorialComponent,
   ],
   imports: [
     CommonModule,
