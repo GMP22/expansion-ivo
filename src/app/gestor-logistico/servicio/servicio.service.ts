@@ -70,6 +70,10 @@ export class ServicioService {
     return this.http.post<any>(`${this.urlBase}registrar-pedido-gestor/${idUsuario}`, this.carritoArticulos);
   }
 
+  recibirPedido(idPedido:any){
+    return this.http.get<any>(`${this.urlBase}recibir-pedido-gestor/${idPedido}`);
+  }
+    
   borrarArticulo(indice:number){
     this.carritoArticulos.splice(indice,1);
     this._articulos.next(this.carritoArticulos);
@@ -105,5 +109,33 @@ export class ServicioService {
 
   obtenerDetallesPedido(idPedido:any){
     return this.http.get<any>(`${this.urlBase}detalles-pedido-gestor/${idPedido}`);
+  }
+
+  inventario(){
+    return this.http.get<any>(`${this.urlBase}inventario-gestor`);
+  }
+
+  detalleArticulo(idArticulo:any){
+    return this.http.get<any>(`${this.urlBase}detalles-articulos-gestor/${idArticulo}`);
+  }
+
+  pedidosConArticuloEspecifico(idArticuloClinica:any){
+    return this.http.get<any>(`${this.urlBase}pedidos-articulo-especifico-gestor/${idArticuloClinica}`);
+  }
+
+  detallesPedidoEspecifico(idPedido:any){
+    return this.http.get<any>(`${this.urlBase}detalles-pedido-especifico-gestor/${idPedido}`);
+  }
+
+  cambiarMinimos(idArticuloClinica:any, minimo:any){
+    return this.http.post<any>(`${this.urlBase}cambiar-minimo-gestor/${idArticuloClinica}`, minimo);
+  }
+  
+  nuevoPedidoAutomatico(contenido:any){
+    return this.http.post<any>(`${this.urlBase}nueva-funcion-automatica`, contenido);
+  }
+
+  eliminarPedidoAutomatico(contenido:any){
+    return this.http.post<any>(`${this.urlBase}eliminar-funcion-automatica`, contenido);
   }
 }

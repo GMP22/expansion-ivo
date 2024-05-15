@@ -14,6 +14,7 @@ export class TablaPedidosPendientesComponent {
   pedidos!:PedidosPendientes[];
   existir:boolean = false;
   idGestor:number = Number(localStorage.getItem("id_usuario"));
+  id_pedidoSeleccionado!:number;
   servicioGestor = inject(ServicioService);
 
   constructor(private router: Router) {}
@@ -42,5 +43,26 @@ export class TablaPedidosPendientesComponent {
 
   mirarDetalles(pedido:PedidosPendientes){
     this.router.navigate(['/app/gestor-logistico/detalles-pedido'], { queryParams: { identificadorPedido: pedido.id_pedido, proveedor: pedido.proveedor, fecha_inicial: pedido.fecha_inicial, numero_productos: pedido.numero_productos, coste: pedido.coste, estado: "En Transito" } });
+  }
+
+
+  seleccionarPedido(idPedido:any){
+    this.id_pedidoSeleccionado = idPedido;
+  }
+
+  recibirPedido(idPedido:any){
+    this.servicioGestor.recibirPedido(idPedido).subscribe(
+      (Response) => {
+        this.existir = false;
+        console.log(Response);
+        this.servicioGestor.obtenerPedidosPendientes(this.idGestor).subscribe(
+          (response) => {
+            console.log(response);
+            this.existir = true;
+            this.pedidos = response;
+          }
+        )
+      }
+    );
   }
 }
