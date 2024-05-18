@@ -99,6 +99,10 @@ export class ServicioService {
     return this.http.get<any>(`${this.urlBase}articulos-solicitudes-gestor/${idSolicitud}`);
   }
 
+  articulosMinimosSolicitud(idSolicitud:number){
+    return this.http.get<any>(`${this.urlBase}articulos-minimos-solicitud-gestor/${idSolicitud}`);
+  }
+
   aceptarSolicitudEntrante(idUsuario:any,idSolicitud:number, contenido:any){
     return this.http.post<any>(`${this.urlBase}aceptar-solicitud-gestor/${idUsuario}/${idSolicitud}`, contenido);
   }

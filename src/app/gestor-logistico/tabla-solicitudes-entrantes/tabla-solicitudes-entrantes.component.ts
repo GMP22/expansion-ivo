@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { PedidosPendientes } from 'src/app/interfaces/pedidos-pendientes';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { ServicioService } from '../servicio/servicio.service';
 import { SolicitudesEntrantes } from 'src/app/interfaces/solicitudes-entrantes';
+import { ArticulosMinimosSolicitud } from 'src/app/interfaces/articulos-minimos-solicitud';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-tabla-solicitudes-entrantes',
@@ -12,7 +14,11 @@ import { SolicitudesEntrantes } from 'src/app/interfaces/solicitudes-entrantes';
 })
 export class TablaSolicitudesEntrantesComponent {
   pedidos!:SolicitudesEntrantes[];
+  articulosMinimosSolicitud!:ArticulosMinimosSolicitud[];
   existir:boolean = false;
+  existir2:boolean = false;
+  @ViewChild('preguntaMinimos') preguntaMinimos!: ElementRef;
+  @ViewChild('preguntaAceptar') preguntaAceptar!: ElementRef;
   idGestor:number = Number(localStorage.getItem("id_usuario"));
   id_pedidoSeleccionado!:number;
   servicioGestor = inject(ServicioService);
@@ -20,7 +26,7 @@ export class TablaSolicitudesEntrantesComponent {
   constructor(private router: Router) {}
 
   dtOptions: DataTables.Settings = {}
-
+  dtOptions2: DataTables.Settings = {}
   ngOnInit(): void {
 
     this.dtOptions = {
@@ -30,6 +36,17 @@ export class TablaSolicitudesEntrantesComponent {
       },
       pagingType: "numbers",
       info: false,
+    }
+
+    this.dtOptions2 = {
+      language: {
+        url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
+        emptyTable: '',
+      },
+      pagingType: "numbers",
+      info: false,
+      searching: false,
+      dom: "t",
     }
 
     this.servicioGestor.obtenerSolicitudesEntrantes(this.idGestor).subscribe(
@@ -43,6 +60,17 @@ export class TablaSolicitudesEntrantesComponent {
 
   seleccionarPedido(idPedido:any){
     this.id_pedidoSeleccionado = idPedido;
+    this.servicioGestor.articulosMinimosSolicitud(idPedido).subscribe(
+      (Response) => {
+        this.articulosMinimosSolicitud = Response;
+          if (this.articulosMinimosSolicitud.length == 0) {
+            this.preguntaAceptar.nativeElement.click();
+          } else {
+            this.existir2 = true;
+            this.preguntaMinimos.nativeElement.click();
+        }
+      }
+    )
   }
 
   mirarDetalles(id_solicitud:number){
@@ -50,8 +78,22 @@ export class TablaSolicitudesEntrantesComponent {
   }
 
   recibirPedido(){
-    let x = [0,0]
-    let contenido:any = [x];
+    let contenido:any = [];
+
+    if (this.existir2 == true) {
+      let idArticulos = $("#preguntaMinimos").find("input");
+
+      for (let index = 0; index < idArticulos.length; index++) {
+        let objeto:ArticulosMinimosSolicitud = {
+          id_articulo: parseInt(idArticulos[index].id),
+          lotes_disponibles: parseInt(idArticulos[index].value),
+          nombre_articulo: "",
+        }
+        contenido [index]=objeto;
+      }
+    
+    } 
+    
     this.servicioGestor.aceptarSolicitudEntrante(this.idGestor, this.id_pedidoSeleccionado, contenido).subscribe(
       (Response) => {
         this.existir = false;
@@ -65,5 +107,6 @@ export class TablaSolicitudesEntrantesComponent {
         )
       }
     );
+    
   }
 }
