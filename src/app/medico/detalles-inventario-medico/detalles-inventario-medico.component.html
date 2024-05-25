@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-12 p-o mt-3">
+        <breadcrumb
+        [primeraRouta]="'/medico'"
+        [primerNombre]="'Inventario'"
+        [segundonombre]="'Detalles de Articulo'"
+        [segundoActivo]="true"
+        ></breadcrumb>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 font mt-5 ms-5">
+        <p class="h1">Detalles de Articulo</p>
+    </div>
+</div>
+
+<div *ngIf="detallesArticulo != undefined">
+    <div class="row">
+        <div class="col-4">
+            <h2>Numero de Articulo</h2>
+            <h3>{{id_articulo}}</h3>
+        </div>
+        <div class="col-4">
+            <h2>Nombre</h2>
+            <h3>{{detallesArticulo.nombre}}</h3>
+        </div>
+        <div class="col-4">
+            <h2>Estado</h2>
+            <h3>{{detallesArticulo.estado}}</h3>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-4">
+            <h2>Stock Actual</h2>
+            <h3>{{detallesArticulo.lotes_disponibles}}</h3>
+        </div>
+        <div class="col-4">
+            <h2>Stock Minimo <button data-bs-toggle="modal" data-bs-target="#cambiarMinimos">Cambiar Minimo</button> </h2>
+            <h3>{{detallesArticulo.stock_minimo}}</h3>
+        </div>
+        <div class="col-4">
+            <h2>Pedido Automatico <button data-bs-toggle="modal" data-bs-target="#cambiarAutomatico">Hacer Automatico</button></h2>
+            <h3>{{detallesArticulo.pedido_automatico}}</h3>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-8">
+        <table datatable *ngIf="existir" [dtOptions]="dtOptions" class="table table-hover font">
+            <thead>
+                <tr style="background-color: #0062ca;">
+                    <th>NºPedido</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pedido of pedidosProveedores" class="pointer">
+                    <td>{{ pedido.id_pedido }}</td>
+                    <td>{{ pedido.lotes_recibidos }}</td>
+                    <td>
+                     <!--   <button (click)="verDatosPedido(pedido.id_pedido)">Consultar Pedido</button>-->
+                     <button>Consultar Pedido</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="cambiarMinimos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        </div>
+            <div *ngIf="detallesArticulo != undefined">
+             <p>Minimo Actual: {{detallesArticulo.stock_minimo}}</p> 
+             <form [formGroup]="formularioMinimos">
+                <input class="input-group" type="number" formControlName="numeroMinimo" id="numeroMinimo" [min]="0">
+             </form>
+            </div>  
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="cambiarMinimo()">Cambiar Minimo</button>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cambiarAutomatico" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        </div>
+            <div *ngIf="detallesArticulo != undefined">
+             <p>Pedido Automatico: {{detallesArticulo.pedido_automatico}}</p> 
+             <form [formGroup]="formularioAutomatico">
+                <select formControlName="automatico" id="automatico">
+                    <option value="0" selected>Desactivado</option>
+                    <option value="1">Activado</option>
+                </select>
+
+                <input class="input-group" type="number" formControlName="cantidad" id="numeroAutomatico" [min]="1">
+             </form>
+            </div>  
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="cambiarAutomatico()">Guardar</button>
+      </div>
+    </div>
+</div>
+

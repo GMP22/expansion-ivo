@@ -21,6 +21,30 @@ export class MedicoService {
     return this.http.get<any>(`${this.urlBase}citas-realizada-medico/${fecha}/${idMedico}`);
   }
 
+  inventario(idUsuario:any){
+    return this.http.get<any>(`${this.urlBase}inventario-medico/${idUsuario}`);
+  }
+
+  detalleArticulo(idUsuario:any, idArticulo:any){
+    return this.http.get<any>(`${this.urlBase}detalles-articulos-medico/${idUsuario}/${idArticulo}`);
+  }
+
+  pedidosConArticuloEspecifico(idUsuario:any, idArticuloClinica:any){
+    return this.http.get<any>(`${this.urlBase}pedidos-articulo-especifico-medico/${idUsuario}/${idArticuloClinica}`);
+  }
+
+  cambiarMinimos(idUsuario:any, idArticuloClinica:any, minimo:any){
+    return this.http.post<any>(`${this.urlBase}cambiar-minimo-medico/${idUsuario}/${idArticuloClinica}`, minimo);
+  }
+  
+  nuevoPedidoAutomatico(contenido:any){
+    return this.http.post<any>(`${this.urlBase}nueva-funcion-automatica-medico`, contenido);
+  }
+
+  eliminarPedidoAutomatico(contenido:any){
+    return this.http.post<any>(`${this.urlBase}eliminar-funcion-automatica-medico`, contenido);
+  }
+
   registrarDiagnostico(diagnostico:any){
     return this.http.post<any>(`${this.urlBase}registrar-diagnostico`, diagnostico);
   }

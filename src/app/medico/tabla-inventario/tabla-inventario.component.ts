@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { inject } from '@angular/core';
-import { ServicioService } from '../servicio/servicio.service';
+import { MedicoService } from '../servicio/medico.service';
 import { InventarioArticulos } from 'src/app/interfaces/inventario-articulos';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-tabla-inventario',
+  selector: 'app-tabla-inventario-medico',
   templateUrl: './tabla-inventario.component.html',
   styleUrls: ['./tabla-inventario.component.css']
 })
 export class TablaInventarioComponent {
   existir:boolean = false;
   articulosInventario:InventarioArticulos[] = [];  
-  servicioGestor = inject(ServicioService);
-  dtOptions: DataTables.Settings = {}
+  servicioMedico = inject(MedicoService);
+  dtOptions: DataTables.Settings = {};
 
   constructor(private router: Router) {}
 
@@ -27,7 +27,7 @@ export class TablaInventarioComponent {
       info: false,
     }
 
-    this.servicioGestor.inventario().subscribe(
+    this.servicioMedico.inventario(localStorage.getItem("id_usuario")).subscribe(
       (response) => {
         console.log(response);
         this.existir = true;

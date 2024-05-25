@@ -53,9 +53,21 @@
 
         <div *ngSwitchCase="2">
             <li class="nav-item" (click)="seleccionarElemento(1)" [ngClass]="{'selected': indiceSeleccionado === 1}">
-                <a class="nav-link  px-3" routerLink="/medico" >
+                <a class="nav-link  px-3" routerLink="medico" >
                     <fa-icon [icon]="faCalendar" class="mx-2 icon-calender"></fa-icon>
                     Citas Medicas
+                </a>
+            </li>
+            <li class="nav-item" (click)="seleccionarElemento(2)" [ngClass]="{'selected': indiceSeleccionado === 2}">
+                <a class="nav-link  px-3" routerLink="medico/inventario" >
+                    <fa-icon [icon]="faCalendar" class="mx-2 icon-calender"></fa-icon>
+                    Inventario
+                </a>
+            </li>
+            <li class="nav-item" (click)="seleccionarElemento(3)" [ngClass]="{'selected': indiceSeleccionado === 3}">
+                <a class="nav-link  px-3" routerLink="medico/pedidos" >
+                    <fa-icon [icon]="faCalendar" class="mx-2 icon-calender"></fa-icon>
+                    Pedidos
                 </a>
             </li>
         </div>

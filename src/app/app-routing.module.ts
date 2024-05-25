@@ -33,11 +33,13 @@ import { tableLayouts } from 'pdfmake/build/pdfmake';
 import { SolicitudesComponent } from './gestor-logistico/solicitudes/solicitudes.component';
 import { PedidosComponent } from './gestor-logistico/pedidos/pedidos.component';
 import { InventarioComponent } from './gestor-logistico/inventario/inventario.component';
+import { InventarioMedicoComponent } from './medico/inventario/inventario.component';
 import { ProveedoresComponent } from './gestor-logistico/proveedores/proveedores.component';
 import { CrearPedidoComponent } from './gestor-logistico/crear-pedido/crear-pedido.component';
 import { DetallespedidoComponent } from './gestor-logistico/detallespedido/detallespedido.component';
 import { DetallesArticuloInventarioComponent } from './gestor-logistico/detalles-articulo-inventario/detalles-articulo-inventario.component';
 import { DetallesSolicitudComponent } from './gestor-logistico/detalles-solicitud/detalles-solicitud.component';
+import { DetallesInventarioMedicoComponent } from './medico/detalles-inventario-medico/detalles-inventario-medico.component';
 
 const routes: Routes = [
 
@@ -222,6 +224,30 @@ const routes: Routes = [
       {
         path: 'medico',
         component: PaginaPrincipalMedicoComponent,
+        canActivate: [rolGuard],
+        data: {
+          idRol: 2,
+        }
+      },
+      {
+        path: 'medico/inventario',
+        component: InventarioMedicoComponent,
+        canActivate: [rolGuard],
+        data: {
+          idRol: 2,
+        }
+      },
+      {
+        path: 'medico/inventario/detalles-articulo',
+        component: DetallesInventarioMedicoComponent,
+        canActivate: [rolGuard],
+        data: {
+          idRol: 2,
+        }
+      },
+      {
+        path: 'medico/pedidos',
+        component: PedidosComponent,
         canActivate: [rolGuard],
         data: {
           idRol: 2,

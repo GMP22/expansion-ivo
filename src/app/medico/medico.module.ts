@@ -21,6 +21,12 @@ import { FormularioHistorialComponent } from './formulario-historial/formulario-
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PopupImagenComponent } from './popup-imagen/popup-imagen.component';
+import { InventarioMedicoComponent } from './inventario/inventario.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
+import { TablaInventarioComponent } from './tabla-inventario/tabla-inventario.component';
+import { CuadroInformativoMedicoComponent } from './cuadro-informativo-medico/cuadro-informativo-medico.component';
+import { DetallesInventarioMedicoComponent } from './detalles-inventario-medico/detalles-inventario-medico.component';
+
 
 // const routes: Routes = [
 //   { path: 'medico', component: PaginaPrincipalMedicoComponent },
@@ -41,6 +47,11 @@ import { PopupImagenComponent } from './popup-imagen/popup-imagen.component';
        BreadcrumbHistorialComponent,
        FormularioHistorialComponent,
        PopupImagenComponent,
+       InventarioMedicoComponent,
+       PedidosComponent,
+       TablaInventarioComponent,
+       CuadroInformativoMedicoComponent,
+       DetallesInventarioMedicoComponent,
   ],
   imports: [
     CommonModule,
