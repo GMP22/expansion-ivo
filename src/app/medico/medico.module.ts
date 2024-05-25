@@ -33,6 +33,7 @@ import { CrearPedidoMedicoComponent } from './crear-pedido-medico/crear-pedido-m
 import { DosPasosFormularioMedicoComponent } from './dos-pasos-formulario-medico/dos-pasos-formulario-medico.component';
 import { TablaArticulosFormularioMedicoComponent } from './tabla-articulos-formulario-medico/tabla-articulos-formulario-medico.component';
 import { TablaCarritoFormularioMedicoComponent } from './tabla-carrito-formulario-medico/tabla-carrito-formulario-medico.component';
+import { TablaConfirmarPedidoFormularioMedicoComponent } from './tabla-confirmar-pedido-formulario-medico/tabla-confirmar-pedido-formulario-medico.component';
 
 
 // const routes: Routes = [
@@ -66,6 +67,7 @@ import { TablaCarritoFormularioMedicoComponent } from './tabla-carrito-formulari
        DosPasosFormularioMedicoComponent,
        TablaArticulosFormularioMedicoComponent,
        TablaCarritoFormularioMedicoComponent,
+       TablaConfirmarPedidoFormularioMedicoComponent,
   ],
   imports: [
     CommonModule,

@@ -35,6 +35,10 @@ export class MedicoService {
     } 
   }
 
+  registrarPedido(idUsuario:any){
+    return this.http.post<any>(`${this.urlBase}registrar-pedido-medico/${idUsuario}`, this.carritoArticulos);
+  }
+
   modificarArticulo(indice:number, nLotes:any){
     this.carritoArticulos[indice].nLotes = nLotes;
     this._articulos.next(this.carritoArticulos);

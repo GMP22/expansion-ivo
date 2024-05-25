@@ -1,0 +1,20 @@
+<table datatable *ngIf="existir" [dtOptions]="dtOptions" class="table table-hover font">
+    <thead>
+        <tr style="background-color: #0062ca;">
+            <th>Articulos</th>
+            <th>Categoria</th>
+            <th>Numero De Lotes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let articulo of articulos" class="pointer">
+            <td>{{ articulo.nombre }}</td>
+            <td>{{ articulo.nombre_categoria }}</td>
+            <td>{{ articulo.nLotes }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<button #seguroEnviar type="button" style="display: none;" data-bs-toggle="modal" data-bs-target="#seguroEnviar"></button>
+
+

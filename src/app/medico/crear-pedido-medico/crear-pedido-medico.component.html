@@ -36,6 +36,12 @@
     </div>
 </div>
 
+<div class="row" *ngIf="ubicacion >= 1">
+    <div class="col-8">
+        <app-tabla-confirmar-pedido-formulario-medico></app-tabla-confirmar-pedido-formulario-medico>
+    </div>
+</div>
+
 <div class="modal fade" id="modalPendiente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -121,3 +127,19 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="seguroEnviar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <div class="modal-body">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="enviarDatos()">Enviar</button>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<button #seguroEnviar type="button" style="display: none;" data-bs-toggle="modal" data-bs-target="#seguroEnviar"></button>

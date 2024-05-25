@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ArticuloEscogido } from 'src/app/interfaces/articulo-escogido';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MedicoService } from '../servicio/medico.service';
@@ -17,6 +17,7 @@ export class CrearPedidoMedicoComponent {
   formularioPedido!: FormGroup;
   formularioPedido2!: FormGroup;
   servicioMedico = inject(MedicoService);
+  @ViewChild('seguroEnviar') seguroEnviar!: ElementRef;
 
   ngOnInit(){
     this.formularioPedido = new FormGroup({
@@ -31,7 +32,7 @@ export class CrearPedidoMedicoComponent {
 
   siguiente(){
     if (this.ubicacion==1) {
-      //this.abrirModal();
+      this.abrirModal();
     } else {
       this.ubicacion++;
       $('#flecha').addClass('border-3');
@@ -65,5 +66,17 @@ export class CrearPedidoMedicoComponent {
       if (this.datos2?.nLotes != $("#numeroLotes2").val()) {
         this.servicioMedico.modificarArticulo(this.indiceSeleccionado, $("#numeroLotes2").val());
       }
+  }
+
+  abrirModal(){
+    this.seguroEnviar.nativeElement.click();
+  }
+
+  enviarDatos(){
+    this.servicioMedico.registrarPedido(localStorage.getItem('id_usuario')).subscribe(
+      (Response) =>{
+        console.log(Response);
+      }
+    )
   }
 }
