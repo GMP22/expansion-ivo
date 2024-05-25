@@ -153,8 +153,8 @@ export class CrearCitasComponent implements OnInit {
     const horasDisponibles = this.formularioCita.get('horasDisponibles')?.value;
   
     if (this.formularioCita.valid) {
-      
-      if (this.idServicio == 1) {
+      console.log("aqui")
+      if (this.idServicio == 6) {
         const crear = {
           id_usuario_paciente: this.idPaciente,
           hora: horasDisponibles,
@@ -174,7 +174,7 @@ export class CrearCitasComponent implements OnInit {
           }
         );
 
-      } else if(this.idServicio == 2){
+      } else if(this.idServicio == 7){
 
         const crear = {
           id_usuario_paciente: this.idPaciente,
