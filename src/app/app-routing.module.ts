@@ -30,6 +30,7 @@ import { loginGuard } from './guard/login.guard';
 import { rolGuard } from './guard/rol.guard';
 import { NoEncontradoComponent } from './general/no-encontrado/no-encontrado.component';
 import { tableLayouts } from 'pdfmake/build/pdfmake';
+import { PedidosMedicoComponent } from './medico/pedidos/pedidos.component';
 import { SolicitudesComponent } from './gestor-logistico/solicitudes/solicitudes.component';
 import { PedidosComponent } from './gestor-logistico/pedidos/pedidos.component';
 import { InventarioComponent } from './gestor-logistico/inventario/inventario.component';
@@ -40,6 +41,7 @@ import { DetallespedidoComponent } from './gestor-logistico/detallespedido/detal
 import { DetallesArticuloInventarioComponent } from './gestor-logistico/detalles-articulo-inventario/detalles-articulo-inventario.component';
 import { DetallesSolicitudComponent } from './gestor-logistico/detalles-solicitud/detalles-solicitud.component';
 import { DetallesInventarioMedicoComponent } from './medico/detalles-inventario-medico/detalles-inventario-medico.component';
+import { CrearPedidoMedicoComponent } from './medico/crear-pedido-medico/crear-pedido-medico.component';
 
 const routes: Routes = [
 
@@ -247,7 +249,15 @@ const routes: Routes = [
       },
       {
         path: 'medico/pedidos',
-        component: PedidosComponent,
+        component: PedidosMedicoComponent,
+        canActivate: [rolGuard],
+        data: {
+          idRol: 2,
+        }
+      },
+      {
+        path: 'medico/pedidos/crear-pedido',
+        component: CrearPedidoMedicoComponent,
         canActivate: [rolGuard],
         data: {
           idRol: 2,

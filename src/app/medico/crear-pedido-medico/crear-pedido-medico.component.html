@@ -1,0 +1,123 @@
+<div class="row">
+    <div class="col-12 p-o mt-3">
+        <breadcrumb
+        [primeraRouta]="'/gestor-logistico'"
+        [primerNombre]="'Pedidos'"
+        [segundonombre]="'Crear Pedido'"
+        [segundoActivo]="true"
+        ></breadcrumb>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 mt-5 ms-5">
+        <p class="h1">Crear Pedido</p>
+    </div>
+</div>
+
+<div class="row d-flex justify-content-start">
+    <div class="col-11 text-center mt-3">
+        <app-dos-pasos-formulario-medico></app-dos-pasos-formulario-medico>
+    </div>
+</div>
+
+<div class="row" [hidden]="ubicacion >= 1">
+    <div class="col-12 mt-5 ms-5">
+        <p class="h5">Escoja los productos</p>
+    </div>
+</div>
+
+<div class="row" [hidden]="ubicacion >= 1">
+    <div class="col-6">
+            <app-tabla-articulos-formulario-medico (articuloNuevo)="datos = $event"></app-tabla-articulos-formulario-medico>
+    </div>
+    <div class="col-6">
+        <app-tabla-carrito-formulario-medico (articuloEscogido)="datos2 = $event" (indiceSeleccionado)="indiceSeleccionado = $event"></app-tabla-carrito-formulario-medico>
+    </div>
+</div>
+
+<div class="modal fade" id="modalPendiente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        </div>
+        <div class="modal-body">
+            
+            <div class="row">
+                <div class="col-12">
+                    <form [formGroup]="formularioPedido">
+                        {{datos?.nombre}}
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="text" class="form-control" formControlName="categoria" id="categoria" [value]="datos?.nombre_categoria" readonly>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="number" formControlName="numeroLotes" id="numeroLotes">
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+          
+        </div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="pasarDatoACarrito()">Save changes</button>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="a" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        </div>
+        <div class="modal-body">
+            
+            <div class="row">
+                <div class="col-12">
+                    <p>{{datos2?.nombre}}</p>
+                    <p>{{datos2?.nombre_categoria}}</p>
+                    <form [formGroup]="formularioPedido2">
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="text" class="form-control" formControlName="categoria2" id="categoria2" [value]="datos2?.nombre_categoria" readonly>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="number" formControlName="numeroLotes2" id="numeroLotes2" [value]="datos2?.nLotes">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="refrescarNLotes()">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="modificarArticulo()">Save changes</button>
+      </div>
+    </div>
+</div>
+
+<div class="row p-5">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <button>Cancelar</button>
+
+        <div style="display: flex; justify-content: space-between;">
+            <div *ngIf="ubicacion > 0" class="me-5">
+                <button (click)="anterior()">Anterior</button>
+            </div>
+
+            <div *ngIf="ubicacion <= 2">
+                <button (click)="siguiente()">Siguiente</button>
+            </div>
+        </div>
+    </div>
+</div>

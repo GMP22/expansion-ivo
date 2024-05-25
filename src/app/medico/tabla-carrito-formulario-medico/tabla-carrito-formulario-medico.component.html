@@ -1,0 +1,27 @@
+<table class="table table-hover font">
+    <thead>
+        <tr style="background-color: #0062ca;">
+            <th>Articulos</th>
+            <th>Numero De Lotes</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let articulo of articulos; let indice = index" class="pointer">
+            <td>{{ articulo.nombre }}</td>
+            <td>{{ articulo.nLotes }}</td>
+            <td>
+                <button (click)="sumarArticulo(indice)">Añadir</button>
+                <button (click)="restarArticulo(indice)">Disminuir</button>
+                <button (click)="mostrarDetallesArticulo(indice, articulo.id_articulo)">Ver Detalles</button>
+                <button (click)="borrarArticulo(indice)">Eliminar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<button #a type="button" style="display: none;" data-bs-toggle="modal" data-bs-target="#a"></button>
+
+
+
+

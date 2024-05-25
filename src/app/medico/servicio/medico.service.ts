@@ -1,16 +1,68 @@
 import { Injectable } from '@angular/core';
 import { Form } from '@angular/forms';
 import { HttpClient, HttpErrorResponse  } from '@angular/common/http';
-import { Observable} from 'rxjs';
-
+import { BehaviorSubject, Observable} from 'rxjs';
+import { ArticuloEscogido } from 'src/app/interfaces/articulo-escogido';
 @Injectable({
   providedIn: 'root'
 })
 export class MedicoService {
   urlBase = '';
+  private carritoArticulos:ArticuloEscogido[] = [];
+  private _articulos:BehaviorSubject<ArticuloEscogido[]>;
   constructor(private http: HttpClient) { 
     //this.urlBase = 'http://ivo-back.cloud/api/v1/';
     this.urlBase = 'http://localhost/api/v1/';
+    this._articulos = new BehaviorSubject<ArticuloEscogido[]>([]);
+  }
+
+  get articulos(){
+    return this._articulos.asObservable();
+  }
+
+  anyadirArticulo(articulo:any){
+    console.log(articulo);
+    let resultado = 0;
+    this.carritoArticulos.forEach(element => {
+        if (element.id_articulo == articulo.id_articulo) {
+            resultado++;
+        }
+    });
+    console.log(resultado);
+    if (resultado==0) {
+      this.carritoArticulos.push(articulo);
+      this._articulos.next(this.carritoArticulos);
+    } 
+  }
+
+  modificarArticulo(indice:number, nLotes:any){
+    this.carritoArticulos[indice].nLotes = nLotes;
+    this._articulos.next(this.carritoArticulos);
+  }
+
+  sumarArticulo(indice:number, cantidad_a_sumar:number){
+    this.carritoArticulos[indice].nLotes += cantidad_a_sumar;
+    this._articulos.next(this.carritoArticulos);
+  }
+
+  obtenerArticuloSegunId(indice:number){
+    return this.carritoArticulos[indice];
+  }
+
+  restarArticulo(indice:number, cantidad_a_restar:number){
+    this.carritoArticulos[indice].nLotes -= cantidad_a_restar;
+
+    if (this.carritoArticulos[indice].nLotes == 0) {
+      this.carritoArticulos.splice(indice,1);
+      this._articulos.next(this.carritoArticulos);
+    } else {
+      this._articulos.next(this.carritoArticulos);
+    }
+  }
+
+  borrarArticulo(indice:number){
+    this.carritoArticulos.splice(indice,1);
+    this._articulos.next(this.carritoArticulos);
   }
 
   obtenerCitasPendientesSegunIdMedicoYFecha(idMedico:number, fecha:string){
@@ -21,12 +73,24 @@ export class MedicoService {
     return this.http.get<any>(`${this.urlBase}citas-realizada-medico/${fecha}/${idMedico}`);
   }
 
+  obtenerArticulosFormulario(){
+    return this.http.get<any>(`${this.urlBase}articulos-crear-pedido-medico`);
+  }
+
   inventario(idUsuario:any){
     return this.http.get<any>(`${this.urlBase}inventario-medico/${idUsuario}`);
   }
 
   detalleArticulo(idUsuario:any, idArticulo:any){
     return this.http.get<any>(`${this.urlBase}detalles-articulos-medico/${idUsuario}/${idArticulo}`);
+  }
+
+  obtenerPedidosPendientes(idUsuario:any){
+    return this.http.get<any>(`${this.urlBase}pedidos-pendientes-medico/${idUsuario}`);
+  }
+
+  obtenerPedidosRecibidos(idUsuario:any){
+    return this.http.get<any>(`${this.urlBase}pedidos-recibidos-medico/${idUsuario}`);
   }
 
   pedidosConArticuloEspecifico(idUsuario:any, idArticuloClinica:any){

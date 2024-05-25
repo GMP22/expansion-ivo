@@ -22,10 +22,17 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PopupImagenComponent } from './popup-imagen/popup-imagen.component';
 import { InventarioMedicoComponent } from './inventario/inventario.component';
-import { PedidosComponent } from './pedidos/pedidos.component';
+import { PedidosMedicoComponent } from './pedidos/pedidos.component';
 import { TablaInventarioComponent } from './tabla-inventario/tabla-inventario.component';
 import { CuadroInformativoMedicoComponent } from './cuadro-informativo-medico/cuadro-informativo-medico.component';
 import { DetallesInventarioMedicoComponent } from './detalles-inventario-medico/detalles-inventario-medico.component';
+import { TablaPedidosPendientesMedicoComponent } from './tabla-pedidos-pendientes/tabla-pedidos-pendientes.component';
+import { TablaPedidosAceptadosComponent } from './tabla-pedidos-aceptados/tabla-pedidos-aceptados.component';
+import { VentanaDosOpcionesMedicoComponent } from './ventana-dos-opciones-medico/ventana-dos-opciones-medico.component';
+import { CrearPedidoMedicoComponent } from './crear-pedido-medico/crear-pedido-medico.component';
+import { DosPasosFormularioMedicoComponent } from './dos-pasos-formulario-medico/dos-pasos-formulario-medico.component';
+import { TablaArticulosFormularioMedicoComponent } from './tabla-articulos-formulario-medico/tabla-articulos-formulario-medico.component';
+import { TablaCarritoFormularioMedicoComponent } from './tabla-carrito-formulario-medico/tabla-carrito-formulario-medico.component';
 
 
 // const routes: Routes = [
@@ -48,10 +55,17 @@ import { DetallesInventarioMedicoComponent } from './detalles-inventario-medico/
        FormularioHistorialComponent,
        PopupImagenComponent,
        InventarioMedicoComponent,
-       PedidosComponent,
+       PedidosMedicoComponent,
        TablaInventarioComponent,
        CuadroInformativoMedicoComponent,
        DetallesInventarioMedicoComponent,
+       TablaPedidosPendientesMedicoComponent,
+       TablaPedidosAceptadosComponent,
+       VentanaDosOpcionesMedicoComponent,
+       CrearPedidoMedicoComponent,
+       DosPasosFormularioMedicoComponent,
+       TablaArticulosFormularioMedicoComponent,
+       TablaCarritoFormularioMedicoComponent,
   ],
   imports: [
     CommonModule,

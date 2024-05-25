@@ -1,0 +1,9 @@
+
+<div class="row font">
+    <div class="col-2 text-center" [class.enabled]="activeTab === seccion1" [class.disabled]="activeTab !== seccion1" (click)="setActiveTab(seccion1); enviarDatoAlPadre(seccion1)">
+        <span>{{seccion1}}</span>
+    </div>
+    <div class="col-2 text-center" [class.enabled]="activeTab === seccion2" [class.disabled]="activeTab !== seccion2" (click)="setActiveTab(seccion2); enviarDatoAlPadre(seccion2)" >
+        <span>{{seccion2}}</span>
+    </div>
+</div>
