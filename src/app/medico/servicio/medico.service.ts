@@ -117,6 +117,10 @@ export class MedicoService {
     return this.http.post<any>(`${this.urlBase}registrar-diagnostico`, diagnostico);
   }
 
+  registrarArticulosEnCita(idCita:any, articulos:any){
+    return this.http.post<any>(`${this.urlBase}registrar-articulos-en-cita/${idCita}`, articulos);
+  }
+
   obtenerDiagnostico(idCita:any){
     return this.http.get<any>(`${this.urlBase}obtener-diagnostico/${idCita}`);
   }

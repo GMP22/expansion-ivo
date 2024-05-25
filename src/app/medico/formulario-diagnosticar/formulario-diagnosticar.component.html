@@ -22,7 +22,7 @@
             </span>
         </div>
         <div class="row">
-            <div class="col-12" *ngIf="formData.valid">
+            <div class="col-9" *ngIf="formData.valid">
                 <button type="submit" class="btn btn-personalized mt-5" data-bs-toggle="modal" data-bs-target = "#modal">
                     <span class="mx-2">
                         <fa-icon [icon]="faFloppyDisk"></fa-icon>
@@ -31,7 +31,7 @@
                 </button>
             </div>
 
-            <div class="col-12" *ngIf="formData.invalid">
+            <div class="col-9" *ngIf="formData.invalid">
                 <button type="submit" class="btn btn-personalized mt-5">
                     <span class="mx-2">
                         <fa-icon [icon]="faFloppyDisk"></fa-icon>
@@ -39,7 +39,49 @@
                     Guardar
                 </button>
             </div>
+
+            <div class="col-3">
+                <button type="button" style="width: 300px;" class="btn btn-personalized mt-5" data-bs-toggle="modal" data-bs-target = "#seleccionarArticulos">
+                    <span class="mx-2">
+                        <fa-icon [icon]="faFloppyDisk"></fa-icon>
+                    </span>
+                    Materiales Utilizados
+                </button>
+            </div>
         </div>
     </div>
 </form>
+
+<div  class="modal fade" id="seleccionarArticulos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        </div>
+        <table *ngIf="existir"  class="table table-hover font">
+            <thead>
+                <tr style="background-color: #0062ca;">
+                    <th>Nombre</th>
+                    <th>Categoria</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let articulo of articulosInventario " class="pointer">
+                    <td>{{ articulo.nombre_articulo }}</td>
+                    <td>{{ articulo.nombre_categoria }}</td>
+                    <td>
+                        <input *ngIf="estado == 'pendiente'" type="number" id="cantidad{{articulo.id_articulo_clinica}}" (change)="cambiarValor($event, articulo.id_articulo_clinica)" disabled value="0" min="0">
+                        <input *ngIf="estado != 'pendiente'" type="number" id="cantidad{{articulo.id_articulo_clinica}}" (change)="cambiarValor($event, articulo.id_articulo_clinica)" disabled value="{{articulo.numero_lotes}}" min="0">
+                        <input type="checkbox" (change)="activar($event, articulo.id_articulo_clinica )">
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="guardarArticulos()">Recibir Pedido</button>
+      </div>
+    </div>
+</div>
 

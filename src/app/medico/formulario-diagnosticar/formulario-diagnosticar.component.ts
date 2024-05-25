@@ -6,7 +6,7 @@ import { faFileLines } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { MedicoService } from '../servicio/medico.service';
 import { ActivatedRoute } from '@angular/router';
-
+import { InventarioArticulos } from 'src/app/interfaces/inventario-articulos';
 
 @Component({
   selector: 'app-formulario-diagnosticar',
@@ -18,7 +18,10 @@ export class FormularioDiagnosticarComponent {
   faFloppyDisk = faFloppyDisk;
   faFileLines = faFileLines;
   faCircleXmark = faCircleXmark;
-  
+  articulosInventario:InventarioArticulos[] = [];  
+
+  articulosSeleccionados:InventarioArticulos[] = [];
+
   fechaDeHoy:Date = new Date();
   formData!:FormGroup;
   servicio = inject(MedicoService);
@@ -26,9 +29,10 @@ export class FormularioDiagnosticarComponent {
   sip = '';
   id_cita = '';
   textoModal = '';
-  existir = true;
+  existir = false;
   errorInforme:boolean = false;
   errorTratamiento:boolean = false;
+  dtOptions: DataTables.Settings = {}
 
   constructor(private route: ActivatedRoute){
     this.existir = false;
@@ -64,6 +68,84 @@ export class FormularioDiagnosticarComponent {
     }
   }
 
+  ngOnInit():void {
+    this.dtOptions = {
+      language: {
+        url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
+        emptyTable: '',
+      },
+      pagingType: "numbers",
+      info: false,
+    }
+
+    if (this.estado == "pendiente") {
+      this.servicio.inventario(localStorage.getItem("id_usuario")).subscribe(
+        (response) => {
+          console.log(response);
+          this.articulosInventario = response;
+          this.existir = true;
+        }
+      )
+    } else {
+      
+    }
+
+    
+  }
+
+  activar(evento:any, id_articulo:any){
+    if (evento.target.checked) {
+      let x:string = $("#cantidad"+id_articulo).val() as string;
+      let contenido :InventarioArticulos = {
+        id_articulo_clinica: id_articulo,
+        nombre_articulo: "",
+        nombre_categoria: "",
+        numero_lotes: parseInt(x),
+        estado: "",
+        ultima_fecha_recibida: "",
+      }
+      this.articulosSeleccionados.push(contenido);
+      
+      console.log(this.articulosSeleccionados);
+
+      $("#cantidad"+id_articulo).prop("disabled", false);
+    } else {
+      let indice = 0;
+
+      this.articulosSeleccionados.forEach(function hola(element, index)  {
+
+        if (element.id_articulo_clinica == id_articulo) {
+            indice = index;
+        }
+      });
+
+      this.articulosSeleccionados.splice(indice, 1);
+
+      console.log(this.articulosSeleccionados);
+
+      $("#cantidad"+id_articulo).prop("disabled", true);
+    }
+  }
+
+  cambiarValor(evento:any, id_articulo:any){
+    let indice = 0;
+      this.articulosSeleccionados.forEach(function hola(element, index)  {
+
+        if (element.id_articulo_clinica == id_articulo) {
+            indice = index;
+        }
+      });
+
+      this.articulosSeleccionados[indice].numero_lotes = parseInt(evento.target.value);
+  }
+
+  guardarArticulos(){
+    this.servicio.registrarArticulosEnCita(this.id_cita,this.articulosSeleccionados).subscribe(
+      (response) => {
+        console.log(response);
+      }
+    )
+  }
 
   onSubmit() {
 
