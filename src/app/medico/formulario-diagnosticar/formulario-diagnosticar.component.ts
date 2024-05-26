@@ -82,15 +82,41 @@ export class FormularioDiagnosticarComponent {
       this.servicio.inventario(localStorage.getItem("id_usuario")).subscribe(
         (response) => {
           console.log(response);
-          this.articulosInventario = response;
+
+          response.forEach((Element:any) => {
+
+            let objeto:InventarioArticulos = {
+              id_articulo_clinica: Element.id_articulo_clinica,
+              nombre_articulo: Element.nombre_articulo,
+              nombre_categoria: Element.nombre_categoria,
+              numero_lotes: 0,
+              estado: Element.numero_lotes,
+              ultima_fecha_recibida: "",
+            }
+
+            this.articulosInventario.push(objeto);
+
+          });
           this.existir = true;
         }
       )
     } else {
-      
-    }
+      this.servicio.articulosUsadosEnCita(this.id_cita).subscribe(
+        (response) => {
+          this.articulosInventario = response;
+          console.log(response);
 
-    
+          this.articulosInventario.forEach(Element=>{
+              if (Element.numero_lotes > 0) {
+                this.articulosSeleccionados.push(Element);
+              }
+          })
+
+          this.existir = true;
+          console.log(this.articulosSeleccionados)
+        }
+      )
+    }
   }
 
   activar(evento:any, id_articulo:any){
@@ -147,6 +173,14 @@ export class FormularioDiagnosticarComponent {
     )
   }
 
+  modificarArticulos(){
+    this.servicio.modificarArticulosEnCita(this.id_cita,this.articulosSeleccionados).subscribe(
+      (response) => {
+        console.log(response);
+      }
+    )
+  }
+
   onSubmit() {
 
     if (this.formData.invalid) {
@@ -166,7 +200,6 @@ export class FormularioDiagnosticarComponent {
     } else {
       this.errorInforme = false;
       this.errorTratamiento = false;
-      
       if (this.estado == "pendiente") {
 
         const diagnostico = {
@@ -183,6 +216,7 @@ export class FormularioDiagnosticarComponent {
         this.servicio.registrarDiagnostico(diagnostico).subscribe(
           (response) => {
             console.log(response);
+            this.guardarArticulos();
           },
           (error) => {
             console.log(error);
@@ -201,6 +235,7 @@ export class FormularioDiagnosticarComponent {
         this.servicio.modificarDiagnostico(diagnosticoModificado, this.id_cita).subscribe(
           (response) => {
             console.log(response);
+            this.modificarArticulos();
           },
           (error) => {
             console.log(error);

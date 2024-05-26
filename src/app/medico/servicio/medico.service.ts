@@ -121,6 +121,14 @@ export class MedicoService {
     return this.http.post<any>(`${this.urlBase}registrar-articulos-en-cita/${idCita}`, articulos);
   }
 
+  modificarArticulosEnCita(idCita:any, articulos:any){
+    return this.http.post<any>(`${this.urlBase}modificar-articulos-en-cita/${idCita}`, articulos);
+  }
+
+  articulosUsadosEnCita(idCita:any){
+    return this.http.get<any>(`${this.urlBase}inventario-medico-cita/${idCita}`);
+  }
+
   obtenerDiagnostico(idCita:any){
     return this.http.get<any>(`${this.urlBase}obtener-diagnostico/${idCita}`);
   }
