@@ -69,14 +69,6 @@ export class FormularioDiagnosticarComponent {
   }
 
   ngOnInit():void {
-    this.dtOptions = {
-      language: {
-        url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
-        emptyTable: '',
-      },
-      pagingType: "numbers",
-      info: false,
-    }
 
     if (this.estado == "pendiente") {
       this.servicio.inventario(localStorage.getItem("id_usuario")).subscribe(
@@ -111,14 +103,12 @@ export class FormularioDiagnosticarComponent {
                 this.articulosSeleccionados.push(Element);
               }
           })
-
           this.existir = true;
-          console.log(this.articulosSeleccionados)
         }
       )
     }
   }
-
+  
   activar(evento:any, id_articulo:any){
     if (evento.target.checked) {
       let x:string = $("#cantidad"+id_articulo).val() as string;

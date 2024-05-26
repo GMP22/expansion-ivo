@@ -8,6 +8,27 @@
     height: 40px;
     width: 170px;
 }
+
+.tituloTabla{
+    background-color: #092C4C;
+    color: white;
+    font-weight: bold;
+}
+
+.form-check-input{
+    border-width: 3px;
+    border-color: #092C4C;
+}
+
+.form-check-input:checked{
+    background-color: #72bdff;
+}
+
+.textoTabla{
+    color: #092C4C;
+    font-weight: bold;
+}
+
 .contenedor-style{
     display: flex;
     justify-content: space-between;
@@ -19,3 +40,7 @@
 .con-style{
     display: flex;
 }
+
+.modal-content{
+    background-color: #EBF3FA;
+  }

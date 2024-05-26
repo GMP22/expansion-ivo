@@ -52,36 +52,48 @@
     </div>
 </form>
 
-<div  class="modal fade" id="seleccionarArticulos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" id="seleccionarArticulos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered modal-xl">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          
+        <div class="modal-body p-5">
+            <p class="font fs-2 mb-5">Articulos Utilizados Durante La Cita </p>
+            <div class="row">
+                <div class="col-12 px-5">
+                    <table *ngIf="existir" class="table table-hover border" >
+                        <thead >
+                            <tr  class="text-center">
+                                <th class="tituloTabla">Nombre</th>
+                                <th class="tituloTabla">Categoria</th>
+                                <th class="tituloTabla">Cantidad</th>
+                                <th class="tituloTabla"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let articulo of articulosInventario " class="pointer text-center">
+                                <td class="textoTabla">{{ articulo.nombre_articulo }}</td>
+                                <td class="textoTabla">{{ articulo.nombre_categoria }}</td>
+                                <td>
+                                    <input class="form-control" *ngIf="estado == 'pendiente'" type="number" id="cantidad{{articulo.id_articulo_clinica}}" (change)="cambiarValor($event, articulo.id_articulo_clinica)" disabled value="0" min="0" max="{{articulo.estado}}">
+                                    <input class="form-control" *ngIf="estado != 'pendiente' && articulo.numero_lotes == 0" type="number" id="cantidad{{articulo.id_articulo_clinica}}" (change)="cambiarValor($event, articulo.id_articulo_clinica)" disabled value="0" min="0" max="{{articulo.estado}}">
+                                    <input class="form-control" *ngIf="estado != 'pendiente' && articulo.numero_lotes != 0" type="number" id="cantidad{{articulo.id_articulo_clinica}}" (change)="cambiarValor($event, articulo.id_articulo_clinica)" value="{{articulo.numero_lotes}}" min="0" max="{{articulo.estado}}">
+                                </td>
+                                <td>
+                                    <input class="form-check-input" *ngIf="estado == 'pendiente'" type="checkbox" (change)="activar($event, articulo.id_articulo_clinica )">
+                                    <input class="form-check-input" *ngIf="estado != 'pendiente' && articulo.numero_lotes == 0" type="checkbox" (change)="activar($event, articulo.id_articulo_clinica )">
+                                    <input class="form-check-input" *ngIf="estado != 'pendiente' && articulo.numero_lotes != 0" type="checkbox" (change)="activar($event, articulo.id_articulo_clinica )" checked>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-12 d-flex flex-row-reverse">
+                            <button type="button" class="btn btn-personalized mt-3" data-bs-dismiss="modal">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <table *ngIf="existir"  class="table table-hover font">
-            <thead>
-                <tr style="background-color: #0062ca;">
-                    <th>Nombre</th>
-                    <th>Categoria</th>
-                    <th>Cantidad</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let articulo of articulosInventario " class="pointer">
-                    <td>{{ articulo.nombre_articulo }}</td>
-                    <td>{{ articulo.nombre_categoria }}</td>
-                    <td>
-                        <input *ngIf="estado == 'pendiente'" type="number" id="cantidad{{articulo.id_articulo_clinica}}" (change)="cambiarValor($event, articulo.id_articulo_clinica)" disabled value="0" min="0" max="{{articulo.estado}}">
-                        <input *ngIf="estado == 'pendiente'" type="checkbox" (change)="activar($event, articulo.id_articulo_clinica )">
-                        <input *ngIf="estado != 'pendiente' && articulo.numero_lotes == 0" type="number" id="cantidad{{articulo.id_articulo_clinica}}" (change)="cambiarValor($event, articulo.id_articulo_clinica)" disabled value="0" min="0" max="{{articulo.estado}}">
-                        <input *ngIf="estado != 'pendiente' && articulo.numero_lotes != 0" type="number" id="cantidad{{articulo.id_articulo_clinica}}" (change)="cambiarValor($event, articulo.id_articulo_clinica)" value="{{articulo.numero_lotes}}" min="0" max="{{articulo.estado}}">
-                        <input *ngIf="estado != 'pendiente' && articulo.numero_lotes == 0" type="checkbox" (change)="activar($event, articulo.id_articulo_clinica )">
-                        <input *ngIf="estado != 'pendiente' && articulo.numero_lotes != 0" type="checkbox" (change)="activar($event, articulo.id_articulo_clinica )" checked>
-                    </td>
-                </tr>
-            </tbody>
-            </table>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
 </div>
