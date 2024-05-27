@@ -2,8 +2,13 @@ import { Component,Input, ViewChild, ElementRef, Output, EventEmitter } from '@a
 import { inject } from '@angular/core';
 import { MedicoService } from '../servicio/medico.service';
 import { ArticuloEscogido } from 'src/app/interfaces/articulo-escogido';
+import { faFileLines } from '@fortawesome/free-solid-svg-icons';
+import { faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { DetallesArticuloProveedores } from 'src/app/interfaces/detalles-articulo-proveedores';
 import { ArticuloFormulario } from 'src/app/interfaces/articulo-formulario';
+
 
 @Component({
   selector: 'app-tabla-carrito-formulario-medico',
@@ -11,6 +16,10 @@ import { ArticuloFormulario } from 'src/app/interfaces/articulo-formulario';
   styleUrls: ['./tabla-carrito-formulario-medico.component.css']
 })
 export class TablaCarritoFormularioMedicoComponent {
+  faFileLines = faFileLines;
+  faMinus= faMinus;
+  faPlus=faPlus;
+  faTrash=faTrash;
   existir:boolean = true;
   dtOptions: DataTables.Settings = {}
   servicioMedico = inject(MedicoService);
@@ -19,6 +28,8 @@ export class TablaCarritoFormularioMedicoComponent {
   @Output() articuloEscogido = new EventEmitter<ArticuloEscogido>();
   @Output() indiceSeleccionado = new EventEmitter<number>();
   ngOnInit(): void {
+
+    
 
     this.dtOptions = {
       language: {

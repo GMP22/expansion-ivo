@@ -3,6 +3,7 @@ import { PedidosPendientes } from 'src/app/interfaces/pedidos-pendientes';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { MedicoService } from '../servicio/medico.service';
+import { faEye }  from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-tabla-pedidos-pendientes',
@@ -16,6 +17,8 @@ export class TablaPedidosPendientesMedicoComponent {
   idGestor:number = Number(localStorage.getItem("id_usuario"));
   id_pedidoSeleccionado!:number;
   servicioMedico = inject(MedicoService);
+
+  faEye = faEye;
 
   constructor(private router: Router) {}
 

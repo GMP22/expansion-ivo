@@ -3,6 +3,8 @@ import { inject } from '@angular/core';
 import { MedicoService } from '../servicio/medico.service';
 import { Router } from '@angular/router';
 import { ArticuloEscogido } from 'src/app/interfaces/articulo-escogido';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-tabla-articulos-formulario-medico',
@@ -17,7 +19,7 @@ export class TablaArticulosFormularioMedicoComponent {
   @ViewChild('botonModalPendiente') botonModalPendiente!: ElementRef;
   @Output() articuloNuevo = new EventEmitter<ArticuloEscogido>();
   constructor(private router: Router) {}
-
+  faPlus = faPlus;
   dtOptions: DataTables.Settings = {}
 
   ngOnInit(): void {
@@ -27,12 +29,13 @@ export class TablaArticulosFormularioMedicoComponent {
         url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
         emptyTable: '',
       },
-      pageLength: 5,
-      pagingType: "numbers",
+      dom: 'rt',
       info: false,
+      scrollCollapse: true,
+      scrollY: '400px',
     }
 
-    this.servicioMedico.obtenerArticulosFormulario().subscribe(
+    this.servicioMedico.obtenerArticulosFormulario(localStorage.getItem("id_usuario")).subscribe(
       (response) => {
         console.log(response);
         this.existir = true;

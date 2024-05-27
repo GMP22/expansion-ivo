@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { faFile } from '@fortawesome/free-solid-svg-icons';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
+import { faBoxesStacked } from '@fortawesome/free-solid-svg-icons';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faGears } from '@fortawesome/free-solid-svg-icons';
 import { Input } from '@angular/core';
 
 @Component({
@@ -13,7 +12,12 @@ import { Input } from '@angular/core';
 })
 export class CuadroInformativoMedicoComponent {
   faTruckFast = faTruckFast;
+  faBoxesStacked = faBoxesStacked;
+  faTriangleExclamation = faTriangleExclamation;
+  faGears = faGears;
 
+  @Input() size!:string;
+  @Input() icono!:string;
   @Input() numeroDeCosas!:number;
   @Input() TituloDeCuadro!:string;
 

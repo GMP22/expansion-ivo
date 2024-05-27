@@ -1,9 +1,9 @@
-<table class="table table-hover font">
+<table class="table table-hover font" style="margin-top: 6px; overflow-y: auto;">
     <thead>
         <tr style="background-color: #0062ca;">
-            <th>Articulos</th>
-            <th>Numero De Lotes</th>
-            <th>Acciones</th>
+            <th class="tituloTabla " style="border-top-left-radius: 5px; border-bottom-left-radius: 5px; padding: 15px; font-size: 16px;">Articulos</th>
+            <th class="tituloTabla " style="padding: 15px; font-size: 16px;">Numero De Lotes</th>
+            <th class="tituloTabla " style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; padding: 15px;  font-size: 16px;">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -11,11 +11,16 @@
             <td>{{ articulo.nombre }}</td>
             <td>{{ articulo.nLotes }}</td>
             <td>
-                <button (click)="sumarArticulo(indice)">Añadir</button>
-                <button (click)="restarArticulo(indice)">Disminuir</button>
-                <button (click)="mostrarDetallesArticulo(indice, articulo.id_articulo)">Ver Detalles</button>
-                <button (click)="borrarArticulo(indice)">Eliminar</button>
+                <fa-icon [icon]="faPlus" class="mx-2 icon-calender fa-1x" (click)="sumarArticulo(indice)"></fa-icon>
+                <fa-icon [icon]="faMinus" class="mx-2 icon-calender fa-1x" (click)="restarArticulo(indice)"></fa-icon>
+                <fa-icon [icon]="faFileLines" class="mx-2 icon-calender fa-1x" (click)="mostrarDetallesArticulo(indice, articulo.id_articulo)"></fa-icon>
+                <fa-icon [icon]="faTrash" class="mx-2 icon-calender fa-1x" (click)="borrarArticulo(indice)"></fa-icon>
             </td>
+        </tr>
+        <tr *ngIf="articulos.length == 0">
+            <td></td>
+            <td>Seleccione Articulos</td>
+            <td></td>
         </tr>
     </tbody>
 </table>

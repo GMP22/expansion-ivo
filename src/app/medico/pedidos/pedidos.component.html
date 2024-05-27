@@ -9,10 +9,10 @@
             </div>
 
             <div class="row">
-                <div class="col-7 d-flex mb-5 justify-content-between">
-                    <app-cuadro-informativo-medico [TituloDeCuadro]="'Pedidos Pendientes'" [numeroDeCosas]="1"></app-cuadro-informativo-medico>
-                    <app-cuadro-informativo-medico [TituloDeCuadro]="'Pedidos Recibidos'" [numeroDeCosas]="2"></app-cuadro-informativo-medico>
-                    <app-cuadro-informativo-medico [TituloDeCuadro]="'Articulos En Minimos'" [numeroDeCosas]="3"></app-cuadro-informativo-medico>
+                <div class="col-10 d-flex mb-5 justify-content-between">
+                    <app-cuadro-informativo-medico [TituloDeCuadro]="'Pedidos Pendientes'" [numeroDeCosas]="1" [icono]="'pedidoPendiente'" [size]="'17rem'"></app-cuadro-informativo-medico>
+                    <app-cuadro-informativo-medico [TituloDeCuadro]="'Pedidos Recibidos'" [numeroDeCosas]="2" [icono]="'pedidoRecibidos'" [size]="'17rem'"></app-cuadro-informativo-medico>
+                    <app-cuadro-informativo-medico [TituloDeCuadro]="'Articulos En Minimos'" [numeroDeCosas]="3" [icono]="'articulosMinimos'" [size]="'17rem'"></app-cuadro-informativo-medico>
                 </div>
             </div>
 
@@ -26,13 +26,13 @@
                     </app-ventana-dos-opciones-medico>
                 </div>
 
-                <div class="col-5 d-flex flex-row flex-row-reverse h-50">
-                    <button type="button" (click)="crearPedido()">Crear Pedido</button>
+                <div class="col-4  d-flex flex-row flex-row-reverse" >
+                    <button type="button" class="btn font btn-personalized me-3" (click)="crearPedido()">Crear Pedido</button>
                 </div>
             </div>
 
             <div class="row mt-2">
-                <div class="col-12 px-4">
+                <div class="col-10 px-3">
                     <app-tabla-pedidos-pendientes *ngIf="activeTab === 'Pendientes'"></app-tabla-pedidos-pendientes>
                     <app-tabla-pedidos-aceptados *ngIf="activeTab === 'Recibidos'"></app-tabla-pedidos-aceptados>
                 </div>

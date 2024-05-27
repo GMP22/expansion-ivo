@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { MedicoService } from '../servicio/medico.service';
 import { Input } from '@angular/core';
-
+import { faEye }  from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-tabla-pedidos-aceptados',
   templateUrl: './tabla-pedidos-aceptados.component.html',
@@ -17,7 +17,7 @@ export class TablaPedidosAceptadosComponent {
   servicioMedico = inject(MedicoService);
 
   constructor(private router: Router) {}
-
+faEye = faEye;
   dtOptions: DataTables.Settings = {}
 
   ngOnInit(): void {

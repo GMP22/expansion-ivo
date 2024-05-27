@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-12 mt-5 ms-5">
-        <p class="h1">Crear Pedido</p>
+        <p class="font fs-1">Crear Pedido</p>
     </div>
 </div>
 
@@ -27,12 +27,12 @@
     </div>
 </div>
 
-<div class="row" [hidden]="ubicacion >= 1">
+<div class="row px-5" [hidden]="ubicacion >= 1">
     <div class="col-6">
             <app-tabla-articulos-formulario-medico (articuloNuevo)="datos = $event"></app-tabla-articulos-formulario-medico>
     </div>
-    <div class="col-6">
-        <app-tabla-carrito-formulario-medico (articuloEscogido)="datos2 = $event" (indiceSeleccionado)="indiceSeleccionado = $event"></app-tabla-carrito-formulario-medico>
+    <div class="col-5 ms-5">
+            <app-tabla-carrito-formulario-medico (articuloEscogido)="datos2 = $event" (indiceSeleccionado)="indiceSeleccionado = $event"></app-tabla-carrito-formulario-medico>
     </div>
 </div>
 
@@ -42,87 +42,105 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalPendiente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="modalPendiente" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        </div>
-        <div class="modal-body">
-            
+        <div class="modal-body p-2 m-5">
+            <p class="font fs-2 mb-5">Detalles</p>
             <div class="row">
-                <div class="col-12">
-                    <form [formGroup]="formularioPedido">
-                        {{datos?.nombre}}
-                        <div class="row">
-                            <div class="col-12">
-                                <input type="text" class="form-control" formControlName="categoria" id="categoria" [value]="datos?.nombre_categoria" readonly>
-                            </div>
-                        </div>
+                <div class="col-6">
+                    <h3 class="fs-5" style="font-weight: 500;">Nombre del Articulo</h3>
+                    <p class="fs-6 font">{{datos?.nombre}}</p>
+                </div>
+                <div class="col-6">
+                    <h3 class="fs-5" style="font-weight: 500;">Categoria</h3>
+                    <p class="fs-6 font">{{datos?.nombre_categoria}}</p>
+                </div>
+                
+            </div>
 
-                        <div class="row">
-                            <div class="col-12">
-                                <input type="number" formControlName="numeroLotes" id="numeroLotes">
-                            </div>
-                        </div>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <h3 class="fs-5" style="font-weight: 500;">Stock Actual</h3>
+                    <p class="fs-6 font">{{datos?.nLotes}}</p>
+                </div>
+                <div class="col-6">
+                    <h3 class="fs-5" style="font-weight: 500;">Cantidad a Solicitar</h3>
+                        <form [formGroup]="formularioPedido">
+                            <input type="number" formControlName="numeroLotes" id="numeroLotes" [min]="1" [value]="1" (onchange)="verificar($event)" (input)="verificar($event)">
+                            <span *ngIf="error" class="form-text text-danger fs-6">*La cantidad debe de ser mayor que 1</span>  <br>
                     </form>
-                    
                 </div>
             </div>
-          
+
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-personalized" data-bs-dismiss="modal"(click)="reiniciarNumeros()">Cerrar</button>
+                    <button *ngIf="error" type="button" class="btn btn-personalized">Añadir</button>
+                    <button *ngIf="!error" type="button" class="btn btn-personalized" data-bs-dismiss="modal" (click)="pasarDatoACarrito()">Añadir</button>
+                </div>
+            </div>
         </div>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="pasarDatoACarrito()">Save changes</button>
       </div>
     </div>
 </div>
 
-<div class="modal fade" id="a" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="a" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        </div>
-        <div class="modal-body">
-            
-            <div class="row">
-                <div class="col-12">
-                    <p>{{datos2?.nombre}}</p>
-                    <p>{{datos2?.nombre_categoria}}</p>
-                    <form [formGroup]="formularioPedido2">
-                        
-                        <div class="row">
-                            <div class="col-12">
-                                <input type="text" class="form-control" formControlName="categoria2" id="categoria2" [value]="datos2?.nombre_categoria" readonly>
-                            </div>
-                        </div>
+        <div class="modal-body p-2 m-5">
 
-                        <div class="row">
-                            <div class="col-12">
-                                <input type="number" formControlName="numeroLotes2" id="numeroLotes2" [value]="datos2?.nLotes">
-                            </div>
-                        </div>
+            <p class="font fs-2 mb-5">Detalles</p>
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="fs-5" style="font-weight: 500;">Nombre del Articulo</h3>
+                    <p class="fs-6 font">{{datos2?.nombre}}</p>
+                </div>
+                <div class="col-6">
+                    <h3 class="fs-5" style="font-weight: 500;">Categoria</h3>
+                    <p class="fs-6 font">{{datos2?.nombre_categoria}}</p>
+                </div>
+                
+            </div>
+            
+            <div class="row mt-3">
+                <div class="col-6">
+                    <h3 class="fs-5" style="font-weight: 500;">Stock Actual</h3>
+                    <p class="fs-6 font">{{datos?.nLotes}}</p>
+                </div>
+                <div class="col-6">
+                    <h3 class="fs-5" style="font-weight: 500;">Cantidad a Solicitar</h3>
+                        <form [formGroup]="formularioPedido2">
+                            <input type="number" formControlName="numeroLotes2" id="numeroLotes2" [min]="1" [value]="datos2?.nLotes" (onchange)="verificar($event)" (input)="verificar($event)">
+                            <span *ngIf="error" class="form-text text-danger fs-6">*La cantidad debe de ser mayor que 1</span>  <br>
                     </form>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-personalized" data-bs-dismiss="modal"(click)="refrescarNLotes()">Cerrar</button>
+                    <button *ngIf="error" type="button" class="btn btn-personalized">Añadir</button>
+                    <button *ngIf="!error" type="button" class="btn btn-personalized" data-bs-dismiss="modal" (click)="modificarArticulo()">Añadir</button>
+                </div>
+            </div>
         </div>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="refrescarNLotes()">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="modificarArticulo()">Save changes</button>
+          
       </div>
     </div>
 </div>
 
 <div class="row p-5">
     <div class="col-12 d-flex justify-content-between align-items-center">
-        <button>Cancelar</button>
+        <button class="btn btn-personalized">Cancelar</button>
 
         <div style="display: flex; justify-content: space-between;">
             <div *ngIf="ubicacion > 0" class="me-5">
-                <button (click)="anterior()">Anterior</button>
+                <button class="btn btn-personalized" (click)="anterior()">Anterior</button>
             </div>
 
             <div *ngIf="ubicacion <= 2">
-                <button (click)="siguiente()">Siguiente</button>
+                <button class="btn btn-personalized" (click)="siguiente()">Siguiente</button>
             </div>
         </div>
     </div>

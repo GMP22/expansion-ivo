@@ -13,6 +13,7 @@ export class CrearPedidoMedicoComponent {
   datos!:ArticuloEscogido;
   datos2!:ArticuloEscogido;
   ubicacion = 0;
+  error:boolean = false;
   indiceSeleccionado!:number;
   formularioPedido!: FormGroup;
   formularioPedido2!: FormGroup;
@@ -21,13 +22,13 @@ export class CrearPedidoMedicoComponent {
 
   ngOnInit(){
     this.formularioPedido = new FormGroup({
-      categoria: new FormControl(),
       numeroLotes: new FormControl(),
     });
     this.formularioPedido2 = new FormGroup({
-      categoria2: new FormControl(),
       numeroLotes2: new FormControl(),
     });
+
+    this.formularioPedido.get("numeroLotes")?.setValue(1);
   }
 
   siguiente(){
@@ -52,10 +53,23 @@ export class CrearPedidoMedicoComponent {
     $('#paso2').removeClass('barra-inferior');
   }
 
+  verificar(entrada:any){
+    if (entrada.target.value <= 0) {
+      this.error = true;
+    } else {
+      this.error = false;
+    }
+  }
+
+  reiniciarNumeros(){
+    this.formularioPedido.get("numeroLotes")?.setValue(1);
+  }
+
   pasarDatoACarrito(){
       console.log(this.datos);
       this.datos.nLotes = this.formularioPedido.get("numeroLotes")?.value;
       this.servicioMedico.anyadirArticulo(this.datos);
+      this.reiniciarNumeros();
   }
 
   refrescarNLotes(){

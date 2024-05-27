@@ -13,7 +13,7 @@
             <td>{{ pedido.fecha_inicial }}</td>
             <td>{{ pedido.numero_productos }}</td>
             <td>
-                <button (click)="mirarDetalles(pedido)">Mirar Pedido</button>
+               <fa-icon [icon]="faEye" class="mx-2 icon-calender fa-1x" (click)="mirarDetalles(pedido)"></fa-icon>
             </td>
         </tr>
     </tbody>

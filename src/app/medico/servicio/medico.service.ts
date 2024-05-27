@@ -20,6 +20,10 @@ export class MedicoService {
     return this._articulos.asObservable();
   }
 
+  get carrito(){
+    return this.carritoArticulos;
+  }
+
   anyadirArticulo(articulo:any){
     console.log(articulo);
     let resultado = 0;
@@ -77,8 +81,8 @@ export class MedicoService {
     return this.http.get<any>(`${this.urlBase}citas-realizada-medico/${fecha}/${idMedico}`);
   }
 
-  obtenerArticulosFormulario(){
-    return this.http.get<any>(`${this.urlBase}articulos-crear-pedido-medico`);
+  obtenerArticulosFormulario(idMedico:any){
+    return this.http.get<any>(`${this.urlBase}articulos-crear-pedido-medico/${idMedico}`);
   }
 
   inventario(idUsuario:any){
