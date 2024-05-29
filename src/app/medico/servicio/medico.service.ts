@@ -57,6 +57,16 @@ export class MedicoService {
     return this.carritoArticulos[indice];
   }
 
+  numerosPedido(idMedico:any){
+    return this.http.get<any>(`${this.urlBase}cuadros-informativos-pedidos-medico/${idMedico}`);
+  }
+
+  limpiarCarrito(){
+    for (let index = 0; index < this.carritoArticulos.length; index++) {
+        this.carritoArticulos.pop();
+    }
+  }
+
   restarArticulo(indice:number, cantidad_a_restar:number){
     this.carritoArticulos[indice].nLotes -= cantidad_a_restar;
 
@@ -93,6 +103,10 @@ export class MedicoService {
     return this.http.get<any>(`${this.urlBase}detalles-articulos-medico/${idUsuario}/${idArticulo}`);
   }
 
+  obtenerNlotes(idUsuario:any, idArticulo:any){
+    return this.http.get<any>(`${this.urlBase}articulos-lotes-crear-pedido-medico/${idUsuario}/${idArticulo}`);
+  }
+
   obtenerPedidosPendientes(idUsuario:any){
     return this.http.get<any>(`${this.urlBase}pedidos-pendientes-medico/${idUsuario}`);
   }
@@ -104,6 +118,10 @@ export class MedicoService {
   pedidosConArticuloEspecifico(idUsuario:any, idArticuloClinica:any){
     return this.http.get<any>(`${this.urlBase}pedidos-articulo-especifico-medico/${idUsuario}/${idArticuloClinica}`);
   }
+
+  obtenerArticulosMinimosFormulario(idMedico:any){
+    return this.http.get<any>(`${this.urlBase}articulos-minimos-crear-pedido-medico/${idMedico}`);
+}
 
   cambiarMinimos(idUsuario:any, idArticuloClinica:any, minimo:any){
     return this.http.post<any>(`${this.urlBase}cambiar-minimo-medico/${idUsuario}/${idArticuloClinica}`, minimo);

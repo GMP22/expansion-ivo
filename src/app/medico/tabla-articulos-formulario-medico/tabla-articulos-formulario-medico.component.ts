@@ -44,6 +44,31 @@ export class TablaArticulosFormularioMedicoComponent {
     )
   }
 
+  cambiarListado(evento:any){
+	console.log("hola");
+  this.existir = false;
+    if(evento.target.checked){
+      this.servicioMedico.obtenerArticulosMinimosFormulario(localStorage.getItem("id_usuario")).subscribe(
+      (response) => {
+          console.log(response);
+          this.existir = true;
+          this.articulos = response;
+        }
+      )
+      
+    } else {
+    
+      this.servicioMedico.obtenerArticulosFormulario(localStorage.getItem("id_usuario")).subscribe(
+        (response) => {
+          console.log(response);
+          this.existir = true;
+          this.articulos = response;
+        }
+      )
+    
+    }
+  }
+
   mostrarModalDeArticulo(entrada:ArticuloEscogido){
         console.log(entrada);
         this.articuloNuevo.emit(entrada);

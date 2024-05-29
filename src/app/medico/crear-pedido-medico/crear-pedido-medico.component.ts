@@ -14,6 +14,7 @@ export class CrearPedidoMedicoComponent {
   datos2!:ArticuloEscogido;
   ubicacion = 0;
   error:boolean = false;
+  error2:boolean = false;
   indiceSeleccionado!:number;
   formularioPedido!: FormGroup;
   formularioPedido2!: FormGroup;
@@ -31,16 +32,28 @@ export class CrearPedidoMedicoComponent {
     this.formularioPedido.get("numeroLotes")?.setValue(1);
   }
 
-  siguiente(){
-    if (this.ubicacion==1) {
-      this.abrirModal();
-    } else {
-      this.ubicacion++;
-      $('#flecha').addClass('border-3');
-      $('#flecha').addClass('barra-inferior');
 
-      $('#paso2').addClass('border-3');
-      $('#paso2').addClass('barra-inferior');
+  limpiar(){
+    this.servicioMedico.limpiarCarrito();
+    console.log(this.servicioMedico.carrito)
+  }
+
+  siguiente(){ 
+
+    if (this.servicioMedico.carrito.length > 0) {
+      this.error2 = false;
+      if (this.ubicacion==1) {
+        this.abrirModal();
+      } else {
+        this.ubicacion++;
+        $('#flecha').addClass('border-3');
+        $('#flecha').addClass('barra-inferior');
+  
+        $('#paso2').addClass('border-3');
+        $('#paso2').addClass('barra-inferior');
+      }
+    } else {
+      this.error2 = true;
     }
   }
 
@@ -66,9 +79,20 @@ export class CrearPedidoMedicoComponent {
   }
 
   pasarDatoACarrito(){
-      console.log(this.datos);
-      this.datos.nLotes = this.formularioPedido.get("numeroLotes")?.value;
-      this.servicioMedico.anyadirArticulo(this.datos);
+      
+      let objeto:ArticuloEscogido = {
+        id_articulo: this.datos.id_articulo,
+        nombre: this.datos.nombre,
+        id_proveedor: 0,
+        nombre_categoria: this.datos.nombre_categoria,
+        cantidad_por_lote: 0,
+        nombre_proveedor: "",
+        coste_por_lote: 0,
+        nLotes: this.datos.nLotes,
+      }; 
+
+      objeto.nLotes = this.formularioPedido.get("numeroLotes")?.value;
+      this.servicioMedico.anyadirArticulo(objeto);
       this.reiniciarNumeros();
   }
 

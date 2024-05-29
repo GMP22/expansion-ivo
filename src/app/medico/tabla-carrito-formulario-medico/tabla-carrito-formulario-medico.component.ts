@@ -61,7 +61,18 @@ export class TablaCarritoFormularioMedicoComponent {
   mostrarDetallesArticulo(indice:number, id_articulo:number){
         this.servicioMedico.obtenerArticuloSegunId(id_articulo);
         this.indiceSeleccionado.emit(indice);
-        this.articuloEscogido.emit(this.servicioMedico.obtenerArticuloSegunId(indice));
-        this.botonModalPendiente2.nativeElement.click();
+
+        this.servicioMedico.obtenerNlotes(localStorage.getItem("id_usuario"), id_articulo).subscribe(
+          (response) => {
+            let articulo:ArticuloEscogido = this.servicioMedico.obtenerArticuloSegunId(indice); 
+            console.log(response);
+            articulo.id_proveedor = parseInt(response);
+
+            this.articuloEscogido.emit(articulo);
+            this.botonModalPendiente2.nativeElement.click();
+          }
+        )
+
+       
   }
 }
