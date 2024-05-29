@@ -15,8 +15,8 @@
     </div>
 </div>
 
-<div *ngIf="detallesArticulo != undefined">
-    <div class="row">
+<div class="px-5" *ngIf="detallesArticulo != undefined">
+    <div class="row px-5">
         <div class="col-4">
             <h2>Numero de Articulo</h2>
             <h3>{{id_articulo}}</h3>
@@ -31,18 +31,19 @@
         </div>
     </div>
     
-    <div class="row">
+    <div class="row px-5">
         <div class="col-4">
             <h2>Stock Actual</h2>
             <h3>{{detallesArticulo.lotes_disponibles}}</h3>
         </div>
         <div class="col-4">
-            <h2>Stock Minimo <button data-bs-toggle="modal" data-bs-target="#cambiarMinimos">Cambiar Minimo</button> </h2>
+            <h2>Stock Minimo <fa-icon [icon]="faPenToSquare" class="mx-2 icon-calender fa-1x"  data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#cambiarMinimos"></fa-icon></h2>
             <h3>{{detallesArticulo.stock_minimo}}</h3>
         </div>
         <div class="col-4">
-            <h2>Pedido Automatico <button data-bs-toggle="modal" data-bs-target="#cambiarAutomatico">Hacer Automatico</button></h2>
-            <h3>{{detallesArticulo.pedido_automatico}}</h3>
+            <h2>Pedido Automatico <fa-icon [icon]="faPenToSquare" class="mx-2 icon-calender fa-1x"  data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#cambiarAutomatico"></fa-icon></h2>
+            <h3 *ngIf="detallesArticulo.pedido_automatico == 1">Activado</h3>
+            <h3 *ngIf="detallesArticulo.pedido_automatico == 0">Desactivado</h3>
         </div>
     </div>
 </div>
@@ -71,43 +72,111 @@
     </div>
 </div>
 
-<div class="modal fade" id="cambiarMinimos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<!--
+    <div class="modal fade" id="modalPendiente" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <div class="modal-body p-2 m-5">
+            <p class="font fs-2 mb-5">Detalles</p>
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="fs-5" style="font-weight: 500;">Nombre del Articulo</h3>
+                    <p class="fs-6 font">{{datos?.nombre}}</p>
+                </div>
+                <div class="col-6">
+                    <h3 class="fs-5" style="font-weight: 500;">Categoria</h3>
+                    <p class="fs-6 font">{{datos?.nombre_categoria}}</p>
+                </div>
+                
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-6">
+                    <h3 class="fs-5" style="font-weight: 500;">Stock Actual</h3>
+                    <p class="fs-6 font">{{datos?.nLotes}}</p>
+                </div>
+                <div class="col-6">
+                    <h3 class="fs-5" style="font-weight: 500;">Cantidad a Solicitar</h3>
+                        <form [formGroup]="formularioPedido">
+                            <input type="number" formControlName="numeroLotes" id="numeroLotes" [min]="1" [value]="1" (onchange)="verificar($event)" (input)="verificar($event)">
+                            <span *ngIf="error" class="form-text text-danger fs-6">*La cantidad debe de ser mayor que 1</span>  <br>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-personalized" data-bs-dismiss="modal"(click)="reiniciarNumeros()">Cerrar</button>
+                    <button *ngIf="error" type="button" class="btn btn-personalized">Añadir</button>
+                    <button *ngIf="!error" type="button" class="btn btn-personalized" data-bs-dismiss="modal" (click)="pasarDatoACarrito()">Añadir</button>
+                </div>
+            </div>
         </div>
+      </div>
+    </div>
+</div>
+-->
+
+
+<div class="modal fade" id="cambiarMinimos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body p-2 m-5">
+            <p class="font fs-2 mb-5 text-center">Stock Minimo</p>
             <div *ngIf="detallesArticulo != undefined">
-             <p>Minimo Actual: {{detallesArticulo.stock_minimo}}</p> 
-             <form [formGroup]="formularioMinimos">
-                <input class="input-group" type="number" formControlName="numeroMinimo" id="numeroMinimo" [min]="0">
-             </form>
-            </div>  
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="cambiarMinimo()">Cambiar Minimo</button>
+
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="fs-5" style="font-weight: 500;">Stock Minimo Actual</h3>
+                        <p class="fs-6 font">{{detallesArticulo.stock_minimo}}</p>
+                    </div>
+                    <div class="col-6">
+                        <h3 class="fs-5" style="font-weight: 500;">Stock A Pedir</h3>
+                        <form [formGroup]="formularioMinimos">
+                            <input class="input-group" type="number" formControlName="numeroMinimo" id="numeroMinimo" [min]="0">
+                         </form>
+                    </div>
+                </div>
+               </div>  
+
+               <div class="row">
+                <div class="col-12 d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-personalized" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn  btn-personalized" data-bs-dismiss="modal" (click)="cambiarMinimo()">Cambiar Minimo</button>
+                </div>
+            </div>
+             
+        </div>
       </div>
     </div>
 </div>
 
 <div class="modal fade" id="cambiarAutomatico" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        </div>
+        <div class="modal-body p-2 m-5">
+            <p class="font fs-2 mb-5 text-center">Pedido Automatico</p>
             <div *ngIf="detallesArticulo != undefined">
-             <p>Pedido Automatico: {{detallesArticulo.pedido_automatico}}</p> 
-             <form [formGroup]="formularioAutomatico">
-                <select formControlName="automatico" id="automatico">
-                    <option value="0" selected>Desactivado</option>
-                    <option value="1">Activado</option>
-                </select>
-
-                <input class="input-group" type="number" formControlName="cantidad" id="numeroAutomatico" [min]="1">
-             </form>
-            </div>  
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="cambiarAutomatico()">Guardar</button>
+                <div class="row">
+                    <div class="col-6">
+                        <form [formGroup]="formularioAutomatico">
+                            <select [(ngModel)]="automatico" formControlName="automatico" id="automatico">
+                                <option value="0">Desactivado</option>
+                                <option value="1">Activado</option>
+                            </select>
+            
+                            <input class="input-group" type="number" formControlName="cantidad" id="numeroAutomatico" [min]="1">
+                         </form>
+                    </div>
+                </div>
+               </div>  
+               <div class="row">
+                    <div class="col-12 d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="cambiarAutomatico()">Guardar</button>
+                    </div>
+               </div>
+        </div>
       </div>
     </div>
 </div>

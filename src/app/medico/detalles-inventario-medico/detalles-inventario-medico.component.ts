@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DetallesArticuloInventario } from 'src/app/interfaces/detalles-articulo-inventario';
 import { DetallesArticuloProveedorInventario } from 'src/app/interfaces/detalles-articulo-proveedor-inventario';
 import { DetallesArticuloProveedores } from 'src/app/interfaces/detalles-articulo-proveedores';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-detalles-inventario-medico',
@@ -13,6 +14,7 @@ import { DetallesArticuloProveedores } from 'src/app/interfaces/detalles-articul
   styleUrls: ['./detalles-inventario-medico.component.css']
 })
 export class DetallesInventarioMedicoComponent {
+  faPenToSquare = faPenToSquare;
   existir:boolean = false;
   id_articulo!:any;  
   servicioMedico = inject(MedicoService);
@@ -21,6 +23,8 @@ export class DetallesInventarioMedicoComponent {
   pedidosProveedores:DetallesArticuloProveedorInventario[]=[];
   formularioMinimos!: FormGroup;
   formularioAutomatico!: FormGroup;
+
+  automatico!:number;
 
   constructor(private router: ActivatedRoute, private route: Router) {}
 
@@ -33,13 +37,15 @@ export class DetallesInventarioMedicoComponent {
       pagingType: "numbers",
       info: false,
     }
-
+    
     this.router.queryParams.subscribe(params => {
       this.id_articulo = params["articulo"];
         this.servicioMedico.detalleArticulo(localStorage.getItem("id_usuario"), this.id_articulo).subscribe(
           (response) => {
             console.log(response);
             this.detallesArticulo = response;
+
+            this.automatico = this.detallesArticulo.pedido_automatico;
             this.servicioMedico.pedidosConArticuloEspecifico(localStorage.getItem("id_usuario"), this.id_articulo).subscribe(
               (Response2) => {
                 console.log(Response2)
@@ -51,7 +57,6 @@ export class DetallesInventarioMedicoComponent {
         )
     })
 
-
     this.formularioMinimos = new FormGroup({
       numeroMinimo: new FormControl(),
     })
@@ -61,6 +66,7 @@ export class DetallesInventarioMedicoComponent {
       proveedores: new FormControl(),
       cantidad: new FormControl(),
     })
+    this.formularioMinimos.get("numeroMinimo")?.setValue(0);
   }
 
   cambiarAutomatico(){
@@ -98,6 +104,7 @@ export class DetallesInventarioMedicoComponent {
         console.log(Response);
         this.detallesArticulo.stock_minimo = this.formularioMinimos.get("numeroMinimo")?.value;
         this.detallesArticulo.estado = Response;
+        this.formularioMinimos.get("numeroMinimo")?.setValue(0);
       }
     )
   }

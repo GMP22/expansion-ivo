@@ -19,7 +19,7 @@
             <td>{{ articulo.numero_lotes }}</td>
             <td>{{ articulo.ultima_fecha_recibida }}</td>
             <td>
-                <button (click)="mirarDetalles(articulo.id_articulo_clinica)">Detalles Articulo</button>
+                <fa-icon [icon]="faEye" class="mx-2 icon-calender fa-1x"  data-bs-dismiss="modal" (click)="mirarDetalles(articulo.id_articulo_clinica)"></fa-icon>
             </td>
         </tr>
     </tbody>

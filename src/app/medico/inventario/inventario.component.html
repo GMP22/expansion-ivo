@@ -9,9 +9,9 @@
             </div>
 
             <div class="row">
-                <div class="col-7 d-flex mb-5 justify-content-between">
-                    <app-cuadro-informativo-medico></app-cuadro-informativo-medico>
-                    <app-cuadro-informativo-medico></app-cuadro-informativo-medico>
+                <div class="col-8 d-flex mb-5 justify-content-between">
+                    <app-cuadro-informativo-medico [TituloDeCuadro]="'Articulos por Debajo del Stock Minimo'" [icono]="'articulosMinimos'" [size]="'25rem'" [numeroDeCosas]="contenido.articulos_minimos" (click)="minimos()"></app-cuadro-informativo-medico>
+                    <app-cuadro-informativo-medico [TituloDeCuadro]="'Articulos con Pedido Automatico'" [icono]="'pedidosAutomaticos'" [size]="'25rem'" [numeroDeCosas]="contenido.articulos_automaticos" (click)="automatico()"></app-cuadro-informativo-medico>
                 </div>
             </div>
 
@@ -21,5 +21,82 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" id="botonModalInventario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+              <div class="modal-content">
+                  
+                <div class="modal-body p-5">
+                    <p class="font fs-2 mb-5">Articulos con Stocks Minimos</p>
+                    <div class="row">
+                        <div class="col-12 px-5">
+                            <table *ngIf="existir" class="table table-hover border" >
+                                <thead >
+                                    <tr  class="text-center">
+                                        <th class="tituloTabla">Nombre</th>
+                                        <th class="tituloTabla">Categoria</th>
+                                        <th class="tituloTabla">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let articulo of articulosInventario " class="pointer text-center">
+                                        <td class="textoTabla">{{ articulo.nombre }}</td>
+                                        <td class="textoTabla">{{ articulo.nombre_categoria }}</td>
+                                        <td class="textoTabla"> <fa-icon [icon]="faEye" class="mx-2 icon-calender fa-1x"  data-bs-dismiss="modal" (click)="mirarDetalles(articulo.id_articulo)"></fa-icon></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-12 d-flex flex-row-reverse">
+                                    <button type="button" class="btn btn-personalized mt-3" data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" id="botonModalAutomatico" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+              <div class="modal-content">
+                  
+                <div class="modal-body p-5">
+                    <p class="font fs-2 mb-5">Articulos con Pedidos Automaticos</p>
+                    <div class="row">
+                        <div class="col-12 px-5">
+                            <table *ngIf="existir" class="table table-hover border" >
+                                <thead >
+                                    <tr  class="text-center">
+                                        <th class="tituloTabla">Nombre</th>
+                                        <th class="tituloTabla">Categoria</th>
+                                        <th class="tituloTabla">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let articulo of articulosInventario " class="pointer text-center">
+                                        <td class="textoTabla">{{ articulo.nombre }}</td>
+                                        <td class="textoTabla">{{ articulo.nombre_categoria }}</td>
+                                        <td class="textoTabla"> <fa-icon [icon]="faEye" class="mx-2 icon-calender fa-1x"  data-bs-dismiss="modal" (click)="mirarDetalles(articulo.id_articulo)"></fa-icon></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-12 d-flex flex-row-reverse">
+                                    <button type="button" class="btn btn-personalized mt-3" data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <button #botonModalInventario type="button" style="display: none;" data-bs-toggle="modal" data-bs-target="#botonModalInventario"></button>
+        <button #botonModalAutomatico type="button" style="display: none;" data-bs-toggle="modal" data-bs-target="#botonModalAutomatico"></button>
     </div>
 </div>
+
+

@@ -3,13 +3,14 @@ import { inject } from '@angular/core';
 import { MedicoService } from '../servicio/medico.service';
 import { InventarioArticulos } from 'src/app/interfaces/inventario-articulos';
 import { Router } from '@angular/router';
-
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-tabla-inventario-medico',
   templateUrl: './tabla-inventario.component.html',
   styleUrls: ['./tabla-inventario.component.css']
 })
 export class TablaInventarioComponent {
+  faEye = faEye;
   existir:boolean = false;
   articulosInventario:InventarioArticulos[] = [];  
   servicioMedico = inject(MedicoService);

@@ -20,5 +20,5 @@ export class CuadroInformativoMedicoComponent {
   @Input() icono!:string;
   @Input() numeroDeCosas!:number;
   @Input() TituloDeCuadro!:string;
-
+  @Input() botonMostrar!:boolean;
 }

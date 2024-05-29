@@ -61,6 +61,18 @@ export class MedicoService {
     return this.http.get<any>(`${this.urlBase}cuadros-informativos-pedidos-medico/${idMedico}`);
   }
 
+  numerosInventario(idMedico:any){
+    return this.http.get<any>(`${this.urlBase}cuadros-informativos-inventario-medico/${idMedico}`);
+  }
+
+  inventarioMinimos(idMedico:any){
+    return this.http.get<any>(`${this.urlBase}inventario-minimos-medico/${idMedico}`);
+  }
+
+  inventarioAutomaticos(idMedico:any){
+    return this.http.get<any>(`${this.urlBase}inventario-automatico-medico/${idMedico}`);
+  }
+
   limpiarCarrito(){
     for (let index = 0; index < this.carritoArticulos.length; index++) {
         this.carritoArticulos.pop();
