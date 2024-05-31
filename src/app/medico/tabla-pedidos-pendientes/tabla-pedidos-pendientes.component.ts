@@ -45,7 +45,7 @@ export class TablaPedidosPendientesMedicoComponent {
   }
 
   
-  mirarDetalles(pedido:PedidosPendientes){
-    this.router.navigate(['/app/gestor-logistico/detalles-pedido'], { queryParams: { identificadorPedido: pedido.id_pedido, proveedor: pedido.proveedor, fecha_inicial: pedido.fecha_inicial, numero_productos: pedido.numero_productos, coste: pedido.coste, estado: "En Transito" } });
+  mirarDetalles(pedido:number){
+    this.router.navigate(['/app/medico/pedidos/detalles-pedido'], { queryParams: {id_pedido: pedido} });
   }
 }

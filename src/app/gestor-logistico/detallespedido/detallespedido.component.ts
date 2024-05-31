@@ -4,11 +4,13 @@ import { PedidosPendientes } from 'src/app/interfaces/pedidos-pendientes';
 import { PedidosRecibidos } from 'src/app/interfaces/pedidos-recibidos';
 import { ServicioService } from '../servicio/servicio.service';
 import { DetallesPedido } from 'src/app/interfaces/detalles-pedido';
+
 @Component({
   selector: 'app-detallespedido',
   templateUrl: './detallespedido.component.html',
   styleUrls: ['./detallespedido.component.css']
 })
+
 export class DetallespedidoComponent {
 
   constructor(private route: ActivatedRoute){}

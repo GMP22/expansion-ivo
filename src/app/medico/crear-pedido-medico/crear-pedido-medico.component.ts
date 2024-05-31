@@ -3,7 +3,6 @@ import { ArticuloEscogido } from 'src/app/interfaces/articulo-escogido';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MedicoService } from '../servicio/medico.service';
 import { inject } from '@angular/core';
-
 @Component({
   selector: 'app-crear-pedido-medico',
   templateUrl: './crear-pedido-medico.component.html',

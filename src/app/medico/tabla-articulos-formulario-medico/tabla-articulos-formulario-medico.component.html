@@ -11,7 +11,9 @@
         <tr *ngFor="let articulo of articulos" class="pointer" >
             <td id="{{articulo.id_articulo}}">{{ articulo.nombre }}</td>
             <td id="{{articulo.id_articulo}}">{{ articulo.nombre_categoria }}</td>
-            <td><fa-icon [icon]="faPlus" class="mx-2 icon-calender fa-2x" (click)="mostrarModalDeArticulo(articulo)"></fa-icon></td>
+            <td><fa-icon [icon]="faPlus" class="mx-2 icon-calender fa-2x" (click)="mostrarModalDeArticulo(articulo)"></fa-icon>
+                <fa-icon *ngIf="articulo.nombre_proveedor == 'En Minimos'" [icon]="faTriangleExclamation" class="mx-2 icon-calender fa-2x"></fa-icon>
+            </td>
         </tr>
     </tbody>
 </table>

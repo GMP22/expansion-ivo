@@ -48,7 +48,13 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row px-5 my-5">
+    <div class="col-6">
+        <app-ventana-dos-opciones-medico [seccion1]="'Pedidos'" [seccion2]="'Citas'" (datoEnviado) = "recibirDato($event)"></app-ventana-dos-opciones-medico>
+    </div>
+</div>
+
+<div class="row px-5" *ngIf="activeTab === 'Pedidos'">
     <div class="col-8">
         <table datatable *ngIf="existir" [dtOptions]="dtOptions" class="table table-hover font">
             <thead>
@@ -62,60 +68,33 @@
                 <tr *ngFor="let pedido of pedidosProveedores" class="pointer">
                     <td>{{ pedido.id_pedido }}</td>
                     <td>{{ pedido.lotes_recibidos }}</td>
-                    <td>
-                     <!--   <button (click)="verDatosPedido(pedido.id_pedido)">Consultar Pedido</button>-->
-                     <button>Consultar Pedido</button>
-                    </td>
+                    <td><fa-icon [icon]="faEye" class="mx-2 icon-calender fa-1x"  data-bs-dismiss="modal" (click)="mirarDetalles(pedido.id_pedido)"></fa-icon></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
 
-<!--
-    <div class="modal fade" id="modalPendiente" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body p-2 m-5">
-            <p class="font fs-2 mb-5">Detalles</p>
-            <div class="row">
-                <div class="col-6">
-                    <h3 class="fs-5" style="font-weight: 500;">Nombre del Articulo</h3>
-                    <p class="fs-6 font">{{datos?.nombre}}</p>
-                </div>
-                <div class="col-6">
-                    <h3 class="fs-5" style="font-weight: 500;">Categoria</h3>
-                    <p class="fs-6 font">{{datos?.nombre_categoria}}</p>
-                </div>
-                
-            </div>
-
-            <div class="row mt-3">
-                <div class="col-6">
-                    <h3 class="fs-5" style="font-weight: 500;">Stock Actual</h3>
-                    <p class="fs-6 font">{{datos?.nLotes}}</p>
-                </div>
-                <div class="col-6">
-                    <h3 class="fs-5" style="font-weight: 500;">Cantidad a Solicitar</h3>
-                        <form [formGroup]="formularioPedido">
-                            <input type="number" formControlName="numeroLotes" id="numeroLotes" [min]="1" [value]="1" (onchange)="verificar($event)" (input)="verificar($event)">
-                            <span *ngIf="error" class="form-text text-danger fs-6">*La cantidad debe de ser mayor que 1</span>  <br>
-                    </form>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12 d-flex justify-content-between mt-4">
-                    <button type="button" class="btn btn-personalized" data-bs-dismiss="modal"(click)="reiniciarNumeros()">Cerrar</button>
-                    <button *ngIf="error" type="button" class="btn btn-personalized">Añadir</button>
-                    <button *ngIf="!error" type="button" class="btn btn-personalized" data-bs-dismiss="modal" (click)="pasarDatoACarrito()">Añadir</button>
-                </div>
-            </div>
-        </div>
-      </div>
+<div class="row px-5" *ngIf="activeTab === 'Citas'">
+    <div class="col-8">
+        <table datatable *ngIf="existir" [dtOptions]="dtOptions" class="table table-hover font">
+            <thead>
+                <tr style="background-color: #0062ca;">
+                    <th>NºCita</th>
+                    <th>Lotes Usados</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cita of citas" class="pointer">
+                    <td>{{ cita.id_cita }}</td>
+                    <td>{{ cita.lotes_usados }}</td>
+                    <td><fa-icon [icon]="faEye" class="mx-2 icon-calender fa-1x"  data-bs-dismiss="modal" (click)="mirarCita(cita.id_cita)"></fa-icon></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
--->
 
 
 <div class="modal fade" id="cambiarMinimos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -133,7 +112,8 @@
                     <div class="col-6">
                         <h3 class="fs-5" style="font-weight: 500;">Stock A Pedir</h3>
                         <form [formGroup]="formularioMinimos">
-                            <input class="input-group" type="number" formControlName="numeroMinimo" id="numeroMinimo" [min]="0">
+                            <input class="form-control" type="number" formControlName="numeroMinimo" id="numeroMinimo" [min]="0" (onchange)="verificar($event)" (input)="verificar($event)">
+                            <span *ngIf="error" class="form-text text-danger fs-6" >*La cantidad debe de ser mayor que 1</span>
                          </form>
                     </div>
                 </div>
@@ -141,7 +121,7 @@
 
                <div class="row">
                 <div class="col-12 d-flex justify-content-between mt-4">
-                        <button type="button" class="btn btn-personalized" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-personalized" data-bs-dismiss="modal" (click)="mantenerValorMinimo()">Close</button>
                         <button type="button" class="btn  btn-personalized" data-bs-dismiss="modal" (click)="cambiarMinimo()">Cambiar Minimo</button>
                 </div>
             </div>
@@ -158,22 +138,32 @@
             <p class="font fs-2 mb-5 text-center">Pedido Automatico</p>
             <div *ngIf="detallesArticulo != undefined">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12">
                         <form [formGroup]="formularioAutomatico">
-                            <select [(ngModel)]="automatico" formControlName="automatico" id="automatico">
-                                <option value="0">Desactivado</option>
-                                <option value="1">Activado</option>
-                            </select>
-            
-                            <input class="input-group" type="number" formControlName="cantidad" id="numeroAutomatico" [min]="1">
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <h3 class="fs-5" style="font-weight: 500;">Estado</h3>
+                                    <select class="form-select" [(ngModel)]="automatico" formControlName="automatico" id="automatico" (input)="deshabilitar()">
+                                        <option value="0">Desactivado</option>
+                                        <option value="1">Activado</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-6">
+                                    <h3 class="fs-5" style="font-weight: 500;">Stock A Pedir</h3>
+                                    <input class="form-control" type="number" formControlName="cantidad" id="numeroAutomatico" [min]="1" (onchange)="verificar($event)" (input)="verificar($event)">
+                                    <span *ngIf="error" class="form-text text-danger fs-6" >*La cantidad debe de ser mayor que 1</span>
+                                </div>
+                            </div>
                          </form>
                     </div>
                 </div>
                </div>  
                <div class="row">
                     <div class="col-12 d-flex justify-content-between mt-4">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="cambiarAutomatico()">Guardar</button>
+                        <button type="button" class="btn btn-personalized" data-bs-dismiss="modal" (click)="mantenerValorAutomatico()">Close</button>
+                        <button type="button" class="btn btn-personalized" data-bs-dismiss="modal" (click)="cambiarAutomatico()">Guardar</button>
                     </div>
                </div>
         </div>

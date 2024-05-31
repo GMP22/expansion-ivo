@@ -4,14 +4,15 @@ import { MedicoService } from '../servicio/medico.service';
 import { Router } from '@angular/router';
 import { ArticuloEscogido } from 'src/app/interfaces/articulo-escogido';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-tabla-articulos-formulario-medico',
   templateUrl: './tabla-articulos-formulario-medico.component.html',
   styleUrls: ['./tabla-articulos-formulario-medico.component.css']
 })
-export class TablaArticulosFormularioMedicoComponent {
+export class TablaArticulosFormularioMedicoComponent {  
+  faTriangleExclamation = faTriangleExclamation;
   articulos!:ArticuloEscogido[];
   existir:boolean = false;
   idGestor:number = Number(localStorage.getItem("id_usuario"));

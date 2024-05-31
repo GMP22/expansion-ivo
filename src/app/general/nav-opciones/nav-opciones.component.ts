@@ -4,6 +4,8 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faDolly } from '@fortawesome/free-solid-svg-icons';
+import { faBox } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav-opciones',
@@ -15,6 +17,8 @@ export class NavOpcionesComponent {
   faMagnifyingGlass = faMagnifyingGlass;
   faUserPlus = faUserPlus;
   faFile = faFile;
+  faDolly = faDolly;
+faBox = faBox;
 
   rolDelUsuario?: number;
   indiceSeleccionado: number = 1;

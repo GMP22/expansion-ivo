@@ -143,6 +143,26 @@ export class MedicoService {
     return this.http.post<any>(`${this.urlBase}nueva-funcion-automatica-medico`, contenido);
   }
 
+  detallesPedido(idPedido:any){
+    return this.http.get<any>(`${this.urlBase}detalles-pedido-medico/${idPedido}`);
+  }
+
+  obtenerArticulosPedido(idPedido:any){
+    return this.http.get<any>(`${this.urlBase}articulos-pedido-medico/${idPedido}`);
+  }
+
+  obtenerArticuloEnCita(idMedico:any, idArticulo:any){
+    return this.http.get<any>(`${this.urlBase}articulo-usado-cita/${idMedico}/${idArticulo}`);
+  }
+
+  obtenerCitaPorId(idCita:any){
+      return this.http.get<any>(`${this.urlBase}buscar-cita-id/${idCita}`);
+  }
+
+  stockAPedir(idUsuario:any, idArticulo:any){
+    return this.http.get<any>(`${this.urlBase}detalles-pedido-automatico/${idUsuario}/${idArticulo}`);
+  }
+
   eliminarPedidoAutomatico(contenido:any){
     return this.http.post<any>(`${this.urlBase}eliminar-funcion-automatica-medico`, contenido);
   }

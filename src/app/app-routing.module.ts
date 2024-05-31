@@ -42,6 +42,7 @@ import { DetallesArticuloInventarioComponent } from './gestor-logistico/detalles
 import { DetallesSolicitudComponent } from './gestor-logistico/detalles-solicitud/detalles-solicitud.component';
 import { DetallesInventarioMedicoComponent } from './medico/detalles-inventario-medico/detalles-inventario-medico.component';
 import { CrearPedidoMedicoComponent } from './medico/crear-pedido-medico/crear-pedido-medico.component';
+import { DetallesPedidoMedicoComponent } from './medico/detalles-pedido-medico/detalles-pedido-medico.component';
 
 const routes: Routes = [
 
@@ -250,6 +251,14 @@ const routes: Routes = [
       {
         path: 'medico/pedidos',
         component: PedidosMedicoComponent,
+        canActivate: [rolGuard],
+        data: {
+          idRol: 2,
+        }
+      },
+      {
+        path: 'medico/pedidos/detalles-pedido',
+        component: DetallesPedidoMedicoComponent,
         canActivate: [rolGuard],
         data: {
           idRol: 2,
