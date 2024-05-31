@@ -32,7 +32,7 @@
             <h2>Fecha de Pedido</h2>
             <h3>{{pedidoRecibido.fecha_inicial}}</h3>
         </div>
-        <div class="col-6">
+        <div class="col-6" *ngIf="pedidoRecibido.fecha_aceptada != null">
             <h2>Fecha Aceptada</h2>
             <h3>{{pedidoRecibido.fecha_aceptada}}</h3>
         </div>

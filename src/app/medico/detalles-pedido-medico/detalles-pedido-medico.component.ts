@@ -40,6 +40,7 @@ export class DetallesPedidoMedicoComponent {
       this.servicio.detallesPedido(this.id_pedido).subscribe(
         (response) => {
             this.pedidoRecibido = response;
+            console.log(this.pedidoRecibido)
             this.servicio.obtenerArticulosPedido(this.id_pedido).subscribe(
               (response) => {
                 this.existir = true;
