@@ -4,12 +4,14 @@ import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { ServicioService } from '../servicio/servicio.service';
 import { Input } from '@angular/core';
+import { faEye }  from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-tabla-pedidos-recibidos',
   templateUrl: './tabla-pedidos-recibidos.component.html',
   styleUrls: ['./tabla-pedidos-recibidos.component.css']
 })
 export class TablaPedidosRecibidosComponent {
+  faEye = faEye;
   pedidos!:PedidosRecibidos[];
   existir:boolean = false;
   idGestor:number = Number(localStorage.getItem("id_usuario"));

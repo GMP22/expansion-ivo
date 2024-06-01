@@ -21,7 +21,9 @@ export class DetallespedidoComponent {
   articulosRecibidos!:DetallesPedido[];
   existir:boolean = false;
 
-  dtOptions: DataTables.Settings = {}
+  dtOptions: DataTables.Settings = {
+    dom: 'rt',
+  }
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.estado = params["estado"];

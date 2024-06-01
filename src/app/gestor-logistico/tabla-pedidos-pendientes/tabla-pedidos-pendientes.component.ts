@@ -3,6 +3,8 @@ import { PedidosPendientes } from 'src/app/interfaces/pedidos-pendientes';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { ServicioService } from '../servicio/servicio.service';
+import { faEye }  from '@fortawesome/free-solid-svg-icons';
+import { faSquareCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-tabla-pedidos-pendientes',
@@ -10,7 +12,8 @@ import { ServicioService } from '../servicio/servicio.service';
   styleUrls: ['./tabla-pedidos-pendientes.component.css']
 })
 export class TablaPedidosPendientesComponent {
-
+  faEye = faEye;
+  faSquareCheck = faSquareCheck;
   pedidos!:PedidosPendientes[];
   existir:boolean = false;
   idGestor:number = Number(localStorage.getItem("id_usuario"));

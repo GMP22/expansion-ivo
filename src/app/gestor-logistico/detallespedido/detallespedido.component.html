@@ -11,75 +11,68 @@
 
 <div class="row">
     <div class="col-12 font mt-5 ms-5">
-        <p class="h1">Detalles de Pedido</p>
+        <p class="title">Detalles de Pedido</p>
     </div>
 </div>
 
-<div *ngIf="pedidoPendiente != undefined">
-    <div class="row">
-        <div class="col-6">
-            <h2>Proveedor</h2>
-            <h3>{{pedidoPendiente.proveedor}}</h3>
+<div class="row px-5 my-5" *ngIf="pedidoPendiente != undefined">
+    <div class="row px-5">
+        <div class="col-4">
+            <h1>Proveedor</h1>
+            <p class="font fs-5" style="font-weight: bold;">{{pedidoPendiente.proveedor}}</p>
         </div>
-        <div class="col-6">
-            <h2>Estado</h2>
-            <h3>{{this.estado}}</h3>
+        <div class="col-4">
+            <h1>Estado</h1>
+            <p class="font fs-5" style="font-weight: bold;">{{this.estado}}</p>
+        </div>
+        <div class="col-4">
+            <h1>Numero De Articulos</h1>
+            <p class="font fs-5" style="font-weight: bold;">{{pedidoPendiente.numero_productos}}</p>
         </div>
     </div>
     
-    <div class="row">
+    <div class="row px-5 my-5">
         <div class="col-6">
-            <h2>Fecha de Pedido</h2>
-            <h3>{{pedidoPendiente.fecha_inicial}}</h3>
+            <h1>Fecha de Pedido</h1>
+            <p class="font fs-5" style="font-weight: bold;">{{pedidoPendiente.fecha_inicial}}</p>
     
             <div *ngIf="pedidoRecibido">
-                <h2>Fecha Recibida</h2>
-                <h3>{{pedidoPendiente.fecha_inicial}}</h3>
+                <h1>Fecha Recibida</h1>
+                <p class="font fs-5" style="font-weight: bold;">{{pedidoPendiente.fecha_inicial}}</p>
             </div>
-            
-        </div>
-        <div class="col-6">
-            <h2>Numero De Articulos</h2>
-            <h3>{{pedidoPendiente.numero_productos}}</h3>
         </div>
     </div>
 </div>
 
-<div *ngIf="pedidoPendiente == undefined">
-    <div class="row">
-        <div class="col-6">
-            <h2>Proveedor</h2>
-            <h3>{{pedidoRecibido.proveedor}}</h3>
+<div class="row px-5 my-5" *ngIf="pedidoPendiente == undefined">
+    <div class="row px-5">
+        <div class="col-4">
+            <h1>Proveedor</h1>
+            <p class="font fs-5" style="font-weight: bold;">{{pedidoRecibido.proveedor}}</p>
         </div>
-        <div class="col-6">
-            <h2>Estado</h2>
-            <h3>{{this.estado}}</h3>
+        <div class="col-4">
+            <h1>Estado</h1>
+            <p class="font fs-5" style="font-weight: bold;">{{this.estado}}</p>
+        </div>
+        <div class="col-4">
+            <h1>Numero De Articulos</h1>
+            <p class="font fs-5" style="font-weight: bold;">{{pedidoRecibido.numero_productos}}</p>
         </div>
     </div>
     
-    <div class="row">
-        <div class="col-6">
-            <h2>Fecha de Pedido</h2>
-            <h3>{{pedidoRecibido.fecha_inicial}}</h3>
-    
-            <div *ngIf="pedidoRecibido">
-                <h2>Fecha Recibida</h2>
-                <h3>{{pedidoRecibido.fecha_inicial}}</h3>
-            </div>
-            
+    <div class="row px-5 my-5">
+        <div class="col-4">
+            <h1>Fecha de Pedido</h1>
+            <p class="font fs-5" style="font-weight: bold;">{{pedidoRecibido.fecha_inicial}}</p>
         </div>
-        <div class="col-6">
-            <h2>Numero De Articulos</h2>
-            <h3>{{pedidoRecibido.numero_productos}}</h3>
+        <div class="col-6" *ngIf="pedidoRecibido">
+            <h1>Fecha Recibida</h1>
+            <p class="font fs-5" style="font-weight: bold;">{{pedidoRecibido.fecha_inicial}}</p>
         </div>
     </div>
 </div>
 
-
-
-
-
-<div class="row">
+<div class="row mt-5 px-5">
     <div class="col-8">
         <table datatable *ngIf="existir" [dtOptions]="dtOptions" class="table table-hover font">
             <thead>
@@ -101,16 +94,39 @@
         </table>
     </div>
 
-    <div class="col-2" *ngIf="pedidoPendiente != undefined">
-        <h2>Coste Total</h2>
-        <h3>{{pedidoPendiente.coste}}</h3>
+    <div class="col-2 mt-2 ms-5 ps-5" *ngIf="pedidoPendiente != undefined">
+        <table class="table table-hover border">
+            <thead class="m-5">
+                <tr class="text-center m-5">
+                    <td class="tituloTabla font m-5">Coste Total</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="textoTabla text-center ">
+                        {{pedidoPendiente.coste}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <div class="col-2" *ngIf="pedidoPendiente == undefined">
-        <h2>Coste Total</h2>
-        <h3>{{pedidoRecibido.coste}}</h3>
+    <div class="col-2 mt-2 ms-5 ps-5" *ngIf="pedidoPendiente == undefined">
+        <table class="table table-hover border">
+            <thead class="m-5">
+                <tr class="text-center m-5">
+                    <td class="tituloTabla font m-5">Coste Total</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="textoTabla text-center ">
+                        {{pedidoRecibido.coste}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    
 </div>
 
 

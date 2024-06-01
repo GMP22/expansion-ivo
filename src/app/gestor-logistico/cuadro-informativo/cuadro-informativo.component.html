@@ -1,9 +1,12 @@
-<div class="card" style="width: 15rem;">
+<div class="card shadow-sm border borderless" style="background-color: #EBF3FA;" [ngStyle]="{'width': size}">
     <div class="card-body mt-3">
         <div class="d-flex">
-            <fa-icon [icon]="faMagnifyingGlass" class="mx-2 icon-calender">
-            </fa-icon><h2>asdas</h2>
+            <fa-icon *ngIf="icono == 'pedidoPendiente'" [icon]="faTruckFast" class="mx-2 icon-calender fa-2x"></fa-icon>
+            <fa-icon *ngIf="icono == 'pedidoRecibidos'" [icon]="faBoxesStacked" class="mx-2 icon-calender fa-2x"></fa-icon>
+            <fa-icon *ngIf="icono == 'articulosMinimos'" [icon]="faTriangleExclamation" class="mx-2 icon-calender fa-2x"></fa-icon>
+            <fa-icon *ngIf="icono == 'pedidosAutomaticos'" [icon]="faGears" class="mx-2 icon-calender fa-2x"></fa-icon>
+            <h1 class="fs-2 ms-2">{{numeroDeCosas}}</h1> <!--Numero que va al lado del icono-->
         </div>
-        <h2 class="card-title">Card title</h2>
+        <h2 style="font-family: manrope; font-weight:900;" class="ms-2">{{TituloDeCuadro}}</h2> <!--Titulo de dicho cuadro-->
     </div>
-  </div>
+</div>

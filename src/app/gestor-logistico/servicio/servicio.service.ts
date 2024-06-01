@@ -87,6 +87,14 @@ export class ServicioService {
     return this.http.get<any>(`${this.urlBase}solicitudes-entrantes-gestor/${idUsuario}`);
   }
 
+  numerosPedido(){
+    return this.http.get<any>(`${this.urlBase}cuadros-informativos-pedidos-gestor`);
+  }
+
+  numerosInventario(){
+    return this.http.get<any>(`${this.urlBase}cuadros-informativos-inventario-gestor`);
+  }
+
   obtenerSolicitudesHistorial(idUsuario:number){
     return this.http.get<any>(`${this.urlBase}solicitudes-aceptados-gestor/${idUsuario}`);
   }
