@@ -24,28 +24,28 @@
         <div *ngSwitchCase="6">
             <li class="nav-item mt-3" (click)="seleccionarElemento(1)" [ngClass]="{'selected': indiceSeleccionado === 1}">
                 <a class="nav-link  px-3" routerLink="gestor-logistico" >
-                    <fa-icon [icon]="faCalendar" class="mx-2 icon-calender"></fa-icon>
+                    <fa-icon [icon]="faHand" class="mx-2 icon-calender"></fa-icon>
                     Solicitudes
                 </a>
             </li>
 
             <li class="nav-item mt-3" (click)="seleccionarElemento(2)" [ngClass]="{'selected': indiceSeleccionado === 2}">
                 <a class="nav-link  px-3" routerLink="gestor-logistico/pedidos" >
-                    <fa-icon [icon]="faCalendar" class="mx-2 icon-calender"></fa-icon>
+                    <fa-icon [icon]="faDolly" class="mx-2 icon-calender"></fa-icon>
                     Pedidos
                 </a>
             </li>
 
             <li class="nav-item mt-3" (click)="seleccionarElemento(3)" [ngClass]="{'selected': indiceSeleccionado === 3}">
                 <a class="nav-link  px-3" routerLink="gestor-logistico/inventario" >
-                    <fa-icon [icon]="faCalendar" class="mx-2 icon-calender"></fa-icon>
+                    <fa-icon [icon]="faBox" class="mx-2 icon-calender"></fa-icon>
                     Inventario
                 </a>
             </li>
 
             <li class="nav-item mt-3" (click)="seleccionarElemento(4)" [ngClass]="{'selected': indiceSeleccionado === 4}">
                 <a class="nav-link  px-3" routerLink="gestor-logistico/proveedores" >
-                    <fa-icon [icon]="faCalendar" class="mx-2 icon-calender"></fa-icon>
+                    <fa-icon [icon]="faTruck" class="mx-2 icon-calender"></fa-icon>
                     Proveedores
                 </a>
             </li>

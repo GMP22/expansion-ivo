@@ -5,7 +5,8 @@ import { inject } from '@angular/core';
 import { ServicioService } from '../servicio/servicio.service';
 import { SolicitudesEntrantes } from 'src/app/interfaces/solicitudes-entrantes';
 import { ArticulosMinimosSolicitud } from 'src/app/interfaces/articulos-minimos-solicitud';
-import { faL } from '@fortawesome/free-solid-svg-icons';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faSquareCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-tabla-solicitudes-entrantes',
@@ -13,6 +14,9 @@ import { faL } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./tabla-solicitudes-entrantes.component.css']
 })
 export class TablaSolicitudesEntrantesComponent {
+  faEye = faEye;
+  faSquareCheck = faSquareCheck;
+
   pedidos!:SolicitudesEntrantes[];
   articulosMinimosSolicitud!:ArticulosMinimosSolicitud[];
   existir:boolean = false;
@@ -22,6 +26,8 @@ export class TablaSolicitudesEntrantesComponent {
   idGestor:number = Number(localStorage.getItem("id_usuario"));
   id_pedidoSeleccionado!:number;
   servicioGestor = inject(ServicioService);
+
+
 
   constructor(private router: Router) {}
 
@@ -47,6 +53,7 @@ export class TablaSolicitudesEntrantesComponent {
       info: false,
       searching: false,
       dom: "t",
+      scrollY: 420,
     }
 
     this.servicioGestor.obtenerSolicitudesEntrantes(this.idGestor).subscribe(
@@ -66,8 +73,8 @@ export class TablaSolicitudesEntrantesComponent {
           if (this.articulosMinimosSolicitud.length == 0) {
             this.preguntaAceptar.nativeElement.click();
           } else {
-            this.existir2 = true;
             this.preguntaMinimos.nativeElement.click();
+            this.existir2 = true;
         }
       }
     )

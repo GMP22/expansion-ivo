@@ -37,6 +37,6 @@ export class TablaInventarioComponent {
   }
 
   mirarDetalles(id_articulo:number){
-    this.router.navigate(['/app/medico/inventario/detalles-articulo'], { queryParams: { articulo: id_articulo} });
+    this.router.navigate(['/app/gestor-logistico/inventario/detalles-articulo'], { queryParams: { articulo: id_articulo} });
   }
 }

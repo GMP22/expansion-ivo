@@ -6,6 +6,8 @@ import { faFile } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { faDolly } from '@fortawesome/free-solid-svg-icons';
 import { faBox } from '@fortawesome/free-solid-svg-icons';
+import { faTruck }from '@fortawesome/free-solid-svg-icons';
+import { faHand }from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav-opciones',
@@ -19,7 +21,8 @@ export class NavOpcionesComponent {
   faFile = faFile;
   faDolly = faDolly;
 faBox = faBox;
-
+faTruck = faTruck;
+faHand = faHand; 
   rolDelUsuario?: number;
   indiceSeleccionado: number = 1;
 

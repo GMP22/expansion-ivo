@@ -15,8 +15,8 @@
             <td>{{ pedido.fecha_inicial }}</td>
             <td>{{ pedido.numero_productos }}</td>
             <td>
-                <button (click) = "mirarDetalles(pedido.solicitud)">Mirar Pedido</button>
-                <button type="button" (click)="seleccionarPedido(pedido.solicitud)">Aceptar pedido</button>
+                <fa-icon [icon]="faEye" class="mx-2 icon-calender" (click) = "mirarDetalles(pedido.solicitud)"></fa-icon>
+                <fa-icon [icon]="faSquareCheck" class="mx-2 icon-calender" (click)="seleccionarPedido(pedido.solicitud)"></fa-icon>
             </td>
         </tr>
     </tbody>
@@ -25,44 +25,59 @@
 <button #preguntaMinimos type="button" style="display: none;" data-bs-toggle="modal" data-bs-target="#preguntaMinimos"></button>
 <button #preguntaAceptar type="button" style="display: none;" data-bs-toggle="modal" data-bs-target="#preguntaAceptar"></button>
 
-<div class="modal fade" id="preguntaMinimos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="preguntaMinimos" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <div class="modal-body p-5">
+            <p class="font fs-2 mb-5">Los siguientes articulos se encuentran en stocks minimos,<br><br> escoga la cantidad oportuna:</p>
+        
+            <div class="row">
+                <div class="col-12 px-5">
+                    <table *ngIf="existir2" class="table table-hover font">
+                        <thead>
+                            <tr style="background-color: #0062ca;" class="text-center">
+                                <th class="tituloTabla">Articulo</th>
+                                <th class="tituloTabla">Lotes Disponibles</th>
+                                <th class="tituloTabla">Cantidad a Destinar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let articulos of articulosMinimosSolicitud" class="pointer" class="text-center">
+                                <td class="textoTabla">{{ articulos.nombre_articulo }}</td>
+                                <td class="textoTabla">{{articulos.lotes_disponibles}}</td>
+                                <td class="textoTabla"><input id={{articulos.id_articulo}} class="form-control" type="number" value={{articulos.lotes_disponibles}} max={{articulos.lotes_disponibles}} min="0"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-between">
+                                <button type="button" class="btn btn-personalized" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-personalized" data-bs-dismiss="modal"  data-bs-toggle="modal" data-bs-target="#preguntaAceptar">Siguiente</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-            Los siguientes articulos se encuentran en stocks minimos, escoga la cantidad oportuna:
-
-            <table datatable *ngIf="existir2" [dtOptions]="dtOptions2" class="table table-hover font">
-                <thead>
-                    <tr style="background-color: #0062ca;">
-                        <th>Articulo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let articulos of articulosMinimosSolicitud" class="pointer">
-                        <td>{{ articulos.nombre_articulo }} {{articulos.lotes_disponibles}}
-                            <input id={{articulos.id_articulo}} type="number" value={{articulos.lotes_disponibles}} max={{articulos.lotes_disponibles}} min="0">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="recibirPedido()">Recibir Pedido</button>
       </div>
     </div>
 </div>
 
-<div class="modal fade" id="preguntaAceptar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="preguntaAceptar" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        </div>
-            ¿Desea aceptar el pedido?
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="recibirPedido()">Recibir Pedido</button>
+            <div class="modal-body my-4">
+                <p class="font fs-4 text-center my-4">¿Esta seguro de querer <br> <br> aceptar esta solicitud?</p>
+
+                <div class="row mt-5">
+                    <div class="col-12 d-flex justify-content-evenly">
+                        <button type="button" class="btn btn-personalized" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-personalized" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#solicitudAceptada" (click)="recibirPedido()">Aceptar Solicitud</button>
+                    </div>
+                </div>
+            </div>
       </div>
     </div>
 </div>
+
+<app-mensaje-confirmacion [texto]="'Solicitud Aceptada'" [idModal]="'solicitudAceptada'"></app-mensaje-confirmacion>

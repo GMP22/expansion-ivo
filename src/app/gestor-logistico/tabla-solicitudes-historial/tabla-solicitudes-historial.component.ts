@@ -5,12 +5,14 @@ import { inject } from '@angular/core';
 import { ServicioService } from '../servicio/servicio.service';
 import { SolicitudesEntrantes } from 'src/app/interfaces/solicitudes-entrantes';
 import { SolicitudesHistorial } from 'src/app/interfaces/solicitudes-historial';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-tabla-solicitudes-historial',
   templateUrl: './tabla-solicitudes-historial.component.html',
   styleUrls: ['./tabla-solicitudes-historial.component.css']
 })
 export class TablaSolicitudesHistorialComponent {
+  faEye=faEye;
   pedidos!:SolicitudesHistorial[];
   existir:boolean = false;
   idGestor:number = Number(localStorage.getItem("id_usuario"));
@@ -30,6 +32,7 @@ export class TablaSolicitudesHistorialComponent {
       },
       pagingType: "numbers",
       info: false,
+      scrollY: 420,
     }
 
     this.servicioGestor.obtenerSolicitudesHistorial(this.idGestor).subscribe(
