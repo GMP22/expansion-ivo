@@ -11,43 +11,51 @@
 
 <div class="row">
     <div class="col-12 font mt-5 ms-5">
-        <p class="h1">Detalles de Articulo</p>
+        <p class="title">Detalles de Articulo</p>
     </div>
 </div>
 
-<div *ngIf="detallesArticulo != undefined">
-    <div class="row">
+<div class="px-5 my-5" *ngIf="detallesArticulo != undefined">
+    <div class="row px-5">
         <div class="col-4">
-            <h2>Numero de Articulo</h2>
-            <h3>{{detallesArticulo.id_articulo_clinica}}</h3>
+            <h1>Numero de Articulo</h1>
+            <p class="font fs-5" style="font-weight: bold;">{{detallesArticulo.id_articulo_clinica}}</p>
         </div>
         <div class="col-4">
-            <h2>Nombre</h2>
-            <h3>{{detallesArticulo.nombre}}</h3>
+            <h1>Nombre</h1>
+            <p class="font fs-5" style="font-weight: bold;">{{detallesArticulo.nombre}}</p>
         </div>
         <div class="col-4">
-            <h2>Estado</h2>
-            <h3>{{detallesArticulo.estado}}</h3>
+            <h1>Estado</h1>
+            <p class="font fs-5" style="font-weight: bold;">{{detallesArticulo.estado}}</p>
         </div>
     </div>
     
-    <div class="row">
+    <div class="row px-5 my-5">
         <div class="col-4">
-            <h2>Stock Actual</h2>
-            <h3>{{detallesArticulo.lotes_disponibles}}</h3>
+            <h1>Stock Actual</h1>
+            <p class="font fs-5" style="font-weight: bold;">{{detallesArticulo.lotes_disponibles}}</p>
         </div>
         <div class="col-4">
-            <h2>Stock Minimo <button data-bs-toggle="modal" data-bs-target="#cambiarMinimos">Cambiar Minimo</button> </h2>
-            <h3>{{detallesArticulo.stock_minimo}}</h3>
+            <h1>Stock Minimo <fa-icon [icon]="faPenToSquare" class="mx-2 icon-calender fa-1x" data-bs-toggle="modal" data-bs-target="#cambiarMinimos"></fa-icon></h1>
+            <p class="font fs-5" style="font-weight: bold;">{{detallesArticulo.stock_minimo}}</p>
         </div>
         <div class="col-4">
-            <h2>Pedido Automatico <button data-bs-toggle="modal" data-bs-target="#cambiarAutomatico">Hacer Automatico</button></h2>
-            <h3>{{detallesArticulo.pedido_automatico}}</h3>
+            
+            <h1>Pedido Automatico <fa-icon [icon]="faPenToSquare" class="mx-2 icon-calender fa-1x" data-bs-toggle="modal" data-bs-target="#cambiarAutomatico"></fa-icon></h1>
+            <p *ngIf="detallesArticulo.pedido_automatico == 0" class="font fs-5" style="font-weight: bold;">Desactivado</p>
+            <p *ngIf="detallesArticulo.pedido_automatico == 1" class="font fs-5" style="font-weight: bold;">Activado</p>
         </div>
     </div>
 </div>
 
-<div class="row">
+<div class="row px-5 my-5">
+    <div class="col-6">
+        <app-ventana-dos-opciones [seccion1]="'Pedidos'" [seccion2]="'Solicitudes'" (datoEnviado) = "recibirDato($event)"></app-ventana-dos-opciones>
+    </div>
+</div>
+
+<div class="row px-5" *ngIf="activeTab == 'Pedidos'">
     <div class="col-8">
         <table datatable *ngIf="existir" [dtOptions]="dtOptions" class="table table-hover font">
             <thead>
@@ -63,9 +71,30 @@
                     <td>{{ pedido.id_pedido }}</td>
                     <td>{{ pedido.nombre }}</td>
                     <td>{{ pedido.lotes_recibidos }}</td>
-                    <td>
-                        <button (click)="verDatosPedido(pedido.id_pedido)">Consultar Pedido</button>
-                    </td>
+                    <td><fa-icon [icon]="faEye" class="mx-2 icon-calender fa-1x"  data-bs-dismiss="modal" (click)="verDatosPedido(pedido.id_pedido)"></fa-icon></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row px-5" *ngIf="activeTab == 'Solicitudes'">
+    <div class="col-8">
+        <table datatable *ngIf="existir" [dtOptions]="dtOptions" class="table table-hover font">
+            <thead>
+                <tr style="background-color: #0062ca;">
+                    <th>NºSolicitud</th>
+                    <th>Departamento Solicitante</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pedido of solicitudesDepartamentos" class="pointer">
+                    <td>{{ pedido.id_pedido }}</td>
+                    <td>{{ pedido.nombre }}</td>
+                    <td>{{ pedido.lotes_recibidos }}</td>
+                    <td><fa-icon [icon]="faEye" class="mx-2 icon-calender fa-1x"  data-bs-dismiss="modal" (click)="verDatosSolicitud(pedido.id_pedido)"></fa-icon></td>
                 </tr>
             </tbody>
         </table>
@@ -73,48 +102,86 @@
 </div>
 
 <div class="modal fade" id="cambiarMinimos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        </div>
+        <div class="modal-body p-2 m-5">
+            <p class="font fs-2 mb-5 text-center">Stock Minimo</p>
             <div *ngIf="detallesArticulo != undefined">
-             <p>Minimo Actual: {{detallesArticulo.stock_minimo}}</p> 
-             <form [formGroup]="formularioMinimos">
-                <input class="input-group" type="number" formControlName="numeroMinimo" id="numeroMinimo" [min]="0">
-             </form>
-            </div>  
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="cambiarMinimo()">Cambiar Minimo</button>
+
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="fs-5" style="font-weight: 500;">Stock Minimo Actual</h3>
+                        <p class="fs-6 font">{{detallesArticulo.stock_minimo}}</p>
+                    </div>
+                    <div class="col-6">
+                        <h3 class="fs-5" style="font-weight: 500;">Stock A Pedir</h3>
+                        <form [formGroup]="formularioMinimos">
+                            <input class="form-control" type="number" formControlName="numeroMinimo" id="numeroMinimo" [min]="0" (onchange)="verificar($event)" (input)="verificar($event)">
+                            <span *ngIf="error" class="form-text text-danger fs-6" >*La cantidad debe de ser mayor que 1</span>
+                         </form>
+                    </div>
+                </div>
+               </div>  
+
+               <div class="row">
+                <div class="col-12 d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-personalized" data-bs-dismiss="modal" (click)="mantenerValorMinimo()">Close</button>
+                        <button type="button"  *ngIf="error" class="btn  btn-personalized">Cambiar Minimo</button>
+                        <button type="button" *ngIf="!error" class="btn  btn-personalized" data-bs-dismiss="modal" (click)="cambiarMinimo()">Cambiar Minimo</button>
+                </div>
+            </div>
+             
+        </div>
       </div>
     </div>
 </div>
 
 <div class="modal fade" id="cambiarAutomatico" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        </div>
+        <div class="modal-body p-2 m-5">
+
             <div *ngIf="detallesArticulo != undefined">
-             <p>Pedido Automatico: {{detallesArticulo.pedido_automatico}}</p> 
-             <form [formGroup]="formularioAutomatico">
-                <select formControlName="automatico" id="automatico" (change)="habilitarFormulario()">
-                    <option value="0" selected>Desactivado</option>
-                    <option value="1">Activado</option>
-                </select>
+                <form [formGroup]="formularioAutomatico">
 
-                <select formControlName="proveedores" id="proveedores">
-                    <option *ngFor="let proveedor of proveedores" [value]="proveedor.id_proveedor">
-                        {{proveedor.nombre_proveedor}}
-                    </option>
-                </select>
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="fs-5" style="font-weight: 500;">Estado</h3>
+                                <select class="form-select" [(ngModel)]="automatico" formControlName="automatico" id="automatico" (change)="deshabilitar()">
+                                    <option value="0" selected>Desactivado</option>
+                                    <option value="1">Activado</option>
+                                </select>
+                            </div>
+                        </div>
 
-                <input class="input-group" type="number" formControlName="cantidad" id="numeroAutomatico" [min]="1">
-             </form>
-            </div>  
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="cambiarAutomatico()">Guardar</button>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <h3 class="fs-5" style="font-weight: 500;">Proveedores</h3>
+                                <select class="form-select" [(ngModel)]="detallesAutomatico.id_proveedor" formControlName="proveedores" id="proveedores">
+                                    <option *ngFor="let proveedor of proveedores" [value]="proveedor.id_proveedor">
+                                        {{proveedor.nombre_proveedor}}
+                                    </option>
+                                </select>
+                                <span *ngIf="error" class="form-text text-danger fs-6" >*Debe seleccionar un proveedor</span>
+                            </div>
+
+                            <div class="col-6">
+                                <h3 class="fs-5" style="font-weight: 500;">Stock A Pedir</h3>
+                                <input class="form-control" type="number" formControlName="cantidad" id="numeroAutomatico" [min]="1" (onchange)="verificar($event)" (input)="verificar($event)">
+                                <span *ngIf="error" class="form-text text-danger fs-6" >*La cantidad debe de ser mayor que 1</span>
+                            </div>
+                        </div>
+                   
+                </form>
+               </div>  
+
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-personalized" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-personalized" data-bs-dismiss="modal" (click)="cambiarAutomatico()">Guardar</button>
+                    </div>
+               </div>
+        </div>
       </div>
     </div>
 </div>

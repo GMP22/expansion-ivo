@@ -3,6 +3,7 @@ import { inject } from '@angular/core';
 import { ServicioService } from '../servicio/servicio.service';
 import { InventarioArticulos } from 'src/app/interfaces/inventario-articulos';
 import { Router } from '@angular/router';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-tabla-inventario',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./tabla-inventario.component.css']
 })
 export class TablaInventarioComponent {
+  faEye = faEye;
   existir:boolean = false;
   articulosInventario:InventarioArticulos[] = [];  
   servicioGestor = inject(ServicioService);

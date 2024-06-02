@@ -18,23 +18,7 @@
             <td>{{ articulo.estado }}</td>
             <td>{{ articulo.numero_lotes }}</td>
             <td>{{ articulo.ultima_fecha_recibida }}</td>
-            <td>
-                <button (click)="mirarDetalles(articulo.id_articulo_clinica)">Detalles Articulo</button>
-            </td>
+           <td class="textoTabla"> <fa-icon [icon]="faEye" class="mx-2 icon-calender fa-1x"  data-bs-dismiss="modal" (click)="mirarDetalles(articulo.id_articulo_clinica)"></fa-icon></td>
         </tr>
     </tbody>
 </table>
-
-<div class="modal fade" id="preguntaRecibir" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        </div>
-            ¿Desea aceptar el pedido?
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Recibir Pedido</button>
-      </div>
-    </div>
-</div>

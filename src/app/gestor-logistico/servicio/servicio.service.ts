@@ -35,6 +35,10 @@ export class ServicioService {
     } 
   }
 
+  stockAPedir(idUsuario:any, idArticulo:any){
+    return this.http.get<any>(`${this.urlBase}detalles-pedido-automatico-gestor/${idUsuario}/${idArticulo}`);
+  }
+
   modificarArticulo(indice:number, id_proveedor:any, nombre_proveedor:string, coste_por_lote:number, nLotes:any, cantidad_por_lote:any){
         this.carritoArticulos[indice].id_proveedor = id_proveedor;
         this.carritoArticulos[indice].nombre_proveedor = nombre_proveedor;
@@ -104,6 +108,18 @@ export class ServicioService {
 
   numerosInventario(){
     return this.http.get<any>(`${this.urlBase}cuadros-informativos-inventario-gestor`);
+  }
+
+  inventarioMinimos(){
+    return this.http.get<any>(`${this.urlBase}inventario-minimos-gestor`);
+  }
+
+  inventarioAutomaticos(){
+    return this.http.get<any>(`${this.urlBase}inventario-automatico-gestor`);
+  }
+
+  obtenerSolicitudesArticuloEspecifico(idSolicitud:number){
+    return this.http.get<any>(`${this.urlBase}solicitud-articulo-especifico/${idSolicitud}`);
   }
 
   obtenerSolicitudesHistorial(idUsuario:number){

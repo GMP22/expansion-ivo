@@ -122,7 +122,8 @@
                <div class="row">
                 <div class="col-12 d-flex justify-content-between mt-4">
                         <button type="button" class="btn btn-personalized" data-bs-dismiss="modal" (click)="mantenerValorMinimo()">Close</button>
-                        <button type="button" class="btn  btn-personalized" data-bs-dismiss="modal" (click)="cambiarMinimo()">Cambiar Minimo</button>
+                        <button type="button"  *ngIf="error" class="btn  btn-personalized">Cambiar Minimo</button>
+                        <button type="button" *ngIf="!error" class="btn  btn-personalized" data-bs-dismiss="modal" (click)="cambiarMinimo()">Cambiar Minimo</button>
                 </div>
             </div>
              

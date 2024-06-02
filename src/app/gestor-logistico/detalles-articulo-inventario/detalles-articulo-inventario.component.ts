@@ -6,23 +6,37 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DetallesArticuloInventario } from 'src/app/interfaces/detalles-articulo-inventario';
 import { DetallesArticuloProveedorInventario } from 'src/app/interfaces/detalles-articulo-proveedor-inventario';
 import { DetallesArticuloProveedores } from 'src/app/interfaces/detalles-articulo-proveedores';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+
+interface pedidoAutomatico{
+  id_proveedor:number,
+  stock_a_pedir:number,
+}
+
 @Component({
   selector: 'app-detalles-articulo-inventario',
   templateUrl: './detalles-articulo-inventario.component.html',
   styleUrls: ['./detalles-articulo-inventario.component.css']
 })
 export class DetallesArticuloInventarioComponent {
+  faEye=faEye;
+  faPenToSquare=faPenToSquare;
   existir:boolean = false;
   id_articulo!:any;  
+  error:boolean = false;
   servicioGestor = inject(ServicioService);
   dtOptions: DataTables.Settings = {}
   proveedores:DetallesArticuloProveedores[] = [];
   detallesArticulo!:DetallesArticuloInventario;
   pedidosProveedores:DetallesArticuloProveedorInventario[]=[];
+  solicitudesDepartamentos:DetallesArticuloProveedorInventario[]=[];
   formularioMinimos!: FormGroup;
+  automatico!:number;
+  detallesAutomatico!:pedidoAutomatico;
   formularioAutomatico!: FormGroup;
   constructor(private router: ActivatedRoute, private route: Router) {}
-
+  activeTab: string =  "Pedidos";
   ngOnInit():void {
     this.dtOptions = {
       language: {
@@ -45,6 +59,7 @@ export class DetallesArticuloInventarioComponent {
                 console.log(Response2)
                   this.existir = true;
                   this.pedidosProveedores = Response2;
+                  this.automatico = this.detallesArticulo.pedido_automatico;
                   this.servicioGestor.obtenerProveedoresSegunArticulo(this.detallesArticulo.id_articulo).subscribe(
                     (Response4) => {
                       console.log(Response4);
@@ -55,19 +70,34 @@ export class DetallesArticuloInventarioComponent {
             )
           }
         )
-    })
 
-    this.formularioMinimos = new FormGroup({
-      numeroMinimo: new FormControl(),
-    })
-
-    this.formularioAutomatico = new FormGroup({
-      automatico: new FormControl(),
-      proveedores: new FormControl(),
-      cantidad: new FormControl(),
-    })
-
+        this.formularioMinimos = new FormGroup({
+          numeroMinimo: new FormControl(),
+        })
     
+        this.formularioAutomatico = new FormGroup({
+          automatico: new FormControl(),
+          proveedores: new FormControl(),
+          cantidad: new FormControl(),
+        })
+
+        this.servicioGestor.obtenerSolicitudesArticuloEspecifico(this.id_articulo).subscribe(
+          (response) => {
+            this.solicitudesDepartamentos = response;
+          }
+        )
+
+        this.servicioGestor.stockAPedir(localStorage.getItem("id_usuario"), this.id_articulo).subscribe(
+          (response) => {
+            console.log(response)
+            if (response[0] != 0 && response[1] != 0) {
+              this.detallesAutomatico = response;
+              this.formularioAutomatico.get("proveedores")?.setValue(this.detallesAutomatico.id_proveedor);
+              this.formularioAutomatico.get("cantidad")?.setValue(this.detallesAutomatico.stock_a_pedir);
+            }
+          }
+        )
+    })
   }
 
   verDatosPedido(idPedido:any){
@@ -81,6 +111,10 @@ export class DetallesArticuloInventarioComponent {
 
   }
 
+  verDatosSolicitud(idPedido:any){
+      this.route.navigate(['/app/gestor-logistico/detalles-solicitud'], {queryParams: {solicitud: idPedido}})
+  }
+
   cambiarMinimo(){
     this.servicioGestor.cambiarMinimos(this.id_articulo, this.formularioMinimos.get("numeroMinimo")?.value).subscribe(
       (Response) => {
@@ -91,10 +125,33 @@ export class DetallesArticuloInventarioComponent {
     )
   }
 
-  habilitarFormulario(){
-    /*
-      Esto lo que hará es que desactivará todo lo que haya en el formulario
-    */
+  recibirDato(activeTab: string) {
+    this.activeTab = activeTab;
+    console.log(activeTab);
+  } 
+
+  verificar(entrada:any){
+    if (entrada.target.value <= 0) {
+      this.error = true;
+    } else {
+      this.error = false;
+    }
+  }
+
+  mantenerValorMinimo(){
+    this.error = false;
+    this.formularioMinimos.get("numeroMinimo")?.setValue(0);
+  }
+
+  deshabilitar(){
+    console.log(this.formularioAutomatico.get("automatico")?.value);
+    if (this.formularioAutomatico.get("automatico")?.value == 0) {
+      $("#numeroAutomatico").prop("disabled", true);
+      $("#proveedores").prop("disabled", true);
+    } else {
+      $("#numeroAutomatico").prop("disabled", false);
+        $("#proveedores").prop("disabled", false);
+    }
   }
 
   cambiarAutomatico(){
@@ -103,7 +160,7 @@ export class DetallesArticuloInventarioComponent {
       let objeto = {
         id_proveedor: this.formularioAutomatico.get("proveedores")?.value,
         cantidad: this.formularioAutomatico.get("cantidad")?.value,
-        id_articulo: this.detallesArticulo.id_articulo,
+        id_articulo: this.id_articulo,
         id_usuario: localStorage.getItem('id_usuario'),
       }
 
@@ -115,7 +172,7 @@ export class DetallesArticuloInventarioComponent {
       )
     } else {
       let objeto = {
-        id_articulo: this.detallesArticulo.id_articulo,
+        id_articulo: this.id_articulo,
         id_usuario: localStorage.getItem('id_usuario'),
       }
 
