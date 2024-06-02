@@ -22,6 +22,7 @@ export class TablaConfirmarPedidoFormularioComponent {
       pageLength: 5,
       pagingType: "numbers",
       info: false,
+      scrollY: 300,
     }
 
     this.servicioGestor.articulos.subscribe(

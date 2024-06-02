@@ -1,14 +1,20 @@
+<input type="checkbox" class="form-check-input" (click)="cambiarListado($event)"> Mostrar Articulos En Minimos
 <table datatable *ngIf="existir" [dtOptions]="dtOptions" class="table table-hover font">
     <thead>
         <tr style="background-color: #0062ca;">
             <th>Articulos</th>
+            <th>Categoria</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let articulo of articulos" class="pointer">
             <td id="{{articulo.id_articulo}}">{{ articulo.nombre }}</td>
-            <td><button (click)="mostrarModalDeArticulo(articulo)">Añadir</button></td>
+            <td>{{ articulo.nombre_categoria }}</td>
+            <td>
+                <fa-icon [icon]="faPlus" class="mx-2 icon-calender fa-2x" (click)="mostrarModalDeArticulo(articulo)"></fa-icon>
+                <fa-icon *ngIf="articulo.nombre_proveedor == 'En Minimos'" [icon]="faTriangleExclamation" class="mx-2 icon-calender fa-2x"></fa-icon>
+            </td>
         </tr>
     </tbody>
 </table>

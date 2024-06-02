@@ -1,10 +1,10 @@
-<table class="table table-hover font">
+<table class="table table-hover font" style="margin-top: 58px; overflow-y: auto;">
     <thead>
         <tr style="background-color: #0062ca;">
-            <th>Articulos</th>
-            <th>Numero De Lotes</th>
-            <th>Proveedor</th>
-            <th>Acciones</th>
+            <th class="tituloTabla " style="border-top-left-radius: 5px; border-bottom-left-radius: 5px; padding: 15px; font-size: 16px;">Articulos</th>
+            <th class="tituloTabla " style="padding: 15px; font-size: 16px;">Numero De Lotes</th>
+            <th class="tituloTabla " style="padding: 15px; font-size: 16px;">Proveedor</th>
+            <th class="tituloTabla " style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; padding: 15px;  font-size: 16px;">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -13,10 +13,10 @@
             <td>{{ articulo.nLotes }}</td>
             <td>{{ articulo.nombre_proveedor }}</td>
             <td>
-                <button (click)="sumarArticulo(indice)">Añadir</button>
-                <button (click)="restarArticulo(indice)">Disminuir</button>
-                <button (click)="mostrarDetallesArticulo(indice, articulo.id_articulo)">Ver Detalles</button>
-                <button (click)="borrarArticulo(indice)">Eliminar</button>
+                <fa-icon [icon]="faPlus" class="mx-2 icon-calender fa-2x" (click)="sumarArticulo(indice)"></fa-icon>
+                <fa-icon [icon]="faMinus" class="mx-2 icon-calender fa-2x" (click)="restarArticulo(indice)"></fa-icon>
+                <fa-icon [icon]="faFile" class="mx-2 icon-calender fa-2x" (click)="mostrarDetallesArticulo(indice, articulo.id_articulo)"></fa-icon>
+                <fa-icon [icon]="faTrash" class="mx-2 icon-calender fa-2x" (click)="borrarArticulo(indice)"></fa-icon>
             </td>
         </tr>
     </tbody>

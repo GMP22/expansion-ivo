@@ -5,23 +5,33 @@ import { ServicioService } from '../servicio/servicio.service';
 import { inject } from '@angular/core';
 import { ArticuloEscogido } from 'src/app/interfaces/articulo-escogido';
 import { DetallesArticuloProveedores } from 'src/app/interfaces/detalles-articulo-proveedores';
+
+interface proveedores {
+  id_proveedor: number,
+  nombre_proveedor: string,
+}
+
 @Component({
   selector: 'app-crear-pedido',
   templateUrl: './crear-pedido.component.html',
   styleUrls: ['./crear-pedido.component.css']
 })
+
 export class CrearPedidoComponent {
 
-    datos!:DetallesArticulo;
+    datos!:ArticuloEscogido;
     datos2!:ArticuloEscogido;
+    proveedoresDatos!:proveedores[];
+    proveedorEscogido!:number;
+    nLotesActuales!:number;
     indiceSeleccionado!:number;
-    proveedores:DetallesArticuloProveedores[]=[];
     formularioPedido: FormGroup;
     formularioPedido2: FormGroup;
     servicioGestor = inject(ServicioService);
     @ViewChild('seguroEnviar') seguroEnviar!: ElementRef;
     ubicacion = 0;
-
+    error:boolean = false;
+    error2:boolean = false;
   constructor(private formBuilder: FormBuilder){
     this.formularioPedido = new FormGroup({
       categoria: new FormControl(),
@@ -40,17 +50,30 @@ export class CrearPedidoComponent {
     });
   }
 
+  verificar(entrada:any){
+    if (entrada.target.value <= 0) {
+      this.error = true;
+    } else {
+      this.error = false;
+    }
+  }
+
   siguiente(){
 
-    if (this.ubicacion==1) {
-      this.abrirModal();
+    if (this.servicioGestor.carrito.length > 0) {
+      this.error2 = false;
+      if (this.ubicacion==1) {
+        this.abrirModal();
+      } else {
+        this.ubicacion++;
+        $('#flecha').addClass('border-3');
+        $('#flecha').addClass('barra-inferior');
+  
+        $('#paso2').addClass('border-3');
+        $('#paso2').addClass('barra-inferior');
+      }
     } else {
-      this.ubicacion++;
-      $('#flecha').addClass('border-3');
-      $('#flecha').addClass('barra-inferior');
-
-      $('#paso2').addClass('border-3');
-      $('#paso2').addClass('barra-inferior');
+      this.error2 = true;
     }
   }
 
@@ -93,20 +116,19 @@ export class CrearPedidoComponent {
     }
   }
 
-  pasarDatoACarrito(id_articulo:any, nombre_articulo:any){
-    let categoria=String($("#categoria").val());
+  pasarDatoACarrito(){
     if ($("#proveedor option:selected").text() != "") {
-      let articulo:ArticuloEscogido = {
-        id_articulo: id_articulo,
-        nombre: nombre_articulo,
-        nombre_categoria: categoria,
-        nombre_proveedor: $("#proveedor option:selected").text(),
+      let objeto:ArticuloEscogido = {
+        id_articulo: this.datos.id_articulo,
+        nombre: this.datos.nombre,
         id_proveedor: this.formularioPedido.get("proveedor")?.value,
+        nombre_categoria: this.datos.nombre_categoria,
         cantidad_por_lote: this.formularioPedido.get("cantidad_por_lote")?.value,
+        nombre_proveedor: $("#proveedor option:selected").text(),
         coste_por_lote: this.formularioPedido.get("coste_por_lote")?.value,
         nLotes: this.formularioPedido.get("numeroLotes")?.value,
-      }
-      this.servicioGestor.anyadirArticulo(articulo);
+      }; 
+      this.servicioGestor.anyadirArticulo(objeto);
     }
   }
 
@@ -115,14 +137,26 @@ export class CrearPedidoComponent {
   }
 
   modificarArticulo(){
-    if ($("#proveedor2 option:selected").text() != "" && this.formularioPedido2.get("numeroLotes2")?.value != null) {
-        let x = $("#proveedor2 option:selected").val();
-        let datosCambiados1 = x;
-        let datosCambiados2 = $("#proveedor2 option:selected").text()
-        let datosCambiados3 = this.formularioPedido2.get("coste_por_lote2")?.value
+
+    this.servicioGestor.obtenerInfoDeArticuloSegunProveedor(this.datos2.id_articulo, this.proveedorEscogido).subscribe(
+      (Response) => {
         let datosCambiados4 = this.formularioPedido2.get("numeroLotes2")?.value
-      console.log(datosCambiados4)
-      this.servicioGestor.modificarArticulo(this.indiceSeleccionado, datosCambiados1, datosCambiados2, datosCambiados3, datosCambiados4);
-    }
+        let proveedor = this.proveedorEscogido;
+        let datosCambiados2 = $("#proveedor2 option:selected").text();
+
+        if (this.formularioPedido2.get("proveedor2")?.value != proveedor) {
+          proveedor = this.formularioPedido2.get("proveedor2")?.value;
+          this.proveedorEscogido = this.formularioPedido2.get("proveedor2")?.value;
+        }
+
+        if (datosCambiados4 == "" || datosCambiados4 == undefined) {
+          datosCambiados4 = this.datos2.nLotes;
+        }
+        console.log(this.proveedorEscogido);
+
+
+        this.servicioGestor.modificarArticulo(this.indiceSeleccionado, proveedor, datosCambiados2,Response[1] , datosCambiados4,Response[0] );
+      }
+    )
   }
 }

@@ -21,7 +21,9 @@ export class ServicioService {
   get articulos(){
     return this._articulos.asObservable();
   }
-
+  get carrito(){
+    return this.carritoArticulos;
+  }
   anyadirArticulo(articulo:ArticuloEscogido){
 
     let resultado = this.carritoArticulos.filter(rdo => articulo.id_articulo == rdo.id_articulo && articulo.id_proveedor == rdo.id_proveedor);
@@ -33,12 +35,13 @@ export class ServicioService {
     } 
   }
 
-  modificarArticulo(indice:number, id_proveedor:any, nombre_proveedor:string, coste_por_lote:number, nLotes:any){
-    this.carritoArticulos[indice].id_proveedor = id_proveedor;
-    this.carritoArticulos[indice].nombre_proveedor = nombre_proveedor;
-    this.carritoArticulos[indice].coste_por_lote = coste_por_lote;
-    this.carritoArticulos[indice].nLotes = nLotes;
-    this._articulos.next(this.carritoArticulos);
+  modificarArticulo(indice:number, id_proveedor:any, nombre_proveedor:string, coste_por_lote:number, nLotes:any, cantidad_por_lote:any){
+        this.carritoArticulos[indice].id_proveedor = id_proveedor;
+        this.carritoArticulos[indice].nombre_proveedor = nombre_proveedor;
+        this.carritoArticulos[indice].coste_por_lote = coste_por_lote;
+        this.carritoArticulos[indice].nLotes = nLotes;
+        this.carritoArticulos[indice].cantidad_por_lote = cantidad_por_lote;
+        this._articulos.next(this.carritoArticulos);
   }
 
   sumarArticulo(indice:number, cantidad_a_sumar:number){
@@ -56,6 +59,10 @@ export class ServicioService {
       this._articulos.next(this.carritoArticulos);
     }
     
+  }
+
+  obtenerNlotes( idArticulo:any){
+    return this.http.get<any>(`${this.urlBase}articulos-lotes-crear-pedido-gestor/${idArticulo}`);
   }
 
   totalPedido(){
@@ -86,6 +93,10 @@ export class ServicioService {
   obtenerSolicitudesEntrantes(idUsuario:number){
     return this.http.get<any>(`${this.urlBase}solicitudes-entrantes-gestor/${idUsuario}`);
   }
+
+  obtenerArticulosMinimosFormulario(){
+    return this.http.get<any>(`${this.urlBase}articulos-minimos-crear-pedido-gestor`);
+}
 
   numerosPedido(){
     return this.http.get<any>(`${this.urlBase}cuadros-informativos-pedidos-gestor`);
