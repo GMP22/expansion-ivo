@@ -44,6 +44,7 @@ import { DetallesInventarioMedicoComponent } from './medico/detalles-inventario-
 import { CrearPedidoMedicoComponent } from './medico/crear-pedido-medico/crear-pedido-medico.component';
 import { DetallesPedidoMedicoComponent } from './medico/detalles-pedido-medico/detalles-pedido-medico.component';
 import { CrearProveedoresComponent } from './gestor-logistico/crear-proveedores/crear-proveedores.component';
+import { DetallesProveedorComponent } from './gestor-logistico/detalles-proveedor/detalles-proveedor.component';
 
 const routes: Routes = [
 
@@ -121,6 +122,14 @@ const routes: Routes = [
       {
         path: 'gestor-logistico/proveedores/agregar-proveedor',
         component: CrearProveedoresComponent, // Generar componente de Gestor Logistico ptm
+        canActivate: [rolGuard],
+        data: {
+          idRol: 6,
+        }
+      },
+      {
+        path: 'gestor-logistico/proveedores/detalles-proveedor',
+        component: DetallesProveedorComponent, // Generar componente de Gestor Logistico ptm
         canActivate: [rolGuard],
         data: {
           idRol: 6,

@@ -9,9 +9,12 @@
             </div>
 
             <div class="row">
-                <div class="col-10 d-flex mb-4 flex-row-reverse">
-                   <a href="/app/gestor-logistico/proveedores/agregar-proveedor"><button type="button" class="btn font btn-personalized me-1 mt-5">Añadir Proveedor</button></a>
+                <div class="col-8 d-flex mb-5 justify-content-between">
+                    <app-cuadro-informativo [TituloDeCuadro]="'Articulos por Debajo del Stock Minimo'" [icono]="'articulosMinimos'" [size]="'25rem'" [numeroDeCosas]="numero" (click) = "proveedores()"></app-cuadro-informativo>
                 </div>
+                <div class="col-2 mt-5 d-flex flex-row-reverse">
+                    <a class="mt-4" href="/app/gestor-logistico/proveedores/agregar-proveedor"><button type="button" class="btn font btn-personalized me-1 mt-5">Añadir Proveedor</button></a>
+                 </div>
             </div>
 
             <div class="row mt-2">
@@ -40,28 +43,27 @@
                 </div>
             </div>
         </div>
-        <!---
-        <div class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" id="botonModalInventario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+        
+        <div class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" id="botonModalProveedores" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
             <div class="modal-dialog modal-dialog-centered modal-xl">
               <div class="modal-content">
                   
                 <div class="modal-body p-5">
-                    <p class="font fs-2 mb-5">Articulos con Stocks Minimos</p>
+                    <p class="font fs-2 mb-5">Proveedores con 
+                        Pedidos en Transito</p>
                     <div class="row">
                         <div class="col-12 px-5">
                             <table *ngIf="existir" class="table table-hover border" >
                                 <thead >
                                     <tr  class="text-center">
-                                        <th class="tituloTabla">Nombre</th>
-                                        <th class="tituloTabla">Categoria</th>
-                                        <th class="tituloTabla">Acciones</th>
+                                        <th class="tituloTabla">Proveedores</th>
+                                        <th class="tituloTabla">Nº de pedidos</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let articulo of articulosInventario " class="pointer text-center">
-                                        <td class="textoTabla">{{ articulo.nombre }}</td>
-                                        <td class="textoTabla">{{ articulo.nombre_categoria }}</td>
-                                        <td class="textoTabla"> <fa-icon [icon]="faEye" class="mx-2 icon-calender fa-1x"  data-bs-dismiss="modal" (click)="mirarDetalles(articulo.id_articulo)"></fa-icon></td>
+                                    <tr *ngFor="let proveedor of contenidoModal " class="pointer text-center">
+                                        <td class="textoTabla">{{ proveedor.nombre }}</td>
+                                        <td class="textoTabla">{{ proveedor.cantidad }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -76,7 +78,7 @@
               </div>
             </div>
         </div>
-        --->
-        <button #botonModalProveedor type="button" style="display: none;" data-bs-toggle="modal" data-bs-target="#botonModalProveedor"></button>
+        
+        <button #botonModalProveedores type="button" style="display: none;" data-bs-toggle="modal" data-bs-target="#botonModalProveedores"></button>
     </div>
 </div>

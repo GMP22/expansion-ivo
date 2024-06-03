@@ -65,6 +65,12 @@
     </div>
 </div>
 
+<div class="row" [hidden]="ubicacion < 1">
+    <div class="col-12 mt-5 ms-5">
+        <p class="h5 mb-5">Compruebe los datos del proveedor</p>
+    </div>
+</div>
+
 <div class="row justify-content-center mb-5">
     <div class="col-12 col-md-10">
       <form [formGroup]="formularioProveedor"  (ngSubmit)="siguiente()">
@@ -99,15 +105,15 @@
             </div>
             <div class="col-4">
                 <label for="direccion" class="form-label">Direccion</label>
-                <input type="number" class="form-control" formControlName="direccion" name="direccion">
+                <input type="text" class="form-control" formControlName="direccion" name="direccion">
                 <small *ngIf="this.formularioProveedor.get('direccion')?.invalid" class="form-text text-danger">*Este campo es obligatorio.</small>
             </div>
         </div>
 
         <div class="row mb-5">
             <div class="col-4">
-                <label for="estado" class="form-label">Comunidad Autonomica</label>
-                <select formControlName="estado" class="form-select">
+                <label for="provincia" class="form-label">Comunidad Autonomica</label>
+                <select formControlName="provincia" class="form-select">
                     <option value="Andalucia">Andalucía</option>
                     <option value="Asturias">Asturias</option>
                     <option value="Islas Baleares">Islas Baleares</option>
@@ -125,7 +131,12 @@
                     <option value="Pais Vasco">País Vasco</option>
                     <option value="La Rioja">La Rioja</option>
                 </select>
-                <small *ngIf="this.formularioProveedor.get('estado')?.invalid" class="form-text text-danger">*Este campo es obligatorio.</small>
+                <small *ngIf="this.formularioProveedor.get('provincia')?.invalid" class="form-text text-danger">*Este campo es obligatorio.</small>
+            </div>
+            <div class="col-4">
+                <label for="cod_trasmision" class="form-label">Codigo De Transmision</label>
+                <input type="text" class="form-control" formControlName="cod_trasmision" name="cod_trasmision" [placeholder]="'AAA-NNN-5QQQ'">
+                <small *ngIf="this.formularioProveedor.get('cod_trasmision')?.invalid" class="form-text text-danger">*Este campo es obligatorio.</small>
             </div>
         </div>
     </form>
@@ -158,7 +169,7 @@
                 <div class="row mt-5">
                     <div class="col-12 d-flex justify-content-evenly">
                         <button type="button" class="btn btn-personalized" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-personalized" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exito">Enviar</button>
+                        <button type="button" class="btn btn-personalized" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exito" (click)="enviarDatos()">Enviar</button>
                     </div>
                 </div>
             </div>
@@ -166,5 +177,5 @@
     </div>
 </div>
 
-<app-mensaje-confirmacion [idModal]="'exito'" [texto]="'Proveedor Registrado'" [enlace]="'/app/gestor-logistico/proveedor'"></app-mensaje-confirmacion>
+<app-mensaje-confirmacion [idModal]="'exito'" [texto]="'Proveedor Registrado'" [enlace]="'/app/gestor-logistico/proveedores'"></app-mensaje-confirmacion>
 <button #seguroEnviar type="button" style="display: none;" data-bs-toggle="modal" data-bs-target="#seguroEnviar"></button>

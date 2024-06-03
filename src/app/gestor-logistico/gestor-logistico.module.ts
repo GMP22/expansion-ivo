@@ -25,6 +25,11 @@ import { TablaSolicitudesEntrantesComponent } from './tabla-solicitudes-entrante
 import { TablaSolicitudesHistorialComponent } from './tabla-solicitudes-historial/tabla-solicitudes-historial.component';
 import { DetallesSolicitudComponent } from './detalles-solicitud/detalles-solicitud.component';
 import { CrearProveedoresComponent } from './crear-proveedores/crear-proveedores.component';
+import { DetallesProveedorComponent } from './detalles-proveedor/detalles-proveedor.component';
+import { PedidosPendientesProveedorComponent } from './pedidos-pendientes-proveedor/pedidos-pendientes-proveedor.component';
+import { PedidosRecibidosProveedorComponent } from './pedidos-recibidos-proveedor/pedidos-recibidos-proveedor.component';
+import { DatosProveedorComponent } from './datos-proveedor/datos-proveedor.component';
+import { TresPasosFormularioComponent } from './tres-pasos-formulario/tres-pasos-formulario.component';
 @NgModule({
   declarations: [
     SolicitudesComponent,
@@ -47,6 +52,11 @@ import { CrearProveedoresComponent } from './crear-proveedores/crear-proveedores
     TablaSolicitudesHistorialComponent,
     DetallesSolicitudComponent,
     CrearProveedoresComponent,
+    DetallesProveedorComponent,
+    PedidosPendientesProveedorComponent,
+    PedidosRecibidosProveedorComponent,
+    DatosProveedorComponent,
+    TresPasosFormularioComponent,
   ],
   imports: [
     CommonModule,

@@ -201,4 +201,33 @@ export class ServicioService {
   proveedores(){
     return this.http.get<any>(`${this.urlBase}proveedores`);
   }
+
+  proveedoresNumeros(){
+    return this.http.get<any>(`${this.urlBase}proveedores-numeros`);
+  }
+
+  proveedoresModal(){
+    return this.http.get<any>(`${this.urlBase}proveedores-modal`);
+  }
+
+  proveedoresRegistrar(contenido:any){
+    return this.http.post<any>(`${this.urlBase}registrar-proveedor`, contenido);
+  }
+
+  modificarProveedor(contenido:any, idProveedor:any){
+    return this.http.post<any>(`${this.urlBase}registrar-proveedor/${idProveedor}`, contenido);
+  }
+
+  obtenerProveedorSegunId(idProveedor:any){
+    return this.http.get<any>(`${this.urlBase}proveedor-especifico/${idProveedor}`);
+  }
+
+  obtenerProveedorPedidosPendientes(idProveedor:any){
+    return this.http.get<any>(`${this.urlBase}proveedores-pedidos-pendientes/${idProveedor}`);
+  }
+
+  obtenerProveedorPedidosRecibidos(idProveedor:any){
+    return this.http.get<any>(`${this.urlBase}proveedores-pedidos-recibidos/${idProveedor}`);
+  }
+  
 }

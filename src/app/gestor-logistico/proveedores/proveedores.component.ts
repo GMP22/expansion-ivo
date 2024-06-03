@@ -11,17 +11,23 @@ nombre: string,
 telefono: string,
 email: string,
 }
-
+interface modal {
+  id_proveedor: number,
+  nombre: string,
+  cantidad: number,
+  }
 @Component({
   selector: 'app-proveedores',
   templateUrl: './proveedores.component.html',
   styleUrls: ['./proveedores.component.css']
 })
 export class ProveedoresComponent {
-  @ViewChild('botonModalInventario') botonModalInventario!: ElementRef;
+  @ViewChild('botonModalProveedores') botonModalProveedores!: ElementRef;
   existir:boolean = false;
   faEye = faEye;
   faTrash = faTrash;
+  numero!:number;
+  contenidoModal:modal[] = [];
   contenido:proveedor [] = [];
   dtOptions: DataTables.Settings = {}
 
@@ -40,6 +46,12 @@ export class ProveedoresComponent {
       info: false,
     }
 
+    this.gestorServicio.proveedoresNumeros().subscribe(
+      (response) => {
+        this.numero = response;
+      }
+    )
+
     this.gestorServicio.proveedores().subscribe(
       (response) => {
         this.existir = true;
@@ -49,10 +61,18 @@ export class ProveedoresComponent {
   }
 
   proveedores(){
-
+    this.existir = false;
+    this.gestorServicio.proveedoresModal().subscribe(
+      (response) => {
+        this.existir = true;
+        this.contenidoModal = response;
+        console.log(this.contenidoModal)
+        this.botonModalProveedores.nativeElement.click();
+      }
+    )
   }
 
   mirarDetalles(id_proveedor:number){
-    this.router.navigate(['/app/gestor-logistico/proveedores/detalles-proveedor/'], { queryParams: {proveedor: id_proveedor} });
+    this.router.navigate(['/app/gestor-logistico/proveedores/detalles-proveedor'], { queryParams: {proveedor: id_proveedor} });
   }
 }
