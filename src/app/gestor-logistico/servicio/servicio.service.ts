@@ -13,7 +13,7 @@ export class ServicioService {
   private _articulos:BehaviorSubject<ArticuloEscogido[]>;
   urlBase = '';
   constructor(private http: HttpClient) { 
-    this.urlBase = 'http://13.48.193.151/api/v1/';
+    this.urlBase = 'https://expansion-ivo-back.es/api/v1/';
     //this.urlBase = 'http://localhost/api/v1/';
     this._articulos = new BehaviorSubject<ArticuloEscogido[]>([]);
   }
