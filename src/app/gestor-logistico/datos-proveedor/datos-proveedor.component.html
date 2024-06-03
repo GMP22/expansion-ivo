@@ -1,1 +1,74 @@
-<p>datos-proveedor works!</p>
+<form [formGroup]="formularioProveedor">
+    <div class="row mb-5">
+        <div class="col-4 ">
+            <label for="nif" class="form-label">NIF</label>
+            <input type="text" class="form-control" formControlName="nif" name="nif">
+        </div>
+        <div class="col-4">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" formControlName="nombre" name="nombre">
+        </div>
+        <div class="col-4">
+            <label for="telefono" class="form-label">Telefono</label>
+            <input type="text" class="form-control" formControlName="telefono" name="telefono">
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-4">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email" name="email">
+        </div>
+        <div class="col-4">
+            <label for="codigoPostal" class="form-label">Codigo Postal</label>
+            <input type="number" class="form-control" formControlName="codigoPostal" name="codigoPostal">
+        </div>
+        <div class="col-4">
+            <label for="direccion" class="form-label">Direccion</label>
+            <input type="text" class="form-control" formControlName="direccion" name="direccion">
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-4">
+            <label for="provincia" class="form-label">Comunidad Autonomica</label>
+            <select formControlName="provincia" class="form-select">
+                <option value="Andalucia">Andalucía</option>
+                <option value="Asturias">Asturias</option>
+                <option value="Islas Baleares">Islas Baleares</option>
+                <option value="Canarias">Canarias</option>
+                <option value="Cantabria">Cantabria</option>
+                <option value="Castilla y Leon">Castilla y León</option>
+                <option value="Castilla La Mancha">Castilla La Mancha</option>
+                <option value="Cataluña">Cataluña</option>
+                <option value="Comunidad Valenciana">Comunidad Valenciana</option>
+                <option value="Extremadura">Extremadura</option>
+                <option value="Galicia">Galicia</option>
+                <option value="Comunidad de Madrid">Comunidad de Madrid</option>
+                <option value="Murcia">Murcia</option>
+                <option value="Comunidad Foral de Navarra">Comunidad Foral de Navarra</option>
+                <option value="Pais Vasco">País Vasco</option>
+                <option value="La Rioja">La Rioja</option>
+            </select>
+        </div>
+        <div class="col-4">
+            <label for="cod_trasmision" class="form-label">Codigo De Transmision</label>
+            <input type="text" class="form-control" formControlName="cod_trasmision" name="cod_trasmision" [placeholder]="'AAA-NNN-5QQQ'">
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-4">
+            <label for="cod_trasmision" class="form-label">Codigo De Transmision</label>
+            <input type="text" class="form-control" formControlName="cod_trasmision" name="cod_trasmision" [placeholder]="'AAA-NNN-5QQQ'">
+        </div>
+    </div>
+</form>
+
+<div class="row p-5">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <div style="display: flex; justify-content: space-between;">
+            <button class="btn btn-personalized" (click)="enviarDatos()">Modificar</button>
+        </div>
+    </div>
+</div>

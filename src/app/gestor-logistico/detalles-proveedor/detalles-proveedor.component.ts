@@ -11,9 +11,15 @@ export class DetallesProveedorComponent {
   constructor(private router: ActivatedRoute, private route: Router) {}
   servicioGestor = inject(ServicioService);
   proveedor!:any;
+  existir:boolean = false;
+  activeTab: string =  "Datos";
+  id_proveedor!:number;
   ngOnInit(){
 
     this.router.queryParams.subscribe(params => {
+      this.id_proveedor = params["proveedor"];
+      console.log(this.id_proveedor)
+      this.existir = true;
       this.servicioGestor.obtenerProveedorSegunId(params["proveedor"]).subscribe(
         (Response) => {
           this.proveedor = Response;
@@ -21,5 +27,9 @@ export class DetallesProveedorComponent {
       )
     })
   }
-
+  
+  recibirDato(activeTab: string) {
+     this.activeTab = activeTab;
+     console.log(activeTab);
+   } 
 }

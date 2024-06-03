@@ -1,0 +1,14 @@
+.enabled{
+    color: #092C4C !important;
+    border-bottom: 2px solid #092C4C;
+    font-weight: 900;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+.disabled{
+    font-size: 1.3rem;
+    color: #98A3B3 !important;
+    border-bottom: 2px solid #98A3B3;
+    cursor: pointer;
+    padding-bottom: 10px;
+}

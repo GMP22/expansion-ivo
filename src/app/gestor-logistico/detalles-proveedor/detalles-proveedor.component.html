@@ -16,8 +16,16 @@
 </div>
 
 <div class="row">
-    <div class="d-flex col-6 mb-5 ms-3"> <!--Este apartado despliega los componentes que correspondan a una ruta especifica-->
+    <div class="d-flex px-5 col-12 my-5 ms-3"> <!--Este apartado despliega los componentes que correspondan a una ruta especifica-->
                                 <!--El switch decide si se debe de mostrar el listado de citas o el perfil del paciente en cuestion-->
-        
+        <app-tres-pasos-formulario [seccion1]="'Datos'" [seccion2]="'Pedidos'" [seccion3]="'Recibidos'" (datoEnviado) = "recibirDato($event)"></app-tres-pasos-formulario>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 px-5">
+        <app-datos-proveedor *ngIf="activeTab == 'Datos'" [proveedor]="id_proveedor"></app-datos-proveedor>
+        <app-pedidos-pendientes-proveedor *ngIf="activeTab == 'Pedidos'" [proveedor]="id_proveedor"></app-pedidos-pendientes-proveedor>
+        <app-pedidos-recibidos-proveedor *ngIf="activeTab == 'Recibidos'" [proveedor]="id_proveedor"></app-pedidos-recibidos-proveedor>
     </div>
 </div>

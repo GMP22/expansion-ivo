@@ -215,7 +215,7 @@ export class ServicioService {
   }
 
   modificarProveedor(contenido:any, idProveedor:any){
-    return this.http.post<any>(`${this.urlBase}registrar-proveedor/${idProveedor}`, contenido);
+    return this.http.post<any>(`${this.urlBase}modificar-proveedor/${idProveedor}`, contenido);
   }
 
   obtenerProveedorSegunId(idProveedor:any){
