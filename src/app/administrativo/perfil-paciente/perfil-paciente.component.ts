@@ -73,7 +73,7 @@ export class PerfilPacienteComponent implements OnInit {
 
     obtenerDatosPaciente(idPaciente: String): void {
       this.http
-        .get<any>(`http://localhost/api/v1/pacientes/${idPaciente}`)
+        .get<any>(`https://expansion-ivo-back.es/api/v1/pacientes/${idPaciente}`)
         .subscribe(
           (response) => {
             this.idPaciente = response.id_usuario_paciente;

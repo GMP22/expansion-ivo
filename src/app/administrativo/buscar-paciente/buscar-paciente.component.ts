@@ -46,7 +46,7 @@ export class BuscarPacienteComponent implements OnInit {
   buscarPaciente(): void {
     this.existir = false;
     this.buscando = true;
-    this.http.get<ApiResponse>(`http://localhost/api/v1/pacientes`).subscribe(
+    this.http.get<ApiResponse>(`https://expansion-ivo-back.es/api/v1/pacientes`).subscribe(
       response => {
         const pacientes = response.pacientes;
         if (Array.isArray(pacientes)) {

@@ -19,8 +19,8 @@ export interface CitaResponse{
 export class RadiologoService {
 urlBase = '';
   constructor(private http: HttpClient) { 
-    //this.urlBase = 'http://ivo-back.cloud/api/v1/';
-    this.urlBase = 'http://localhost/api/v1/';
+    this.urlBase = 'https://expansion-ivo-back.es/api/v1/';
+    //this.urlBase = 'http://localhost/api/v1/';
   }
 
   getCitasPendientes(fecha: string, id: number): Observable<any>{
