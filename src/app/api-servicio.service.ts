@@ -12,7 +12,7 @@ export class ApiServicioService {
   private baseUrl: string;
 
   constructor(private http:HttpClient) { 
-    this.baseUrl = 'http://13.48.193.151/api/v1/login';
+    this.baseUrl = 'https://13.48.193.151/api/v1/login';
     //this.baseUrl = 'http://localhost/api/v1/login';
   }
 
