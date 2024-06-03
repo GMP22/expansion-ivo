@@ -1,0 +1,14 @@
+.modal-content{
+    background-color: #EBF3FA;
+  }
+
+  .btn-personalized{
+    background-color: #092C4C;
+    color: white;
+    height: 40px;
+    width: 170px;
+}
+
+.barra-inferior{
+  border-bottom: solid #092C4C !important;
+}

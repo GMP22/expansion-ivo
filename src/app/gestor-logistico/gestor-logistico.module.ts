@@ -24,6 +24,7 @@ import { DetallesArticuloInventarioComponent } from './detalles-articulo-inventa
 import { TablaSolicitudesEntrantesComponent } from './tabla-solicitudes-entrantes/tabla-solicitudes-entrantes.component';
 import { TablaSolicitudesHistorialComponent } from './tabla-solicitudes-historial/tabla-solicitudes-historial.component';
 import { DetallesSolicitudComponent } from './detalles-solicitud/detalles-solicitud.component';
+import { CrearProveedoresComponent } from './crear-proveedores/crear-proveedores.component';
 @NgModule({
   declarations: [
     SolicitudesComponent,
@@ -45,6 +46,7 @@ import { DetallesSolicitudComponent } from './detalles-solicitud/detalles-solici
     TablaSolicitudesEntrantesComponent,
     TablaSolicitudesHistorialComponent,
     DetallesSolicitudComponent,
+    CrearProveedoresComponent,
   ],
   imports: [
     CommonModule,

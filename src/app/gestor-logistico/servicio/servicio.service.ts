@@ -197,4 +197,8 @@ export class ServicioService {
   eliminarPedidoAutomatico(contenido:any){
     return this.http.post<any>(`${this.urlBase}eliminar-funcion-automatica`, contenido);
   }
+
+  proveedores(){
+    return this.http.get<any>(`${this.urlBase}proveedores`);
+  }
 }

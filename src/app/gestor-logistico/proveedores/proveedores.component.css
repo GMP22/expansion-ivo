@@ -1,0 +1,27 @@
+app-cuadro-informativo{
+    cursor: pointer;
+}
+.title{
+    font-size: 40px;
+    font-family: manrope;
+    font-weight: bold;
+    
+}
+.btn-personalized{
+    background-color: #092C4C;
+    color: white;
+    height: 40px;
+    width: 170px;
+}
+.tituloTabla{
+    background-color: #092C4C;
+    color: white;
+    font-weight: bold;
+}
+.textoTabla{
+    color: #092C4C;
+    font-weight: bold;
+}
+.modal-content{
+    background-color: #EBF3FA;
+  }
